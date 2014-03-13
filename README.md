@@ -1,15 +1,15 @@
-# node-pool
+# Swamp
 
-Node Pool is the tool for running, managing and monitoring multiple node.js services in one place. jump in!
+Swamp is the tool for running, managing and monitoring multiple node.js services in one place. jump in!
 
-> Node Pool is the tool for running, managing and monitoring multiple node.js services in one place, its the solution for developing multiple service
+> Swamp is the tool for running, managing and monitoring multiple node.js services in one place, its the solution for developing multiple service
 > application without the need to handle each one of them separately.
 
 > When developing for the web with node.js, most of the time our application using many services (e.g. web server, socket server, REST api...),
 > everytime we are starting to develop we need to initialize each service separately, if we updates one service, we need to restart it, if we want to change
 > the ENV, we need to restart it, if we want it to run forever and run again just after it’s crash, we need to do it manually.
 
-> Node Pool to the rescue! with Node Pool you can do all of the above and lots of more automatically and in a very convenient way! you can still using
+> Swamp to the rescue! with Swamp you can do all of the above and lots of more automatically and in a very convenient way! you can still using
 > your favorite services like Grunt and Bower without any problem.
 
 
@@ -17,27 +17,27 @@ Node Pool is the tool for running, managing and monitoring multiple node.js serv
 ## Install
 
 ```sh
-$ [sudo] npm install -g node-pool
+$ [sudo] npm install -g swamp
 ```
 
-## Bootstrap your node-pool project
+## Bootstrap your swamp project
 
 ```sh
 $ mkdir myProject
 $ cd myProject
-$ node-pool create
+$ swamp create
 ```
-The `$ node-pool create` command will create a Node Pool bootstrap project inside `myProject` folder.
+The `$ swamp create` command will create a Swamp bootstrap project inside `myProject` folder.
 
 
-## Configure your Node Pool
+## Configure your Swamp
 
-Edit or create the Poolfile.js to configure the pool ([Full configurations](#usage-and-configurations)), here is an example:
+Edit or create the Swampfile.js to configure the swamp ([Full configurations](#usage-and-configurations)), here is an example:
 
 ```javascript
-  module.exports = function(pool) {
+  module.exports = function(swamp) {
   
-    pool.config({
+    swamp.config({
       options: {
         monitor: {
           cpu: true,
@@ -94,15 +94,15 @@ Edit or create the Poolfile.js to configure the pool ([Full configurations](#usa
 
 ## Usage and Configurations
 
-Once the `node-pool` command executes in the folder where the `Poolfile.js` is located, it will initialize and run your configurations, after that you can access your pool dashboard from your browser (default: http://localhost:6000/).
+Once the `swamp` command executes in the folder where the `Swampfile.js` is located, it will initialize and run your configurations, after that you can access your swamp dashboard from your browser (default: http://localhost:6000/).
  
-The `Poolfile.js` exports a function as a node module, this function receives the Pool as a parameter which your can config with the `pool.config({ ... })` function which receives a configuration object.
+The `Swampfile.js` exports a function as a node module, this function receives the Swamp as a parameter which your can config with the `swamp.config({ ... })` function which receives a configuration object.
 
-### Use this configurations to config your pool
+### Use this configurations to config your swamp
 
 ####options
 
-`options: { ... }` - set global pool configurations
+`options: { ... }` - set global swamp configurations
 
 Type: `Object` Default: `{ monitor: { cpu: true, memory: true }, dashboard: { port: 6000, autoLaunch: true } }`
 
@@ -122,13 +122,13 @@ Display or not memory usage of each running service
 
 Type: `Number|String` Default: `6000`
 
-Node Pool dashboard running port
+Swamp dashboard running port
 
 #####options.dashboard.autoLaunch
 
 Type: `Boolean` Default: `true`
 
-Launch the dashboard when running `node-pool`
+Launch the dashboard when running `swamp`
 
 #####options.dashboard.credentials
 
@@ -150,11 +150,11 @@ The dashboard password
 
 ####environments
 
-`environments: [ ... ]` - set the pool global environments variables
+`environments: [ ... ]` - set the swamp global environments variables
 
 Type: `Array` Default: `[]`
 
-You can configure global environment variables in your pool for easy environment sharing between services, each envoronment variable is accessible through the `process.env` inside your pool services, note that the `NODE_ENV` can be configure with the `name` key (e.g. `name: 'development'`), if both the `NODE_ENV` and `name` are configured on the same environment, the `name` will determine.
+You can configure global environment variables in your swamp for easy environment sharing between services, each envoronment variable is accessible through the `process.env` inside your swamp services, note that the `NODE_ENV` can be configure with the `name` key (e.g. `name: 'development'`), if both the `NODE_ENV` and `name` are configured on the same environment, the `name` will determine.
 
 Example:
 ```javascript
@@ -176,11 +176,11 @@ Example:
 ```
 ####services
 
-`services: [ ... ]` - config the pool services
+`services: [ ... ]` - config the swamp services
 
 Type: `Array` Default: `[]`
 
-Each nodejs server in your pool called `service`, services are the way to tell Node Pool how to run your servers.
+Each nodejs server in your swamp called `service`, services are the way to tell Swamp how to run your servers.
 
 You can configure many services as you want, the services object is an array of json objects, the service will run based in their order in the array, each service can be configure using this options:
 
@@ -201,7 +201,7 @@ Set the service description as it will shown in the dashboard
 Type: `String` (Mandatory)
 
 Set the service full path (e.g. `/home/user/servers/myNodeServer`)
-* Note that this field is mandatory, but their is an option to omit that field if your service is running along side with the `Poolfile.js` file.
+* Note that this field is mandatory, but their is an option to omit that field if your service is running along side with the `Swampfile.js` file.
  
 #####script
 
@@ -217,7 +217,7 @@ Type: `Object` Default: `{ autorun: false, defaultEnv: "", restartOnChange: fals
 
 Type: `Boolean` Default: `false`
 
-Run this service as soon as the pool is started
+Run this service as soon as the swamp is started
 
 #####options.defaultEnv
 
@@ -284,10 +284,10 @@ Fully configured service example:
 }
 ```
 
-## Run Node Pool
+## Running Swamp
 
 ```sh
-$ cd /path/to/project/    # where the `Poolfile.js` is located
-$ node-pool
+$ cd /path/to/project/    # where the `Swampfile.js` is located
+$ swamp
 ```
 Then go to **http://localhost:6000** to see the magic...
