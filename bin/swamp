@@ -2,7 +2,7 @@
 
 'use strict';
 
-var swampRunner   = require('../swamp');
+var swampRunner   = require('../swamp'),
     appolo        = swampRunner.appolo;
 
 var SWAMP_FILE_NAME     = 'Swampfile.js',
@@ -35,7 +35,7 @@ if(args[2] && args[2] == CREATE_CMD) {
         }
 
         try {
-            swampfileBootstrap = fs.readFileSync(path.resolve(__dirname, '../lib/assets/{0}'.format(SWAMP_FILE_NAME)), 'utf8');
+            swampfileBootstrap = fs.readFileSync(path.resolve(__dirname, '../config/assets/{0}'.format(SWAMP_FILE_NAME)), 'utf8');
         } catch(e) {
             utils.log(e, utils.LOG_TYPE.ERROR);
         }
