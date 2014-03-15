@@ -44,7 +44,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
           memory: true
         },
         dashboard: {
-          port: 6000,
+          port: 2121,
           autoLaunch: false,
           credentials: {
             username: "myUserName",
@@ -94,7 +94,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
 
 ## Usage and Configurations
 
-Once the `swamp` command executes in the folder where the `Swampfile.js` is located, it will initialize and run your configurations, after that you can access your swamp dashboard from your browser (default: http://localhost:6000/).
+Once the `swamp` command executes in the folder where the `Swampfile.js` is located, it will initialize and run your configurations, after that you can access your swamp dashboard from your browser (default: http://localhost:2121/).
  
 The `Swampfile.js` exports a function as a node module, this function receives the Swamp as a parameter which your can config with the `swamp.config({ ... })` function which receives a configuration object.
 
@@ -104,7 +104,7 @@ The `Swampfile.js` exports a function as a node module, this function receives t
 
 `options: { ... }` - set global swamp configurations
 
-Type: `Object` Default: `{ monitor: { cpu: true, memory: true }, dashboard: { port: 6000, autoLaunch: true } }`
+Type: `Object` Default: `{ monitor: { cpu: true, memory: true }, dashboard: { port: 2121, autoLaunch: true } }`
 
 #####options.monitor.cpu
 
@@ -120,7 +120,7 @@ Display or not memory usage of each running service
 
 #####options.dashboard.port
 
-Type: `Number|String` Default: `6000`
+Type: `Number|String` Default: `2121`
 
 Swamp dashboard running port
 
@@ -290,4 +290,4 @@ Fully configured service example:
 $ cd /path/to/project/    # where the `Swampfile.js` is located
 $ swamp
 ```
-Then go to **http://localhost:6000** to see the magic...
+Then go to **http://localhost:2121** to see the magic...
