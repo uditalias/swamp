@@ -3,6 +3,6 @@ module.exports = {
     name: 'all',
     version: require('../../package.json').version,
 
-    watcherTurtle: 500
+    watcherTurtle: 1000
 
 };
