@@ -14,6 +14,8 @@ module.exports = function(swamp) {
 
         options: {
 
+            silence: false,
+
             monitor: {
 
                 cpu: true,

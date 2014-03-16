@@ -39,6 +39,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
   
     swamp.config({
       options: {
+        silence: false,
         monitor: {
           cpu: true,
           memory: true
@@ -104,7 +105,13 @@ The `Swampfile.js` exports a function as a node module, this function receives t
 
 `options: { ... }` - set global swamp configurations
 
-Type: `Object` Default: `{ monitor: { cpu: true, memory: true }, dashboard: { port: 2121, autoLaunch: true } }`
+Type: `Object` Default: `{ silence: false, monitor: { cpu: true, memory: true }, dashboard: { port: 2121, autoLaunch: true } }`
+
+#####options.silence
+
+Type: `Boolean` Default: `false`
+
+Make the Swamp logs silence and don't show logs on screen
 
 #####options.monitor.cpu
 
