@@ -23,7 +23,7 @@ module.exports = function(swamp) {
             },
             dashboard: {
 
-                port: 6001,
+                port: 2121,
 
                 autoLaunch: true
 
