@@ -234,7 +234,7 @@ This field is mandatory only if the `options.autorun` is set to `true`
 
 #####options.restartOnChange
 
-Type: `Boolean|Array` Default: `false|[]`
+Type: `Boolean|Array` Default: `false`
 
 Restart the service if file changes are detected in the service path. Can accept Array to select specific sub path and file types to watch. (e.g. `['stylesheets/*.css', '**/*.js']`)
 
