@@ -29,6 +29,7 @@
     "gaze": "~0.5.1",
     "moment": "~2.5.1",
     "appolo": "https://github.com/uditalias/appolo/tarball/master",
-    "express": "~3.4.8"
+    "express": "~3.4.8",
+    "winston": "~0.7.2"
   }
 }
