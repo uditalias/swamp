@@ -69,7 +69,7 @@ if (swampConfPath) {
 
 } else {
 
-    utils.log(SWAMP_FILE_NAME + ' not exist. swamp will now exit', utils.LOG_TYPE.ERROR);
+    utils.log(SWAMP_FILE_NAME + ' not exist. did you mean `swamp create`?', utils.LOG_TYPE.ERROR);
 
     return;
 }
