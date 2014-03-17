@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp)
+
 # Swamp
 
 Swamp is the tool for running, managing and monitoring multiple node.js services in one place. jump in!
