@@ -8,8 +8,7 @@ var swampRunner   = require('../swamp'),
 var SWAMP_FILE_NAME     = 'Swampfile.js',
     CREATE_CMD          = 'create';
 
-var findup      = require('findup-sync'),
-    fs          = require('fs'),
+var fs          = require('fs'),
     path        = require('path'),
     utils       = appolo.inject.getObject('utils');
 
@@ -20,7 +19,7 @@ var basedir     = process.cwd(),
     swampConfRunner, swampObj;
 
 // looking for SWAMP_FILE_NAME
-var swampConfPath = findup(SWAMP_FILE_NAME);
+var swampConfPath = path.resolve(SWAMP_FILE_NAME);
 
 if(args[2] && args[2] == CREATE_CMD) {
 
@@ -63,7 +62,7 @@ if(args[2] && args[2] == CREATE_CMD) {
     return;
 }
 
-if (swampConfPath) {
+if (swampConfPath && utils.fileExist(swampConfPath)) {
 
     utils.log(SWAMP_FILE_NAME + ' file found (' + swampConfPath + ')!', utils.LOG_TYPE.SUCCESS);
 
