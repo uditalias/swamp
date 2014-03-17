@@ -6,7 +6,7 @@ Swamp is the tool for running, managing and monitoring multiple node.js services
 > application without the need to handle each one of them separately.
 
 > When developing for the web with node.js, most of the time our application using many services (e.g. web server, socket server, REST api...),
-> everytime we are starting to develop we need to initialize each service separately, if we updates one service, we need to restart it, if we want to change
+> everytime we are starting the development process, we need to initialize each service separately, if we updates one service, we need to restart it, if we want to change
 > the ENV, we need to restart it, if we want it to run forever and run again just after it’s crash, we need to do it manually.
 
 > Swamp to the rescue! with Swamp you can do all of the above and lots of more automatically and in a very convenient way! you can still using
