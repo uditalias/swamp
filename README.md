@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp)
 # Swamp
 
 Swamp is the tool for running, managing and monitoring multiple node.js services in one place. jump in!
@@ -13,7 +12,7 @@ Swamp is the tool for running, managing and monitoring multiple node.js services
 > Swamp to the rescue! with Swamp you can do all of the above and lots of more automatically and in a very convenient way! you can still using
 > your favorite services like Grunt and Bower without any problem.
 
-
+[![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp)
 - - -
 ## Install
 
