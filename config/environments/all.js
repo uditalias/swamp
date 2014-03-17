@@ -5,5 +5,4 @@ module.exports = {
     version: require('../../package.json').version,
 
     watcherTurtle: 1000
-
 };
