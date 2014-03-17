@@ -1,3 +1,4 @@
+"use strict";
 var sio = require('socket.io'),
     appolo = require('appolo');
 
