@@ -10,6 +10,7 @@ var SWAMP_FILE_NAME     = 'Swampfile.js',
 
 var fs          = require('fs'),
     path        = require('path'),
+    mainLoggers = appolo.inject.getObject('mainLoggers'),
     utils       = appolo.inject.getObject('utils');
 
 process.title = 'swamp';
@@ -73,17 +74,22 @@ if (swampConfPath && utils.fileExist(swampConfPath)) {
     return;
 }
 
+//ensure log files exists
+utils.mkdir('logs');
+utils.mkfile('logs/out.log', 'w');
+utils.mkfile('logs/err.log', 'w');
+
 // try load configurations file from path
-utils.log('Validating Swamp configurations...', utils.LOG_TYPE.INFO);
+utils.log('Validating Swamp configurations...', utils.LOG_TYPE.INFO, false, false, mainLoggers.out);
 try {
     swampConfRunner = require(swampConfPath);
 } catch(err) {
-    utils.log('Invalid `{0}`: {1}'.format(SWAMP_FILE_NAME, err), utils.LOG_TYPE.ERROR);
+    utils.log('Invalid `{0}`: {1}'.format(SWAMP_FILE_NAME, err), utils.LOG_TYPE.ERROR, false, false, mainLoggers.err);
     return;
 }
 
 // creating a Swamp
-utils.log('Swamp configurations are valid, creating a Swamp...', utils.LOG_TYPE.SUCCESS);
+utils.log('Swamp configurations are valid, creating a Swamp...', utils.LOG_TYPE.SUCCESS, false, false, mainLoggers.out);
 var swamp = appolo.inject.getObject('initializer');
 
 // running Swamp configurations
