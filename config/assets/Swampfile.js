@@ -25,6 +25,8 @@ module.exports = function(swamp) {
             },
             dashboard: {
 
+                hostname: 'localhost',
+
                 port: 2121,
 
                 autoLaunch: true

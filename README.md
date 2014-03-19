@@ -44,6 +44,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
           memory: true
         },
         dashboard: {
+          hostname: 'localhost',
           port: 2121,
           autoLaunch: false,
           credentials: {
@@ -123,6 +124,12 @@ Display or not cpu usage of each running service
 Type: `Boolean` Default: `true`
 
 Display or not memory usage of each running service
+
+#####options.dashboard.hostname
+
+Type: `String` Default: `localhost`
+
+Swamp dashboard host name
 
 #####options.dashboard.port
 
