@@ -74,11 +74,6 @@ if (swampConfPath && utils.fileExist(swampConfPath)) {
     return;
 }
 
-//ensure log files exists
-utils.mkdir('logs');
-utils.mkfile('logs/out.log', 'w');
-utils.mkfile('logs/err.log', 'w');
-
 // try load configurations file from path
 utils.log('Validating Swamp configurations...', utils.LOG_TYPE.INFO, false, false, mainLoggers.out);
 try {
