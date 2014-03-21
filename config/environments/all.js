@@ -4,5 +4,7 @@ module.exports = {
     name: 'all',
     version: require('../../package.json').version,
 
-    watcherTurtle: 1000
+    watcherTurtle: 1000,
+
+    restartDelay: 1000
 };
