@@ -51,7 +51,7 @@ if(args[2] && args[2] == CREATE_CMD) {
         utils.log('Bye Bye...', utils.LOG_TYPE.SUCCESS);
     }
 
-    if(swampConfPath) {
+    if(swampConfPath && utils.fileExist(swampConfPath)) {
 
         utils.prompt(SWAMP_FILE_NAME + ' already exist in `' + basedir + '`, override?', utils.LOG_TYPE.WARN, false)
             .then(confirm)
