@@ -1,8 +1,8 @@
 # Swamp [![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png)](https://david-dm.org/uditalias/swamp)
 
-Swamp is the tool for running, managing and monitoring multiple node.js services in one place. jump in!
+Swamp is the tool for running, managing and monitoring multiple node.js services. jump in!
 
-> Swamp is the tool for running, managing and monitoring multiple node.js services in one place, its the solution for developing multiple service
+> Swamp is the tool for running, managing and monitoring multiple node.js services, its the solution for developing multiple service
 > application without the need to handle each one of them separately.
 
 > When developing for the web with node.js, most of the time our application using many services (e.g. web server, socket server, REST api...),
