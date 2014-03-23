@@ -282,8 +282,7 @@ Fully configured service example:
         "defaultEnv": "staging",
         "restartOnChange": true,
         "runForever": false,
-        "maxRetries": 5,
-        "isParent": false
+        "maxRetries": 5
       },
       "environments": [
         {
