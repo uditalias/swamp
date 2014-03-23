@@ -304,3 +304,10 @@ $ cd /path/to/project/    # where the `Swampfile.js` is located
 $ swamp
 ```
 Then go to **http://localhost:2121** to see the magic...
+
+---
+##License
+
+Copyright (c) 2014 Udi Talias
+
+Licensed under the MIT License
