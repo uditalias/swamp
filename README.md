@@ -71,7 +71,8 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
             defaultEnv: "staging",
             restartOnChange: true,
             runForever: true,
-            maxRetries: 5
+            maxRetries: 5,
+            maxLogsToSave: 100
           },
           environments: [
             {
@@ -256,6 +257,12 @@ Type: `Number` Default: `-1`
 
 Max running retries in case of an error (for infinite: -1), relevant only if `runForever` is set to `true`
 
+#####options.maxLogsToSave
+
+Type: `Number` Default: `100`
+
+Define the history log length for each service `out` and `error` logs
+
 #####environments
 
 Type: `Array` Default: `[]`
@@ -282,7 +289,8 @@ Fully configured service example:
         "defaultEnv": "staging",
         "restartOnChange": true,
         "runForever": false,
-        "maxRetries": 5
+        "maxRetries": 5,
+        "maxLogsToSave": 50
       },
       "environments": [
         {
