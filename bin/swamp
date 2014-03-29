@@ -56,6 +56,12 @@ if(args[2] && args[2] == CREATE_CMD) {
         utils.prompt(SWAMP_FILE_NAME + ' already exist in `' + basedir + '`, override?', utils.LOG_TYPE.WARN, false)
             .then(confirm)
             .catch(decline);
+    } else if(swampConfPath && !utils.isEmptyDir(basedir)) {
+
+        utils.prompt(basedir + ' is not empty, continue anyway?', utils.LOG_TYPE.WARN, false)
+            .then(confirm)
+            .catch(decline);
+
     } else {
         confirm();
     }
