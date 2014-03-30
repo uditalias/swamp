@@ -17,7 +17,7 @@ Swamp is the tool for running, managing and monitoring multiple node.js services
 * Run any Node.JS, Python, Ruby and other services
 * Restart services automatically when file changes are recorded
 * Keep services running again and again(...) automatically when they crash
-* Logs for everything!
+* Swamp logs everything!
 * Manage global environments and environments variables
 * Manage environments and environments variables for each service
 * Monitor CPU and Memory usage of each service
