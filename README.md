@@ -23,6 +23,8 @@ Swamp is the tool for running, managing and monitoring multiple node.js services
 * Monitor CPU and Memory usage of each service
 * Create Unix Sockets for internal communication
 * Fully featured real-time Web Dashboard to control everything in the Swamp
+* Full REST API for hooking and receiving Swamp data
+* More!
 
 - - -
 ## Install
