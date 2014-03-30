@@ -9,7 +9,7 @@ Swamp is the tool for running, managing and monitoring multiple node.js services
 > every time we're starting the development process, we need to run each service separately, if we change the code of one service, we need to restart it in order for the changes to take place, if we want to change
 > the running ENV, we need to restart it, if we want it to run forever and run again just after it’s crash, we need to do it manually.
 
-> Swamp to the rescue! with Swamp you can do all of the above and lots of more automatically and in a very convenient way! With the Swamp dashboard you can keep tracking your services, anytime, anywhere, get information like CPU and Memory usage of each service and restart your services with different ENV variables with no hard work.
+> Swamp to the rescue! with Swamp you can do all of the above and lots of more automatically and in a very convenient way! With the Swamp dashboard you can keep tracking your services, anytime, anywhere, get information like CPU and Memory usage of each service and restart your services with different ENV variables! - no hard work needed!.
 
 
 ##Features
