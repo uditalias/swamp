@@ -60,6 +60,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
           MY_PARAM: "myStageParamValue"
         }
       ],
+      unix_sockets: [ '/var/run/my_unix_socket.sock' ],
       services: [
         {
           name: "myService 1",
@@ -80,13 +81,14 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
               PORT: 80
             }
           ],
-          arguments: [ "arg1", 1234 ]
+          args: [ "arg1", 1234 ]
         },
         {
           name: "myService 2",
           description: "",
-          path: "/path/to/node/service",
-          ...
+          path: "/path/to/any/service",
+          command: "/path/to/any/service/python",
+          args: [ '-u', 'my_server.py' ]
         }
       ]
     });
@@ -168,7 +170,7 @@ The dashboard password
 
 Type: `Array` Default: `[]`
 
-You can configure global environment variables in your swamp for easy environment sharing between services, each envoronment variable is accessible through the `process.env` inside your swamp services, note that the `NODE_ENV` can be configure with the `name` key (e.g. `name: 'development'`), if both the `NODE_ENV` and `name` are configured on the same environment, the `name` will determine.
+You can config global environments in your swamp for easy environment params sharing between services, each environment variable is accessible through the `process.env` inside your swamp services, note that the `NODE_ENV` can be configure with the `name` key (e.g. `name: 'development'`), if both the `NODE_ENV` and `name` are configured on the same environment, the `name` will determine.
 
 Example:
 ```javascript
@@ -188,6 +190,21 @@ Example:
   ]
 }
 ```
+
+####unix_sockets
+
+Type: `Array` Default: `[]`
+
+Config UnixSocket files for internal process communications. The array will accept list of socket files.
+# Not that if the Socket file doesn't exist, Swamp will ignore it.
+
+Example:
+```javascript
+{
+  unix_sockets: [ '/path/to/unix/socket.sock' ]
+}
+```
+
 ####services
 
 `services: [ ... ]` - config the swamp services
@@ -214,14 +231,21 @@ Set the service description as it will shown in the dashboard
 
 Type: `String` (Mandatory)
 
-Set the service full path (e.g. `/home/user/servers/myNodeServer`)
+Set the service full path (e.g. `/home/user/servers/myServer`)
 * Note that this field is mandatory, but their is an option to omit that field if your service is running along side with the `Swampfile.js` file.
  
 #####script
 
-Type: `String` (Mandatory)
+Type: `String` (Mandatory if the `command` option is not set)
 
-The service running script (e.g. `app.js`)
+The service running script (e.g. `app.js`). This is a default to Node.JS script runner, to use a service other than node, use the `command` option
+
+#####command
+
+Type: `String` (Mandatory if the `script` option is not set)
+
+The service running command (e.g. `/path/to/any/service/python`)
+* Note that you need to use the `args` options in order to pass arguments to the command
 
 #####options
 
@@ -269,11 +293,11 @@ Type: `Array` Default: `[]`
 
 Just like the global environments, you can override environment variables defined on the global environments or just add new environments
 
-#####arguments
+#####args
 
 Type: `Array` Default: `[]`
 
-Pass arguments to your node service
+Pass arguments to your service
 
 Fully configured service example:
 ```json
@@ -298,7 +322,7 @@ Fully configured service example:
           "PORT": 8080
         }
       ],
-      "arguments": [ "arg1", 1234 ]
+      "args": [ "arg1", 1234 ]
     }
   ]
 }
