@@ -74,7 +74,12 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
           MY_PARAM: "myStageParamValue"
         }
       ],
-      unix_sockets: [ '/var/run/my_unix_socket.sock' ],
+      unix_sockets: [
+        {
+            file: '/var/run/my_unix_socket.sock',
+            chmod: 0700
+        }
+      ]
       services: [
         {
           name: "myService 1",
@@ -209,13 +214,18 @@ Example:
 
 Type: `Array` Default: `[]`
 
-Config UnixSocket files for internal process communications. The array will accept list of socket files.
+Config UnixSocket files for internal process communications. The array will accept list of socket files with an optional chmod.
 # Not that if the Socket file doesn't exist, Swamp will ignore it.
 
 Example:
 ```javascript
 {
-  unix_sockets: [ '/path/to/unix/socket.sock' ]
+  unix_sockets: [
+    {
+        file: '/path/to/unix/socket.sock',
+        chmod: 0700
+    }
+  ]
 }
 ```
 
