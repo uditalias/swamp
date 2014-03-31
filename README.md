@@ -215,7 +215,7 @@ Example:
 Type: `Array` Default: `[]`
 
 Config UnixSocket files for internal process communications. The array will accept list of socket files with an optional chmod.
-* Not that if the Socket file doesn't exist, Swamp will ignore it.
+* Note that if the Socket file doesn't exist, Swamp will ignore it.
 
 Example:
 ```javascript
