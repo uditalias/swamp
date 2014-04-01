@@ -1,4 +1,4 @@
-# Swamp [![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png)](https://david-dm.org/uditalias/swamp)
+# Swamp [![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png?theme=shields.io)](https://david-dm.org/uditalias/swamp)
 
 Swamp is the tool for running, managing and monitoring multiple node.js services. jump in!
 
