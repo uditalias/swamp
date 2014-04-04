@@ -187,7 +187,8 @@ The dashboard password
 
 Type: `Object` Default: `{ out: 'logs/out.log', err: 'logs/err.log' }`
 
-Configure the main loggers of the Swamp for out and error logs
+Configure the main loggers of the Swamp for out and error logs.
+The default log files will be located where the `Swampfile.js` is located, under the `logs` folder
 
 ####environments
 
@@ -328,6 +329,13 @@ Just like the global environments, you can override environment variables define
 Type: `Array` Default: `[]`
 
 Pass arguments to your service
+
+#####logs
+
+Type: `Object` Default: `{ out: 'SERVICE_NAME/out.log', err: 'SERVICE_NAME/err.log' }`
+
+Configure the service logs for out and error logs.
+The default log files will be located where the `Swampfile.js` is located, under the `SERVICE_NAME` folder
 
 Fully configured service example:
 ```json
