@@ -361,7 +361,7 @@ Fully configured service example:
         }
       ],
       "logs": {
-        "err": "/var/log/my_Service/err.log",
+        "err": "/var/log/my_service/err.log",
         "out": "/var/log/my_service/out.log"
       },
       "args": [ "arg1", 1234 ]
