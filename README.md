@@ -360,7 +360,7 @@ Fully configured service example:
           "PORT": 8080
         }
       ],
-      logs: {
+      "logs": {
         "err": "/var/log/my_Service/err.log",
         "out": "/var/log/my_service/out.log"
       },
