@@ -183,6 +183,12 @@ Type: `String` Default: ``
 
 The dashboard password
 
+####logs
+
+Type: `Object` Default: `{ out: 'logs/out.log', err: 'logs/err.log' }`
+
+Configure the main loggers of the Swamp for out and error logs
+
 ####environments
 
 `environments: [ ... ]` - set the swamp global environments variables
