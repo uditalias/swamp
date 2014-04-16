@@ -1,0 +1,36 @@
+#!/bin/bash
+
+NAME=swamp
+DESC=swamp
+
+start() {
+    echo "Starting $DESC" "$NAME"
+}
+
+stop() {
+    echo "Stopping $DESC" "$NAME"
+}
+
+status() {
+
+}
+
+case "$1" in
+        start)
+                start
+        stop)
+                stop
+        restart)
+                stop
+                sleep 1
+                start
+        status)
+                status
+        *)
+                echo "Usage: $NAME {start|stop|restart|status}" >&2
+                exit 1
+                ;;
+
+esac
+
+exit 0
