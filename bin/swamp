@@ -2,22 +2,23 @@
 
 var program         = require('commander'),
     _               = require('lodash'),
-    fs          = require('fs'),
-    path        = require('path'),
+    fs              = require('fs'),
+    path            = require('path'),
     child_process   = require('child_process'),
     exec            = child_process.exec;
-
-var swampRunner = require('../swamp'),
-    appolo      = swampRunner.appolo,
-    utils       = appolo.inject.getObject('utils');
 
 var SWAMP_FILE_NAME     = 'Swampfile.js',
     basedir             = process.cwd();
 
-// looking for SWAMP_FILE_NAME
-var swampConfPath = path.resolve(SWAMP_FILE_NAME);
-
 function create() {
+
+    var swampRunner = require('../swamp'),
+        appolo      = swampRunner.appolo,
+        utils       = appolo.inject.getObject('utils');
+
+    // looking for SWAMP_FILE_NAME
+    var swampConfPath = path.resolve(SWAMP_FILE_NAME);
+
     var confirm = function(override) {
 
         var swampfileBootstrap, filePath;
@@ -67,13 +68,22 @@ function run() {
 
 function daemon() {
 
+    var swampConfPath = path.resolve(SWAMP_FILE_NAME);
+
     var daemon_command = "nohup swamp -r > /dev/null 2>&1 &";
 
     console.log('* running swamp...');
 
+    if (swampConfPath && !fs.existsSync(swampConfPath)) {
+
+        console.log('* can\'t find Swampfile.js in ' + (basedir));
+
+        return;
+    }
+
     exec(daemon_command, function(err) {
         if(!err) {
-            console.log('done.')
+            console.log('* done.')
         }
     });
 
@@ -94,7 +104,7 @@ function kill() {
 
             process.kill(pids[0]);
 
-            console.info('done.');
+            console.info('* done.');
         } else {
 
             console.log('* swamp is not running');
@@ -103,10 +113,15 @@ function kill() {
     });
 }
 
+function status() {
+
+}
+
 program
     .version(require('../package.json').version)
     .option('-c, --create', 'create bootstrap `Swampfile.js` in current directory', create)
     .option('-r, --run', 'run the swamp with the cwd `Swampfile.js`', run)
     .option('-d, --daemon', 'start the swamp as a daemon with the cwd `Swampfile.js`', daemon)
     .option('-k, --kill', 'stop the current running swamp (`run` or `daemon`)', kill)
+    .option('-s, --status', 'see swamp status', status)
     .parse(process.argv);
