@@ -1,28 +1,23 @@
 #!/usr/bin/env node
 
-'use strict';
-
-var swampRunner   = require('../swamp'),
-    appolo        = swampRunner.appolo;
-
-var SWAMP_FILE_NAME     = 'Swampfile.js',
-    CREATE_CMD          = 'create';
-
-var fs          = require('fs'),
+var program         = require('commander'),
+    _               = require('lodash'),
+    fs          = require('fs'),
     path        = require('path'),
+    child_process   = require('child_process'),
+    exec            = child_process.exec;
+
+var swampRunner = require('../swamp'),
+    appolo      = swampRunner.appolo,
     utils       = appolo.inject.getObject('utils');
 
-process.title = 'swamp';
-
-var basedir     = process.cwd(),
-    args        = process.argv,
-    swampConfRunner, swampObj;
+var SWAMP_FILE_NAME     = 'Swampfile.js',
+    basedir             = process.cwd();
 
 // looking for SWAMP_FILE_NAME
 var swampConfPath = path.resolve(SWAMP_FILE_NAME);
 
-if(args[2] && args[2] == CREATE_CMD) {
-
+function create() {
     var confirm = function(override) {
 
         var swampfileBootstrap, filePath;
@@ -64,33 +59,54 @@ if(args[2] && args[2] == CREATE_CMD) {
     } else {
         confirm();
     }
-
-    return;
 }
 
-if (swampConfPath && utils.fileExist(swampConfPath)) {
-
-    utils.log(SWAMP_FILE_NAME + ' file found (' + swampConfPath + ')!', utils.LOG_TYPE.SUCCESS);
-
-} else {
-
-    utils.log(SWAMP_FILE_NAME + ' not exist. did you mean `swamp create`?', utils.LOG_TYPE.ERROR);
-
-    return;
+function run() {
+    require('./runner');
 }
 
-// try load configurations file from path
-utils.log('Validating Swamp configurations...', utils.LOG_TYPE.INFO);
-try {
-    swampConfRunner = require(swampConfPath);
-} catch(err) {
-    utils.log('Invalid `{0}`: {1}'.format(SWAMP_FILE_NAME, err), utils.LOG_TYPE.ERROR);
-    return;
+function daemon() {
+
+    var daemon_command = "nohup swamp -r > /dev/null 2>&1 &";
+
+    console.log('* running swamp...');
+
+    exec(daemon_command, function(err) {
+        if(!err) {
+            console.log('done.')
+        }
+    });
+
 }
 
-// creating a Swamp
-utils.log('Swamp configurations are valid, creating a Swamp...', utils.LOG_TYPE.SUCCESS);
-var swamp = appolo.inject.getObject('initializer');
+function kill() {
 
-// running Swamp configurations
-swampConfRunner(swamp);
+    var get_process_pid = "(ps aux | grep '[s]wamp' | grep -v grep | awk '{print $2}')";
+
+    exec(get_process_pid, function(error, stdout, stderr) {
+        var pids = stdout.split('\n');
+
+        pids = _.without(pids, '');
+
+        if(pids.length && pids.length > 1) {
+
+            console.log('* killing swamp...');
+
+            process.kill(pids[0]);
+
+            console.info('done.');
+        } else {
+
+            console.log('* swamp is not running');
+
+        }
+    });
+}
+
+program
+    .version(require('../package.json').version)
+    .option('-c, --create', 'create bootstrap `Swampfile.js` in current directory', create)
+    .option('-r, --run', 'run the swamp with the cwd `Swampfile.js`', run)
+    .option('-d, --daemon', 'start the swamp as a daemon with the cwd `Swampfile.js`', daemon)
+    .option('-k, --kill', 'stop the current running swamp (`run` or `daemon`)', kill)
+    .parse(process.argv);
