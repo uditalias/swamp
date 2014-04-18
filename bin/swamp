@@ -1,127 +1,13 @@
 #!/usr/bin/env node
 
-var program         = require('commander'),
-    _               = require('lodash'),
-    fs              = require('fs'),
-    path            = require('path'),
-    child_process   = require('child_process'),
-    exec            = child_process.exec;
-
-var SWAMP_FILE_NAME     = 'Swampfile.js',
-    basedir             = process.cwd();
-
-function create() {
-
-    var swampRunner = require('../swamp'),
-        appolo      = swampRunner.appolo,
-        utils       = appolo.inject.getObject('utils');
-
-    // looking for SWAMP_FILE_NAME
-    var swampConfPath = path.resolve(SWAMP_FILE_NAME);
-
-    var confirm = function(override) {
-
-        var swampfileBootstrap, filePath;
-
-        if(override) {
-            utils.log('Overriding `' + SWAMP_FILE_NAME + '`...', utils.LOG_TYPE.WARN);
-        } else {
-            utils.log('Creating bootstrap `' + SWAMP_FILE_NAME + '`...', utils.LOG_TYPE.INFO);
-        }
-
-        try {
-            swampfileBootstrap = fs.readFileSync(path.resolve(__dirname, '../config/assets/{0}'.format(SWAMP_FILE_NAME)), 'utf8');
-        } catch(e) {
-            utils.log(e, utils.LOG_TYPE.ERROR);
-        }
-
-        filePath = path.resolve(basedir, SWAMP_FILE_NAME);
-
-        fs.writeFileSync(filePath, swampfileBootstrap);
-
-        utils.log('`{0}` created successfully at `{1}`.'.format(SWAMP_FILE_NAME, filePath), utils.LOG_TYPE.SUCCESS);
-    }
-
-    var decline = function() {
-        utils.log('Bye Bye...', utils.LOG_TYPE.SUCCESS);
-    }
-
-    if(swampConfPath && utils.fileExist(swampConfPath)) {
-
-        utils.prompt(SWAMP_FILE_NAME + ' already exist in `' + basedir + '`, override?', utils.LOG_TYPE.WARN, false)
-            .then(confirm)
-            .catch(decline);
-    } else if(swampConfPath && !utils.isEmptyDir(basedir)) {
-
-        utils.prompt(basedir + ' is not empty, continue anyway?', utils.LOG_TYPE.WARN, false)
-            .then(confirm)
-            .catch(decline);
-
-    } else {
-        confirm();
-    }
-}
-
-function run() {
-    require('./runner');
-}
-
-function daemon() {
-
-    var swampConfPath = path.resolve(SWAMP_FILE_NAME);
-
-    var daemon_command = "nohup swamp -r > /dev/null 2>&1 &";
-
-    console.log('* running swamp...');
-
-    if (swampConfPath && !fs.existsSync(swampConfPath)) {
-
-        console.log('* can\'t find Swampfile.js in ' + (basedir));
-
-        return;
-    }
-
-    exec(daemon_command, function(err) {
-        if(!err) {
-            console.log('* done.')
-        }
-    });
-
-}
-
-function kill() {
-
-    var get_process_pid = "(ps aux | grep '[s]wamp' | grep -v grep | awk '{print $2}')";
-
-    exec(get_process_pid, function(error, stdout, stderr) {
-        var pids = stdout.split('\n');
-
-        pids = _.without(pids, '');
-
-        if(pids.length && pids.length > 1) {
-
-            console.log('* killing swamp...');
-
-            process.kill(pids[0]);
-
-            console.info('* done.');
-        } else {
-
-            console.log('* swamp is not running');
-
-        }
-    });
-}
-
-function status() {
-
-}
+var program = require('commander'),
+    cmd     = require('./cmd');
 
 program
     .version(require('../package.json').version)
-    .option('-c, --create', 'create bootstrap `Swampfile.js` in current directory', create)
-    .option('-r, --run', 'run the swamp with the cwd `Swampfile.js`', run)
-    .option('-d, --daemon', 'start the swamp as a daemon with the cwd `Swampfile.js`', daemon)
-    .option('-k, --kill', 'stop the current running swamp (`run` or `daemon`)', kill)
-    .option('-s, --status', 'see swamp status', status)
+    .option('-c, --create', 'creates a bootstrap `Swampfile.js` in the cwd', cmd.create)
+    .option('-r, --run', 'run the swamp with the cwd `Swampfile.js`', cmd.run)
+    .option('-d, --daemon', 'start the swamp as a daemon with the cwd `Swampfile.js`', cmd.daemon)
+    .option('-k, --kill', 'stop the current running swamp (started by `--run` or `--daemon`)', cmd.kill)
+    .option('-s, --status', 'see the swamp status', cmd.status)
     .parse(process.argv);

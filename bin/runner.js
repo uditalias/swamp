@@ -29,11 +29,16 @@ if (swampConfPath && utils.fileExist(swampConfPath)) {
 
 // try load configurations file from path
 utils.log('Validating Swamp configurations...', utils.LOG_TYPE.INFO);
+
 try {
+
     swampConfRunner = require(swampConfPath);
+
 } catch(err) {
+
     utils.log('Invalid `{0}`: {1}'.format(SWAMP_FILE_NAME, err), utils.LOG_TYPE.ERROR);
     return;
+
 }
 
 // creating a Swamp
