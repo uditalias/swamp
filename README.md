@@ -391,14 +391,6 @@ Fully configured service example:
 }
 ```
 
-## Running Swamp
-
-```sh
-$ cd /path/to/project/    # where the `Swampfile.js` is located
-$ swamp
-```
-Then go to **http://localhost:2121** to see the magic...
-
 ---
 ##License
 
