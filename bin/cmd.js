@@ -51,6 +51,7 @@ module.exports.create = function() {
     // looking for SWAMP_FILE_NAME
     var swampConfPath = path.resolve(SWAMP_FILE_NAME);
 
+    // check if Swampfile already exist
     if(swampConfPath && utils.fileExist(swampConfPath)) {
 
         utils.prompt(SWAMP_FILE_NAME + ' already exist in `' + basedir + '`, override?', utils.LOG_TYPE.WARN, false)
@@ -69,10 +70,24 @@ module.exports.create = function() {
 
 module.exports.run = function() {
 
+    // check if swamp is already running
+    if(utils.fileExist(PID_FILE)) {
+
+        var pid = utils.readFile(PID_FILE);
+
+        pid = parseInt(pid);
+
+        utils.log('* swamp is already running [' + pid + ']', utils.LOG_TYPE.INFO);
+
+        return;
+    }
+
+    // create swamp PID file
     if(!require('./pid')(PID_FILE, true)) {
         return;
     }
 
+    // initiate swamp running sequence
     require('./runner');
 }
 
@@ -84,6 +99,19 @@ module.exports.daemon = function() {
 
     utils.log('* running swamp...', utils.LOG_TYPE.INFO);
 
+    // check if swamp is already running
+    if(utils.fileExist(PID_FILE)) {
+
+        var pid = utils.readFile(PID_FILE);
+
+        pid = parseInt(pid);
+
+        utils.log('* swamp is already running [' + pid + ']', utils.LOG_TYPE.INFO);
+
+        return;
+    }
+
+    // check if Swampfile exist in cwd
     if (swampConfPath && !fs.existsSync(swampConfPath)) {
 
         utils.log('* can\'t find `Swampfile.js` in ' + (basedir), utils.LOG_TYPE.ERROR);
@@ -91,6 +119,7 @@ module.exports.daemon = function() {
         return;
     }
 
+    // run swamp daemon
     exec(daemon_command, function(err) {
         if(!err) {
 
@@ -106,6 +135,7 @@ module.exports.kill = function() {
 
     utils.log('* killing swamp...', utils.LOG_TYPE.INFO);
 
+    // check if Swampfile exist in cwd
     if (swampConfPath && !fs.existsSync(swampConfPath)) {
 
         utils.log('* can\'t find `Swampfile.js` in ' + (basedir), utils.LOG_TYPE.ERROR);
@@ -113,6 +143,7 @@ module.exports.kill = function() {
         return;
     }
 
+    // check for PID file
     if(!utils.fileExist(PID_FILE)) {
 
         utils.log('* swamp is not running', utils.LOG_TYPE.WARN);
@@ -120,12 +151,14 @@ module.exports.kill = function() {
         return;
     }
 
+    // get PID from PID file
     var pid = utils.readFile(PID_FILE);
-
     pid = parseInt(pid);
 
+    // kill the swamp process
     process.kill(pid, 'SIGTERM');
 
+    // remove the PID file
     if(npid.remove(PID_FILE)) {
 
         utils.log('* done.', utils.LOG_TYPE.SUCCESS);
@@ -138,6 +171,18 @@ module.exports.kill = function() {
 }
 
 module.exports.status = function() {
+
+    var swampConfPath = path.resolve(SWAMP_FILE_NAME);
+
+    // check if Swampfile exist in cwd
+    if (swampConfPath && !fs.existsSync(swampConfPath)) {
+
+        utils.log('* can\'t find `Swampfile.js` in ' + (basedir), utils.LOG_TYPE.ERROR);
+
+        return;
+    }
+
+    // check for PID file
     if(utils.fileExist(PID_FILE)) {
 
         var pid = utils.readFile(PID_FILE);
