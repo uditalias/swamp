@@ -320,6 +320,7 @@ This field is mandatory only if the `options.autorun` is set to `true`
 Type: `Boolean|Array` Default: `false`
 
 Restart the service if file changes are detected in the service path. Can accept Array to select specific sub paths and file types to watch. (e.g. `['stylesheets/*.css', '**/*.js']`)
+* Note that if to many files specified, the watcher will not work and an error will be logged in the service error log.
 
 #####options.runForever
 
