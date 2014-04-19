@@ -8,6 +8,6 @@ program
     .option('-c, --create', 'creates a bootstrap `Swampfile.js` in the cwd', cmd.create)
     .option('-r, --run', 'run the swamp with the cwd `Swampfile.js`', cmd.run)
     .option('-d, --daemon', 'start the swamp as a daemon with the cwd `Swampfile.js`', cmd.daemon)
-    .option('-k, --kill', 'stop the current running swamp (started by `--run` or `--daemon`)', cmd.kill)
-    .option('-s, --status', 'see the swamp status', cmd.status)
+    .option('-k, --kill', 'stop the current cwd running swamp', cmd.kill)
+    .option('-s, --status', 'see the current cwd swamp status', cmd.status)
     .parse(process.argv);

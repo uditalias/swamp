@@ -83,7 +83,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
       services: [
         {
           name: "myService 1",
-          description: "",
+          description: "myService 1 description",
           path: "/path/to/node/service",
           script: "app.js",
           options: {
@@ -104,7 +104,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
         },
         {
           name: "myService 2",
-          description: "",
+          description: "myService 2 description",
           path: "/path/to/any/service",
           command: "/path/to/any/service/python",
           args: [ '-u', 'my_server.py' ]

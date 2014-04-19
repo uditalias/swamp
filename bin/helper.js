@@ -1,8 +1,9 @@
 "use strict";
 
-var colors          = require('colors'),
-    Q               = require('q'),
-    os              = require('os');
+var colors  = require('colors'),
+    Q       = require('q'),
+    fs      = require('fs'),
+    os      = require('os');
 
 var helper = {
 
@@ -45,6 +46,18 @@ var helper = {
         process.stdin.read();
 
         return deferred.promise;
+    },
+
+    fileExist: function(path) {
+        return fs.existsSync(path);
+    },
+
+    isEmptyDir: function(path) {
+        return fs.readdirSync(path).length == 0;
+    },
+
+    readFile: function(path) {
+        return fs.readFileSync(path);
     }
 };
 
