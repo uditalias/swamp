@@ -1,6 +1,5 @@
 "use strict";
-var express    = require('express'),
-    appolo = require('appolo');
+var appolo = require('appolo');
 
 
 module.exports = function (app) {
