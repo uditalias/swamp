@@ -33,6 +33,27 @@ Swamp is the tool for running, managing and monitoring multiple node.js services
 $ [sudo] npm install -g swamp
 ```
 
+## Swamp command options
+
+Use the `swamp` command line tool to create and run your swamp
+
+```
+ $ swamp --help
+
+   Usage: swamp [options]
+
+   Options:
+
+     -h, --help     output usage information
+     -V, --version  output the version number
+     -c, --create   creates a bootstrap `Swampfile.js` in the cwd
+     -r, --run      run the swamp with the cwd `Swampfile.js`
+     -d, --daemon   start the swamp as a daemon with the cwd `Swampfile.js`
+     -k, --kill     stop the current cwd running swamp
+     -s, --status   see the current cwd swamp status
+
+```
+
 ## Bootstrap your swamp project
 
 ```sh
