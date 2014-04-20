@@ -8,7 +8,9 @@ program
 
     .option('-c, --create', 'creates a bootstrap `Swampfile.js` in the cwd', cmd.create)
 
-    .option('-r, --run', 'run the swamp with the cwd `Swampfile.js`', cmd.run)
+    .option('-u, --up', 'startup the swamp with the cwd `Swampfile.js`', cmd.up)
+
+    .option('-r, --reload', 'reload the current running swamp (will restart as a daemon)', cmd.reload)
 
     .option('-d, --daemon', 'start the swamp as a daemon with the cwd `Swampfile.js`', cmd.daemon)
 

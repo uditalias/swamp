@@ -40,17 +40,18 @@ Use the `swamp` command line tool to create and run your swamp
 ```
  $ swamp --help
 
-   Usage: swamp [options]
+     Usage: swamp [options]
 
-   Options:
+     Options:
 
-     -h, --help     output usage information
-     -V, --version  output the version number
-     -c, --create   creates a bootstrap `Swampfile.js` in the cwd
-     -r, --run      run the swamp with the cwd `Swampfile.js`
-     -d, --daemon   start the swamp as a daemon with the cwd `Swampfile.js`
-     -k, --kill     stop the current cwd running swamp
-     -s, --status   see the current cwd swamp status
+       -h, --help     output usage information
+       -V, --version  output the version number
+       -c, --create   creates a bootstrap `Swampfile.js` in the cwd
+       -u, --up       startup the swamp with the cwd `Swampfile.js`
+       -r, --reload   reload the current running swamp (will restart as a daemon)
+       -d, --daemon   start the swamp as a daemon with the cwd `Swampfile.js`
+       -k, --kill     stop the current cwd running swamp
+       -s, --status   see the current cwd swamp status
 
 ```
 

@@ -68,7 +68,7 @@ module.exports.create = function() {
     }
 }
 
-module.exports.run = function() {
+module.exports.up = function() {
 
     // check if swamp is already running
     if(utils.fileExist(PID_FILE)) {
@@ -79,23 +79,34 @@ module.exports.run = function() {
 
         utils.log('* swamp is already running [' + pid + ']', utils.LOG_TYPE.INFO);
 
-        return;
+        return false;
     }
 
     // create swamp PID file
     if(!require('./pid')(PID_FILE, true)) {
-        return;
+        return false;
     }
 
     // initiate swamp running sequence
     require('./runner');
+
+    return true;
+}
+
+module.exports.reload = function() {
+
+    utils.log('* reloading swamp...', utils.LOG_TYPE.INFO);
+
+    if(module.exports.kill()) {
+        module.exports.daemon();
+    }
 }
 
 module.exports.daemon = function() {
 
     var swampConfPath = path.resolve(SWAMP_FILE_NAME);
 
-    var daemon_command = "nohup swamp -r > /dev/null 2>&1 &";
+    var daemon_command = "nohup swamp --up > /dev/null 2>&1 &";
 
     utils.log('* running swamp...', utils.LOG_TYPE.INFO);
 
@@ -108,7 +119,7 @@ module.exports.daemon = function() {
 
         utils.log('* swamp is already running [' + pid + ']', utils.LOG_TYPE.INFO);
 
-        return;
+        return false;
     }
 
     // check if Swampfile exist in cwd
@@ -116,7 +127,7 @@ module.exports.daemon = function() {
 
         utils.log('* can\'t find `Swampfile.js` in ' + (basedir), utils.LOG_TYPE.ERROR);
 
-        return;
+        return false;
     }
 
     // run swamp daemon
@@ -126,6 +137,8 @@ module.exports.daemon = function() {
             utils.log('* done.', utils.LOG_TYPE.SUCCESS);
         }
     });
+
+    return true;
 
 }
 
@@ -140,7 +153,7 @@ module.exports.kill = function() {
 
         utils.log('* can\'t find `Swampfile.js` in ' + (basedir), utils.LOG_TYPE.ERROR);
 
-        return;
+        return false;
     }
 
     // check for PID file
@@ -148,7 +161,7 @@ module.exports.kill = function() {
 
         utils.log('* swamp is not running', utils.LOG_TYPE.WARN);
 
-        return;
+        return false;
     }
 
     // get PID from PID file
@@ -168,6 +181,8 @@ module.exports.kill = function() {
         utils.log('* swamp is not running', utils.LOG_TYPE.WARN);
 
     }
+
+    return true;
 }
 
 module.exports.status = function() {
@@ -179,7 +194,7 @@ module.exports.status = function() {
 
         utils.log('* can\'t find `Swampfile.js` in ' + (basedir), utils.LOG_TYPE.ERROR);
 
-        return;
+        return false;
     }
 
     // check for PID file
@@ -193,4 +208,6 @@ module.exports.status = function() {
     } else {
         utils.log('* swamp is not running', utils.LOG_TYPE.WARN);
     }
+
+    return true;
 }
