@@ -1,22 +1,58 @@
-# Swamp [![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png)](https://david-dm.org/uditalias/swamp)
+# Swamp [![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png?theme=shields.io)](https://david-dm.org/uditalias/swamp)
 
 Swamp is the tool for running, managing and monitoring multiple node.js services. jump in!
 
-> Swamp is the tool for running, managing and monitoring multiple node.js services, its the solution for developing multiple service
-> application without the need to handle each one of them separately.
+> Swamp is the tool for running, managing and monitoring multiple node.js services, its the solution for developing multi service
+> applications without the need of handle each one of them separately.
 
-> When developing for the web with node.js, most of the time our application using many services (e.g. web server, socket server, REST api...),
-> everytime we are starting the development process, we need to initialize each service separately, if we updates one service, we need to restart it, if we want to change
-> the ENV, we need to restart it, if we want it to run forever and run again just after it’s crash, we need to do it manually.
+> When developing with node.js or other software platforms, most of the time our application uses many services (e.g. web server, socket server, REST api...),
+> every time we're starting the development process, we need to run each service separately, if we change the code of one service, we need to restart it in order for the changes to take place, if we want to change
+> the running ENV, we need to restart it, if we want it to run forever and run again just after it’s crash, we need to do it manually.
 
-> Swamp to the rescue! with Swamp you can do all of the above and lots of more automatically and in a very convenient way! With the Swamp dashboard you can keep tracking your services, get information like CPU and Memory usage of each service and restart your services with different ENV variables with no hard work. you can still using
-> your favorite services like Grunt and Bower without any problem.
+> Swamp to the rescue! with Swamp you can do all of the above and lots of more automatically and in a very convenient way! With the Swamp dashboard you can keep tracking your services, anytime, anywhere, get information like CPU and Memory usage of each service and restart your services with different ENV variables! - no hard work needed!.
+
+
+##Features
+
+* Run any Node.JS, Python, Ruby and other services
+* Restart services automatically when file changes are recorded
+* Keep services running again and again(...) automatically when they crash
+* Swamp logs everything!
+* Manage global environments and environments variables
+* Manage environments and environments variables for each service
+* Monitor CPU and Memory usage of each service
+* Create Unix Sockets for internal communication
+* Fully featured real-time Web Dashboard to control everything in the Swamp
+* Full REST API for hooking and receiving Swamp data
+* More!
 
 - - -
 ## Install
 
 ```sh
 $ [sudo] npm install -g swamp
+```
+
+## Swamp command options
+
+Use the `swamp` command line tool to create and run your swamp
+
+```
+ $ swamp --help
+
+     Usage: swamp [options]
+
+     Options:
+
+       -h, --help     output usage information
+       -V, --version  output the version number
+       -c, --create   creates a bootstrap `Swampfile.js` in the cwd
+       -u, --up       startup the swamp with the cwd `Swampfile.js`
+       -r, --reload   reload the current running swamp (will restart as a daemon)
+       -d, --daemon   start the swamp as a daemon with the cwd `Swampfile.js`
+       -k, --kill     stop the current cwd running swamp
+       -s, --status   see the current cwd swamp status
+
 ```
 
 ## Bootstrap your swamp project
@@ -60,10 +96,16 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
           MY_PARAM: "myStageParamValue"
         }
       ],
+      unix_sockets: [
+        {
+            file: '/var/run/my_unix_socket.sock',
+            chmod: 0700
+        }
+      ]
       services: [
         {
           name: "myService 1",
-          description: "",
+          description: "myService 1 description",
           path: "/path/to/node/service",
           script: "app.js",
           options: {
@@ -71,7 +113,8 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
             defaultEnv: "staging",
             restartOnChange: true,
             runForever: true,
-            maxRetries: 5
+            maxRetries: 5,
+            maxLogsToSave: 100
           },
           environments: [
             {
@@ -79,13 +122,14 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
               PORT: 80
             }
           ],
-          arguments: [ "arg1", 1234 ]
+          args: [ "arg1", 1234 ]
         },
         {
           name: "myService 2",
-          description: "",
-          path: "/path/to/node/service",
-          ...
+          description: "myService 2 description",
+          path: "/path/to/any/service",
+          command: "/path/to/any/service/python",
+          args: [ '-u', 'my_server.py' ]
         }
       ]
     });
@@ -161,13 +205,20 @@ Type: `String` Default: ``
 
 The dashboard password
 
+####logs
+
+Type: `Object` Default: `{ out: 'logs/out.log', err: 'logs/err.log' }`
+
+Configure the main loggers of the Swamp for out and error logs.
+The default log files will be located where the `Swampfile.js` is located, under the `logs` folder
+
 ####environments
 
 `environments: [ ... ]` - set the swamp global environments variables
 
 Type: `Array` Default: `[]`
 
-You can configure global environment variables in your swamp for easy environment sharing between services, each envoronment variable is accessible through the `process.env` inside your swamp services, note that the `NODE_ENV` can be configure with the `name` key (e.g. `name: 'development'`), if both the `NODE_ENV` and `name` are configured on the same environment, the `name` will determine.
+You can config global environments in your swamp for easy environment params sharing between services, each environment variable is accessible through the `process.env` inside your swamp services, note that the `NODE_ENV` can be configure with the `name` key (e.g. `name: 'development'`), if both the `NODE_ENV` and `name` are configured on the same environment, the `name` will determine.
 
 Example:
 ```javascript
@@ -187,6 +238,26 @@ Example:
   ]
 }
 ```
+
+####unix_sockets
+
+Type: `Array` Default: `[]`
+
+Config UnixSocket files for internal process communications. The array will accept list of socket files with an optional chmod.
+* Note that if the Socket file doesn't exist, Swamp will ignore it.
+
+Example:
+```javascript
+{
+  unix_sockets: [
+    {
+        file: '/path/to/unix/socket.sock',
+        chmod: 0700
+    }
+  ]
+}
+```
+
 ####services
 
 `services: [ ... ]` - config the swamp services
@@ -213,14 +284,21 @@ Set the service description as it will shown in the dashboard
 
 Type: `String` (Mandatory)
 
-Set the service full path (e.g. `/home/user/servers/myNodeServer`)
+Set the service full path (e.g. `/home/user/servers/myServer`)
 * Note that this field is mandatory, but their is an option to omit that field if your service is running along side with the `Swampfile.js` file.
  
 #####script
 
-Type: `String` (Mandatory)
+Type: `String` (Mandatory if the `command` option is not set)
 
-The service running script (e.g. `app.js`)
+The service running script (e.g. `app.js`). This is a default to Node.JS script runner, to use a service other than node, use the `command` option
+
+#####command
+
+Type: `String` (Mandatory if the `script` option is not set)
+
+The service running command (e.g. `/path/to/any/service/python`)
+* Note that you need to use the `args` options in order to pass arguments to the command
 
 #####options
 
@@ -243,6 +321,7 @@ This field is mandatory only if the `options.autorun` is set to `true`
 Type: `Boolean|Array` Default: `false`
 
 Restart the service if file changes are detected in the service path. Can accept Array to select specific sub paths and file types to watch. (e.g. `['stylesheets/*.css', '**/*.js']`)
+* Note that if to many files specified, the watcher will not work and an error will be logged in the service error log.
 
 #####options.runForever
 
@@ -256,17 +335,30 @@ Type: `Number` Default: `-1`
 
 Max running retries in case of an error (for infinite: -1), relevant only if `runForever` is set to `true`
 
+#####options.maxLogsToSave
+
+Type: `Number` Default: `100`
+
+Define the history log length for each service `out` and `error` logs
+
 #####environments
 
 Type: `Array` Default: `[]`
 
 Just like the global environments, you can override environment variables defined on the global environments or just add new environments
 
-#####arguments
+#####args
 
 Type: `Array` Default: `[]`
 
-Pass arguments to your node service
+Pass arguments to your service
+
+#####logs
+
+Type: `Object` Default: `{ out: 'SERVICE_NAME/out.log', err: 'SERVICE_NAME/err.log' }`
+
+Configure the service logs for out and error logs.
+The default log files will be located where the `Swampfile.js` is located, under the `SERVICE_NAME` folder
 
 Fully configured service example:
 ```json
@@ -283,7 +375,7 @@ Fully configured service example:
         "restartOnChange": true,
         "runForever": false,
         "maxRetries": 5,
-        "isParent": false
+        "maxLogsToSave": 50
       },
       "environments": [
         {
@@ -291,16 +383,19 @@ Fully configured service example:
           "PORT": 8080
         }
       ],
-      "arguments": [ "arg1", 1234 ]
+      "logs": {
+        "err": "/var/log/my_service/err.log",
+        "out": "/var/log/my_service/out.log"
+      },
+      "args": [ "arg1", 1234 ]
     }
   ]
 }
 ```
 
-## Running Swamp
+---
+##License
 
-```sh
-$ cd /path/to/project/    # where the `Swampfile.js` is located
-$ swamp
-```
-Then go to **http://localhost:2121** to see the magic...
+Copyright (c) 2014 Udi Talias
+
+Licensed under the MIT License

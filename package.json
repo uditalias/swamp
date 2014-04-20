@@ -20,16 +20,17 @@
     "node": ">= 0.8.0"
   },
   "dependencies": {
-    "lodash": "~0.9.2",
+    "lodash": "~2.4.1",
     "colors": "~0.6.2",
     "q": "~1.0.0",
     "socket.io": "~0.9.16",
-    "ejs": "~0.8.5",
-    "gaze": "~0.5.1",
-    "moment": "~2.5.1",
+    "ejs": "~1.0.0",
+    "gaze": "~0.6.3",
+    "moment": "~2.6.0",
     "appolo": "https://github.com/uditalias/appolo/tarball/master",
-    "express": "~3.4.8",
     "winston": "~0.7.2",
-    "usage": "^0.3.9"
+    "usage": "^0.3.9",
+    "commander": "^2.2.0",
+    "npid": "^0.4.0"
   }
 }

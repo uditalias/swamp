@@ -1,91 +1,21 @@
 #!/usr/bin/env node
 
-'use strict';
+var program = require('commander'),
+    cmd     = require('./cmd');
 
-var swampRunner   = require('../swamp'),
-    appolo        = swampRunner.appolo;
+program
+    .version(require('../package.json').version)
 
-var SWAMP_FILE_NAME     = 'Swampfile.js',
-    CREATE_CMD          = 'create';
+    .option('-c, --create', 'creates a bootstrap `Swampfile.js` in the cwd', cmd.create)
 
-var fs          = require('fs'),
-    path        = require('path'),
-    mainLoggers = appolo.inject.getObject('mainLoggers'),
-    utils       = appolo.inject.getObject('utils');
+    .option('-u, --up', 'startup the swamp with the cwd `Swampfile.js`', cmd.up)
 
-process.title = 'swamp';
+    .option('-r, --reload', 'reload the current running swamp (will restart as a daemon)', cmd.reload)
 
-var basedir     = process.cwd(),
-    args        = process.argv,
-    swampConfRunner, swampObj;
+    .option('-d, --daemon', 'start the swamp as a daemon with the cwd `Swampfile.js`', cmd.daemon)
 
-// looking for SWAMP_FILE_NAME
-var swampConfPath = path.resolve(SWAMP_FILE_NAME);
+    .option('-k, --kill', 'stop the current cwd running swamp', cmd.kill)
 
-if(args[2] && args[2] == CREATE_CMD) {
+    .option('-s, --status', 'see the current cwd swamp status', cmd.status)
 
-    var confirm = function(override) {
-
-        var swampfileBootstrap, filePath;
-
-        if(override) {
-            utils.log('Overriding `' + SWAMP_FILE_NAME + '`...', utils.LOG_TYPE.WARN);
-        } else {
-            utils.log('Creating bootstrap `' + SWAMP_FILE_NAME + '`...', utils.LOG_TYPE.INFO);
-        }
-
-        try {
-            swampfileBootstrap = fs.readFileSync(path.resolve(__dirname, '../config/assets/{0}'.format(SWAMP_FILE_NAME)), 'utf8');
-        } catch(e) {
-            utils.log(e, utils.LOG_TYPE.ERROR);
-        }
-
-        filePath = path.resolve(basedir, SWAMP_FILE_NAME);
-
-        fs.writeFileSync(filePath, swampfileBootstrap);
-
-        utils.log('`{0}` created successfully at `{1}`.'.format(SWAMP_FILE_NAME, filePath), utils.LOG_TYPE.SUCCESS);
-    }
-
-    var decline = function() {
-        utils.log('Bye Bye...', utils.LOG_TYPE.SUCCESS);
-    }
-
-    if(swampConfPath && utils.fileExist(swampConfPath)) {
-
-        utils.prompt(SWAMP_FILE_NAME + ' already exist in `' + basedir + '`, override?', utils.LOG_TYPE.WARN, false)
-            .then(confirm)
-            .catch(decline);
-    } else {
-        confirm();
-    }
-
-    return;
-}
-
-if (swampConfPath && utils.fileExist(swampConfPath)) {
-
-    utils.log(SWAMP_FILE_NAME + ' file found (' + swampConfPath + ')!', utils.LOG_TYPE.SUCCESS);
-
-} else {
-
-    utils.log(SWAMP_FILE_NAME + ' not exist. did you mean `swamp create`?', utils.LOG_TYPE.ERROR);
-
-    return;
-}
-
-// try load configurations file from path
-utils.log('Validating Swamp configurations...', utils.LOG_TYPE.INFO, false, false, mainLoggers.out);
-try {
-    swampConfRunner = require(swampConfPath);
-} catch(err) {
-    utils.log('Invalid `{0}`: {1}'.format(SWAMP_FILE_NAME, err), utils.LOG_TYPE.ERROR, false, false, mainLoggers.err);
-    return;
-}
-
-// creating a Swamp
-utils.log('Swamp configurations are valid, creating a Swamp...', utils.LOG_TYPE.SUCCESS, false, false, mainLoggers.out);
-var swamp = appolo.inject.getObject('initializer');
-
-// running Swamp configurations
-swampConfRunner(swamp);
+    .parse(process.argv);
