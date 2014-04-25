@@ -15,16 +15,13 @@ Swamp is the tool for running, managing and monitoring multiple node.js services
 ##Features
 
 * Run any Node.JS, Python, Ruby and other services
-* Restart services automatically when file changes are recorded
 * Keep services running again and again(...) automatically when they crash
 * Swamp logs everything!
 * Manage global environments and environments variables
 * Manage environments and environments variables for each service
 * Monitor CPU and Memory usage of each service
-* Create Unix Sockets for internal communication
 * Fully featured real-time Web Dashboard to control everything in the Swamp
 * Full REST API for hooking and receiving Swamp data
-* More!
 
 - - -
 ## Install
@@ -189,9 +186,11 @@ Launch the dashboard when running `swamp`
 
 #####options.dashboard.credentials
 
-Type: `Object` Default: `{}`
+Type: `Object|Array` Default: `{}`
 
 Set a username and a password for your dashboard login (recommended if you're going to access the dashboard remotely)
+
+* Note that you can supply an array of objects for multi credentials (e.g. `[{ username: 'user',password: 'pass' }, { username: '...', password: '...' }, {...}]`)
 
 #####options.dashboard.credentials.username
 
