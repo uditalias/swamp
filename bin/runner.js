@@ -37,6 +37,7 @@ try {
 } catch(err) {
 
     utils.log('Invalid `{0}`: {1}'.format(SWAMP_FILE_NAME, err), utils.LOG_TYPE.ERROR);
+    process.exit();
     return;
 
 }
