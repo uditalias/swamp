@@ -1,6 +1,10 @@
-<img src="https://raw.githubusercontent.com/uditalias/swamp/master/config/assets/swamp_logo.png?rev=2" />
+<div style="position:relative">
+    <div style="position:absolute;top:10px;right:10px;z-index:1;">
+        [![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png?theme=shields.io)](https://david-dm.org/uditalias/swamp)
+    </div>
+    <img src="https://raw.githubusercontent.com/uditalias/swamp/master/config/assets/swamp_logo.png?rev=2" />
+</div>
 <br/>
-[![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png?theme=shields.io)](https://david-dm.org/uditalias/swamp)
 
 Swamp is the tool for running, managing and monitoring multiple node.js services. jump in!
 
