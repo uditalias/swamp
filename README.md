@@ -1,4 +1,4 @@
-<img src="https://github.com/uditalias/swamp/config/assets/swamp_logo.png" />
+<img src="https://github.com/uditalias/swamp/blob/master/config/assets/swamp_logo.png" />
 
 # Swamp [![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png?theme=shields.io)](https://david-dm.org/uditalias/swamp)
 
