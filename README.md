@@ -211,7 +211,10 @@ The dashboard password
 Type: `Object` Default: `{ out: 'logs/out.log', err: 'logs/err.log' }`
 
 Configure the main loggers of the Swamp for out and error logs.
-The default log files will be located where the `Swampfile.js` is located, under the `logs` folder
+The default log files will be located where the `Swampfile.js` is located, under the `logs` folder.
+You are able to config log files rotation by size, the default file size for log rotation is `1M`.
+
+Here are some [log rotation configurations and examples](#log-rotation-configurations) and examples.
 
 ####environments
 
@@ -365,7 +368,10 @@ Pass arguments to your service
 Type: `Object` Default: `{ out: 'SERVICE_NAME/out.log', err: 'SERVICE_NAME/err.log' }`
 
 Configure the service logs for out and error logs.
-The default log files will be located where the `Swampfile.js` is located, under the `SERVICE_NAME` folder
+The default log files will be located where the `Swampfile.js` is located, under the `SERVICE_NAME` folder.
+You are able to config log files rotation by size, the default file size for log rotation is `1M`.
+
+Here are some [log rotation configurations and examples](#log-rotation-configurations) and examples.
 
 Fully configured service example:
 ```json
@@ -435,6 +441,7 @@ Swampfile itself. Here's a Swampfile example:
 }
 ```
 
+####Log rotation configurations
 
 ---
 ##License
