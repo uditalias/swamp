@@ -340,7 +340,7 @@ Max running retries in case of an error (for infinite: -1), relevant only if `ru
 
 Type: `Number` Default: `1000`
 
-The minimum runtime (in milliseconds) for the service before running it again after errorß
+The minimum runtime (in milliseconds) for the service before running it again after error
 
 #####options.maxLogsToSave
 
@@ -417,7 +417,7 @@ Swampfile itself. Here's a Swampfile example:
         "env": "development"
     },
 
-    services: [
+    "services": [
         "name": "myService 1",
         "description": "this is my first service",
         "path": "/home/<%= params.user %>/<%= params.projects_folder %>/myServer",
