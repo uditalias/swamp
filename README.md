@@ -394,6 +394,42 @@ Fully configured service example:
 }
 ```
 
+####Properties template
+
+Any `string` property in the Swampfile can include properties templates, the value of those properties is taken from the
+Swampfile itself. Here's a Swampfile example:
+
+```json
+{
+    "params": {
+        "user": "udidu",
+        "projects_folder": "my_rojects_folder/dev",
+
+    },
+
+    "default_options": {
+        "env": "development"
+    },
+
+    services: [
+        "name": "myService 1",
+        "description": "this is my first service",
+        "path": "/home/<%= params.user %>/<%= params.projects_folder %>/myServer",
+        "script": "app.js",
+        "options": {
+          "autorun": true,
+          "defaultEnv": "<%= default_options.env %>",
+          "restartOnChange": true,
+          "runForever": false,
+          "maxRetries": 5,
+          "maxLogsToSave": 50
+        },
+    ]
+
+}
+```
+
+
 ---
 ##License
 
