@@ -336,6 +336,12 @@ Type: `Number` Default: `-1`
 
 Max running retries in case of an error (for infinite: -1), relevant only if `runForever` is set to `true`
 
+#####options.minRuntime
+
+Type: `Number` Default: `1000`
+
+The minimum runtime (in milliseconds) for the service before running it again after errorß
+
 #####options.maxLogsToSave
 
 Type: `Number` Default: `100`
