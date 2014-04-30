@@ -1,36 +1,37 @@
 {
-  "name": "swamp",
-  "description": "Swamp is the tool for running and managing multiple node.js services in one place. jump in!",
-  "version": "0.0.1",
-  "author": "Udi Talias",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/uditalias/swamp.git"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/uditalias/swamp/blob/master/LICENSE"
+    "name": "swamp",
+    "description": "Swamp is the tool for running and managing multiple node.js services in one place. jump in!",
+    "version": "0.0.1",
+    "author": "Udi Talias",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/uditalias/swamp.git"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/uditalias/swamp/blob/master/LICENSE"
+        }
+    ],
+    "bin": {
+        "swamp": "bin/swamp"
+    },
+    "engines": {
+        "node": "0.10.x",
+        "npm": "1.4.x"
+    },
+    "dependencies": {
+        "lodash": "~2.4.1",
+        "colors": "~0.6.2",
+        "q": "~1.0.0",
+        "socket.io": "~0.9.16",
+        "ejs": "~1.0.0",
+        "gaze": "~0.6.3",
+        "moment": "~2.6.0",
+        "appolo": "https://github.com/uditalias/appolo/tarball/master",
+        "winston": "~0.7.2",
+        "usage": "^0.3.9",
+        "commander": "^2.2.0",
+        "npid": "^0.4.0"
     }
-  ],
-  "bin": {
-    "swamp": "bin/swamp"
-  },
-  "engines": {
-    "node": ">= 0.8.0"
-  },
-  "dependencies": {
-    "lodash": "~2.4.1",
-    "colors": "~0.6.2",
-    "q": "~1.0.0",
-    "socket.io": "~0.9.16",
-    "ejs": "~1.0.0",
-    "gaze": "~0.6.3",
-    "moment": "~2.6.0",
-    "appolo": "https://github.com/uditalias/appolo/tarball/master",
-    "winston": "~0.7.2",
-    "usage": "^0.3.9",
-    "commander": "^2.2.0",
-    "npid": "^0.4.0"
-  }
 }
