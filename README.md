@@ -415,8 +415,7 @@ Swampfile itself. Here's a Swampfile example:
 {
     "params": {
         "user": "udidu",
-        "projects_folder": "my_rojects_folder/dev",
-
+        "projects_folder": "my_rojects_folder/dev"
     },
 
     "default_options": {
