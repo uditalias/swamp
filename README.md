@@ -212,7 +212,7 @@ Type: `Object` Default: `{ out: 'logs/out.log', err: 'logs/err.log' }`
 
 Configure the main loggers of the Swamp for out and error logs.
 The default log files will be located where the `Swampfile.js` is located, under the `logs` folder.
-You are able to config log files rotation by size, the default file size for log rotation is `1M`.
+You are able to config log files rotation by size, the default file size for log rotation is `1MB`.
 
 Here are some [log rotation configurations and examples](#log-rotation-configurations).
 
@@ -369,7 +369,7 @@ Type: `Object` Default: `{ out: 'SERVICE_NAME/out.log', err: 'SERVICE_NAME/err.l
 
 Configure the service logs for out and error logs.
 The default log files will be located where the `Swampfile.js` is located, under the `SERVICE_NAME` folder.
-You are able to config log files rotation by size, the default file size for log rotation is `1M`.
+You are able to config log files rotation by size, the default file size for log rotation is `1MB`.
 
 Here are some [log rotation configurations and examples](#log-rotation-configurations).
 
@@ -442,6 +442,51 @@ Swampfile itself. Here's a Swampfile example:
 ```
 
 ###Log rotation configurations
+
+When configuring your swamp and swamp services logs, you can pass an object to specify log rotations files size.
+The default file size for log rotation is `1MB`. To change this size, change the `logs` object in you configurations
+like so:
+
+```json
+    {
+        "logs": {
+            "out": {
+                "path": "/var/log/services/myservice/out.log",
+                "maxSize": "1MB"
+            },
+            "err": {
+                "maxSize": "1.4MB"
+            }
+        }
+    }
+```
+
+The example above shows how we pass the file size for log rotation. You can even pass just a `maxSize` property
+to the log and the path will be the default log path.
+
+Note that if you want to use the default value (`1MB`) you can pass the the `out` and `err` properties the string path.
+
+For example:
+
+```json
+    {
+        "logs": {
+            "out": "/var/log/services/myservice/out.log"   //default log rotation file will be `1MB`
+            "err": {
+                "maxSize": "1.4MB"
+            }
+        }
+    }
+```
+
+#####Log rotation sizes
+
+```
+#KB     - e.g. 1KB, 2.4KB
+#MB     - e.g. 1MB, 1.2MB
+#GB     - e.g. 1GB, 0.5GB
+#TB     - e.g. 1TB...
+```
 
 ---
 ##License
