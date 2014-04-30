@@ -422,7 +422,7 @@ Swampfile itself. Here's a Swampfile example:
         "env": "development"
     },
 
-    "services": [
+    "services": [{
         "name": "myService 1",
         "description": "this is my first service",
         "path": "/home/<%= params.user %>/<%= params.projects_folder %>/myServer",
@@ -435,7 +435,7 @@ Swampfile itself. Here's a Swampfile example:
           "maxRetries": 5,
           "maxLogsToSave": 50
         },
-    ]
+    }]
 
 }
 ```
