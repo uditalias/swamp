@@ -214,7 +214,7 @@ Configure the main loggers of the Swamp for out and error logs.
 The default log files will be located where the `Swampfile.js` is located, under the `logs` folder.
 You are able to config log files rotation by size, the default file size for log rotation is `1M`.
 
-Here are some [log rotation configurations and examples](#log-rotation-configurations) and examples.
+Here are some [log rotation configurations and examples](#log-rotation-configurations).
 
 ####environments
 
@@ -371,7 +371,7 @@ Configure the service logs for out and error logs.
 The default log files will be located where the `Swampfile.js` is located, under the `SERVICE_NAME` folder.
 You are able to config log files rotation by size, the default file size for log rotation is `1M`.
 
-Here are some [log rotation configurations and examples](#log-rotation-configurations) and examples.
+Here are some [log rotation configurations and examples](#log-rotation-configurations).
 
 Fully configured service example:
 ```json
