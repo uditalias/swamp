@@ -441,7 +441,7 @@ Swampfile itself. Here's a Swampfile example:
 }
 ```
 
-####Log rotation configurations
+###Log rotation configurations
 
 ---
 ##License
