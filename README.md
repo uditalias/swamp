@@ -470,7 +470,7 @@ For example:
 ```json
     {
         "logs": {
-            "out": "/var/log/services/myservice/out.log"   //default log rotation file will be `1MB`
+            "out": "/var/log/services/myservice/out.log"   //default log rotation file size will be `1MB`
             "err": {
                 "maxSize": "1.4MB"
             }
@@ -478,7 +478,7 @@ For example:
     }
 ```
 
-#####Log rotation sizes
+#####Log rotation size examples
 
 ```
 #KB     - e.g. 1KB, 2.4KB
