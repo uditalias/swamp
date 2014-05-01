@@ -34,5 +34,10 @@
     "commander": "^2.2.0",
     "npid": "^0.4.0",
     "winston-filerotatedate": "^0.1.7"
+  },
+  "devDependencies": {
+      "grunt": "^0.4.4",
+      "chai": "^1.9.1",
+      "grunt-mocha-test": "^0.10.2"
   }
 }
