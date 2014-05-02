@@ -99,6 +99,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
           path: "/path/to/node/service",
           script: "app.js",
           options: {
+            user: "udidu",
             autorun: true,
             defaultEnv: "staging",
             restartOnChange: true,
@@ -298,6 +299,13 @@ The service running command (e.g. `/path/to/any/service/python`)
 #####options
 
 Type: `Object` Default: `{ autorun: false, defaultEnv: "", restartOnChange: false, runForever: false, isParent: false }`
+
+#####options.user
+
+Type: `String` Default: `""`
+
+Set this option to control the service permissions by specifying the UNIX username which will run this process.
+This option is important if Swamp running as the root user.
 
 #####options.autorun
 
