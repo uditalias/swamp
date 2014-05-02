@@ -313,6 +313,12 @@ Type: `Boolean` Default: `false`
 
 Run this service as soon as the swamp is started
 
+#####options.startIndex
+
+Type: `Number` Default: `-1`
+
+Define the services start order by setting the start index. You can use also negative numbers.
+
 #####options.defaultEnv
 
 Type: `String` Default: `""`
