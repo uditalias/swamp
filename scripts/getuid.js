@@ -1,11 +1,11 @@
 /*
- *  This script will print out the user id converted from a user name
+ *  This script will print out the UNIX user id converted from a user name string.
  *
- *  DO NOT! load this script with node's require module as it will change
- *  the process user id!
+ *  DO NOT! load this script with node's `require` function as it will change
+ *  the main process user id!
  *
  *  This script will run only with `child_process.execFile()` as a child
- *  process
+ *  process.
  */
 
 var argv = process.argv.slice(2),
