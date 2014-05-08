@@ -14,6 +14,7 @@ Swamp is the tool for running, managing and monitoring multiple node.js services
 * Manage environments and environments variables for each service
 * Monitor CPU and Memory usage of each service
 * Fully featured real-time Web Dashboard to control everything in the Swamp
+* CLI to control swamp services from the shell
 * Full REST API for hooking and receiving Swamp data - **Coming soon!**
 
 - - -
@@ -45,6 +46,23 @@ Use the `swamp` command line tool to create and run your swamp
        -C, --cli      connect to swamp cli
 
 ```
+
+## Swamp CLI
+
+After creating your Swampfile.js and your swamp is running, enter the Swamp CLI:
+
+`$ swamp -C` or `$ swamp cli`
+
+After connection you can use the following commands inside the shell:
+
+`list` - list all your swamp services
+`startall` - start all services
+`restartall` - restart all running services
+`stopall` - stop all running services
+`start SERVICE_NAME` - start a service by service name
+`stop SERVICE_NAME` - stop a service by service name
+`restart SERVICE_NAME` - restart a service by service name
+`exit` - logout from the swamp CLI and go back to prompt
 
 ## Bootstrap your swamp project
 
