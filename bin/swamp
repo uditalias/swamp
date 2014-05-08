@@ -18,4 +18,6 @@ program
 
     .option('-s, --status', 'see the current cwd swamp status', cmd.status)
 
+    .option('-C, --cli', 'connect to the current cwd swamp using the swamp cli', cmd.cli)
+
     .parse(process.argv);

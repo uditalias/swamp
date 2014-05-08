@@ -42,6 +42,7 @@ Use the `swamp` command line tool to create and run your swamp
        -d, --daemon   start the swamp as a daemon with the cwd `Swampfile.js`
        -k, --kill     stop the current cwd running swamp
        -s, --status   see the current cwd swamp status
+       -C, --cli      connect to swamp cli
 
 ```
 
