@@ -1,7 +1,7 @@
 {
   "name": "swamp",
   "description": "Swamp is the tool for running and managing multiple node.js services in one place. jump in!",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Udi Talias",
   "repository": {
     "type": "git",
