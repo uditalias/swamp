@@ -6,6 +6,7 @@ var _               = require('lodash'),
     path            = require('path'),
     npid            = require('npid'),
     utils           = require('./helper'),
+    bash            = require('./bash'),
     child_process   = require('child_process'),
     exec            = child_process.exec;
 
@@ -14,6 +15,32 @@ var SWAMP_FILE_NAME     = 'Swampfile.js',
     CLI_PATH            = '../cli/cli',
     PID_FILE            = basedir + '/swamp.pid';
 
+
+function _executeBashCommand(command, service_name) {
+
+    if(_isSwampfileExist()) {
+
+        _isSwampRunning()
+            .then(function() {
+
+                bash.executeCommand(command, service_name);
+
+            })
+            .fail(_swampNotRunningMessage);
+    }
+}
+
+function _swampNotRunningMessage() {
+
+    utils.log('* swamp is not running', utils.LOG_TYPE.WARN);
+
+}
+
+function _serviceNotProvided(action) {
+
+    utils.log('* service not provided, use `swamp ' + action + ' <service_name>` or `swamp help` for more options', utils.LOG_TYPE.ERROR);
+
+}
 
 // verify that the process id is running and it belongs to this Swamp
 function _verifyProcessIdAsync(pid) {
@@ -280,7 +307,7 @@ module.exports.kill = function() {
 
                 } else {
 
-                    utils.log('* swamp is not running', utils.LOG_TYPE.WARN);
+                    _swampNotRunningMessage();
 
                     deferred.reject();
 
@@ -290,7 +317,7 @@ module.exports.kill = function() {
 
             .fail(function() {
 
-                utils.log('* swamp is not running', utils.LOG_TYPE.WARN);
+                _swampNotRunningMessage();
 
                 deferred.reject();
 
@@ -322,7 +349,7 @@ module.exports.status = function() {
 
             .fail(function() {
 
-                utils.log('* swamp is not running', utils.LOG_TYPE.WARN);
+                _swampNotRunningMessage();
 
                 deferred.reject();
 
@@ -342,11 +369,40 @@ module.exports.cli = function() {
                 require(CLI_PATH);
 
             })
-            .fail(function() {
-
-                utils.log('* swamp is not running', utils.LOG_TYPE.WARN);
-
-            });
+            .fail(_swampNotRunningMessage);
     }
 
+}
+
+module.exports.stop = function(service_name) {
+    service_name = service_name[0];
+
+    if(!service_name) {
+        _serviceNotProvided('stop');
+        return false;
+    }
+
+    _executeBashCommand('stop', service_name);
+}
+
+module.exports.start = function(service_name) {
+    service_name = service_name[0];
+
+    if(!service_name) {
+        _serviceNotProvided('start');
+        return false;
+    }
+
+    _executeBashCommand('start', service_name);
+}
+
+module.exports.restart = function(service_name) {
+    service_name = service_name[0];
+
+    if(!service_name) {
+        _serviceNotProvided('restart');
+        return false;
+    }
+
+    _executeBashCommand('restart', service_name);
 }

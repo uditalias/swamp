@@ -35,15 +35,18 @@ Use the `swamp` command line tool to create and run your swamp
 
      Options:
 
-       -h, --help     output usage information
-       -V, --version  output the version number
-       -c, --create   creates a bootstrap `Swampfile.js` in the cwd
-       -u, --up       startup the swamp with the cwd `Swampfile.js`
-       -r, --reload   reload the current running swamp (will restart as a daemon)
-       -d, --daemon   start the swamp as a daemon with the cwd `Swampfile.js`
-       -k, --kill     stop the current cwd running swamp
-       -s, --status   see the current cwd swamp status
-       -C, --cli      connect to swamp cli
+       -h, --help                output usage information
+       -V, --version             output the version number
+       -c, --create              creates a bootstrap `Swampfile.js` in the cwd
+       -u, --up                  startup the swamp with the cwd `Swampfile.js`
+       -r, --reload              reload the current running swamp (will restart as a daemon)
+       -d, --daemon              start the swamp as a daemon with the cwd `Swampfile.js`
+       -k, --kill                stop the current cwd running swamp
+       -s, --status              see the current cwd swamp status
+       -C, --cli                 connect to swamp cli
+       --stop <service_name>     stops the given service
+       --start <service_name>    starts the given service
+       --restart <service_name>  restarts the given service
 
 ```
 
@@ -56,12 +59,19 @@ After creating your Swampfile.js and your swamp is running, enter the Swamp CLI:
 After connection you can use the following commands inside the shell:
 
 `list` - list all your swamp services
+
 `startall` - start all services
+
 `restartall` - restart all running services
+
 `stopall` - stop all running services
+
 `start SERVICE_NAME` - start a service by service name
+
 `stop SERVICE_NAME` - stop a service by service name
+
 `restart SERVICE_NAME` - restart a service by service name
+
 `exit` - logout from the swamp CLI and go back to prompt
 
 ## Bootstrap your swamp project
