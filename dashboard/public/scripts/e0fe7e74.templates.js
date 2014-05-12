@@ -21,6 +21,11 @@ app.run(['$templateCache', function($templateCache){   'use strict';
   );
 
 
+  $templateCache.put('directives/full_screen_message/fullScreenMessage.html',
+    "<div class=sw-full-screen-message></div>"
+  );
+
+
   $templateCache.put('components/aside/aside.html',
     "<div class=aside-inner><div class=\"aside-box margin-bottom-4\"><div class=aside-title>Swamp services</div><ul class=aside-content><li><span class=color-green ng-click=startAll()><i class=\"fa fa-play\"></i> Start all</span></li><li><span class=color-red ng-click=stopAll()><i class=\"fa fa-stop\"></i> Stop all running</span></li><li><span class=color-yellow ng-click=restartAll()><i class=\"fa fa-refresh\"></i> Restart all running</span></li></ul></div><div class=\"aside-box margin-bottom-4\"><div class=aside-title>Swamp logs</div><ul class=aside-content><li><span class=color-blue ng-click=\"showLog('out')\"><i class=\"fa fa-terminal\"></i> Out log</span></li><li><span class=color-red ng-click=\"showLog('error')\"><i class=\"fa fa-terminal\"></i> Error log</span></li></ul></div><div class=aside-box><div class=aside-title>Swamp options</div><ul class=aside-content><li><sw-checkbox ng-model=handler.tailCheckState on-check-state-change=onCheckStateChange(state) checkbox-label=\"'Auto scroll all logs'\"></sw-checkbox></li></ul></div></div>"
   );
