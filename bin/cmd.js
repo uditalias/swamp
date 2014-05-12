@@ -406,3 +406,21 @@ module.exports.restart = function(service_name) {
 
     _executeBashCommand('restart', service_name);
 }
+
+module.exports.startall = function() {
+
+    _executeBashCommand('startall');
+
+}
+
+module.exports.stopall = function() {
+
+    _executeBashCommand('stopall');
+
+}
+
+module.exports.restartall = function() {
+
+    _executeBashCommand('restartall');
+
+}

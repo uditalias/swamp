@@ -44,9 +44,12 @@ Use the `swamp` command line tool to create and run your swamp
        -k, --kill                stop the current cwd running swamp
        -s, --status              see the current cwd swamp status
        -C, --cli                 connect to swamp cli
-       --stop <service_name>     stops the given service
-       --start <service_name>    starts the given service
-       --restart <service_name>  restarts the given service
+       --stop <service_name>     stop the given service
+       --start <service_name>    start the given service
+       --restart <service_name>  restart the given service
+       --startall                start all swamp services
+       --stopall                 stop all swamp services
+       --restartall              restart all swamp services
 
 ```
 

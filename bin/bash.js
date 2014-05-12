@@ -22,6 +22,15 @@ module.exports.executeCommand = function(command, service_name) {
             case 'restart':
                 _restartService(service_name);
                 break;
+            case 'startall':
+                _startAllServices();
+                break;
+            case 'stopall':
+                _stopAllServices();
+                break;
+            case 'restartall':
+                _restartAllServices();
+                break;
         }
 
     });
@@ -91,5 +100,23 @@ function _restartService(service_name) {
 function _stopService(service_name) {
 
     _broadcast({ event: 'service.stop', data: service_name });
+
+}
+
+function _startAllServices() {
+
+    _broadcast({ event: 'swamp.startAll' });
+
+}
+
+function _stopAllServices() {
+
+    _broadcast({ event: 'swamp.stopAllRunning' });
+
+}
+
+function _restartAllServices() {
+
+    _broadcast({ event: 'swamp.restartAllRunning' });
 
 }

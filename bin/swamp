@@ -20,10 +20,16 @@ program
 
     .option('-C, --cli', 'connect to the current cwd swamp using the swamp cli', cmd.cli)
 
-    .option('--stop <service_name>', 'stops the given service', cmd.stop)
+    .option('--start <service_name>', 'start the given service', cmd.start)
 
-    .option('--start <service_name>', 'starts the given service', cmd.start)
+    .option('--stop <service_name>', 'stop the given service', cmd.stop)
 
-    .option('--restart <service_name>', 'restarts the given service', cmd.restart)
+    .option('--restart <service_name>', 'restart the given service', cmd.restart)
+
+    .option('--startall', 'start all swamp services', cmd.startall)
+
+    .option('--stopall', 'stop all swamp services', cmd.stopall)
+
+    .option('--restartall', 'restart all swamp services', cmd.restartall)
 
     .parse(process.argv);
