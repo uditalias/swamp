@@ -530,7 +530,7 @@ Contributors who wants to contribute to the Swamp dashboard can clone the projec
 
 `$ git clone git@github.com:uditalias/swamp-dashboard.git`
 
-Both the Swamp and the Swamp-dashboard project should be exist in the same directory, for example:
+Both the Swamp and the Swamp-dashboard projects should be exist in the same directory, for example:
 
 ```
 /projects
@@ -543,7 +543,7 @@ by running:
 
 `$ grunt build` from the `swamp-dashboard` directory
 
-this will build the dashboard, copy it to the `swamp` project, `git add` and `git commit`.
+this will build the dashboard, copy it to the `swamp` project, `git add` and `git commit` your changes.
 
 ---
 ##License
