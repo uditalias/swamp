@@ -524,6 +524,27 @@ For example:
 #TB     - e.g. 1TB...
 ```
 
+## Contribute to the Swamp Dashboard project
+
+Contributors who wants to contribute to the Swamp dashboard can clone the project:
+
+`$ git clone git@github.com:uditalias/swamp-dashboard.git`
+
+Both the Swamp and the Swamp-dashboard project should be exist in the same directory, for example:
+
+```
+/projects
+    |--swamp
+    |--swamp-dashboard
+```
+
+In this way, when editing the dashboard, you can easily `add` and `commit` your changes to the swamp project
+by running:
+
+`$ grunt build` from the `swamp-dashboard` directory
+
+this will build the dashboard, copy it to the `swamp` project, `git add` and `git commit`.
+
 ---
 ##License
 
