@@ -26,6 +26,8 @@ program
 
     .option('--restart <service_name>', 'restart the given service', cmd.restart)
 
+    .option('--state <service_name>', 'see the given service state', cmd.state)
+
     .option('--startall', 'start all swamp services', cmd.startall)
 
     .option('--stopall', 'stop all swamp services', cmd.stopall)

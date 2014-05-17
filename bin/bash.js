@@ -22,6 +22,9 @@ module.exports.executeCommand = function(command, service_name) {
             case 'restart':
                 _restartService(service_name);
                 break;
+            case 'state':
+                _serviceState(service_name);
+                break;
             case 'startall':
                 _startAllServices();
                 break;
@@ -94,6 +97,12 @@ function _startService(service_name) {
 function _restartService(service_name) {
 
     _broadcast({ event: 'service.restart', data: service_name });
+
+}
+
+function _serviceState(service_name) {
+
+    _broadcast({ event: 'service.state', data: service_name });
 
 }
 

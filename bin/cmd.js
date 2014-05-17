@@ -374,6 +374,17 @@ module.exports.cli = function() {
 
 }
 
+module.exports.state = function(service_name) {
+    service_name = service_name[0];
+
+    if(!service_name) {
+        _serviceNotProvided('state');
+        return false;
+    }
+
+    _executeBashCommand('state', service_name);
+}
+
 module.exports.stop = function(service_name) {
     service_name = service_name[0];
 
