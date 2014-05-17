@@ -18,4 +18,18 @@ program
 
     .option('-s, --status', 'see the current cwd swamp status', cmd.status)
 
+    .option('-C, --cli', 'connect to the current cwd swamp using the swamp cli', cmd.cli)
+
+    .option('--start <service_name>', 'start the given service', cmd.start)
+
+    .option('--stop <service_name>', 'stop the given service', cmd.stop)
+
+    .option('--restart <service_name>', 'restart the given service', cmd.restart)
+
+    .option('--startall', 'start all swamp services', cmd.startall)
+
+    .option('--stopall', 'stop all swamp services', cmd.stopall)
+
+    .option('--restartall', 'restart all swamp services', cmd.restartall)
+
     .parse(process.argv);

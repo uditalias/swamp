@@ -1,30 +1,21 @@
-# Swamp [![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png?theme=shields.io)](https://david-dm.org/uditalias/swamp)
+<img src="https://raw.githubusercontent.com/uditalias/swamp/master/config/assets/swamp_logo.png?rev=4" />
+<br/>
+[![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png?theme=shields.io)](https://david-dm.org/uditalias/swamp)
 
 Swamp is the tool for running, managing and monitoring multiple node.js services. jump in!
-
-> Swamp is the tool for running, managing and monitoring multiple node.js services, its the solution for developing multi service
-> applications without the need of handle each one of them separately.
-
-> When developing with node.js or other software platforms, most of the time our application uses many services (e.g. web server, socket server, REST api...),
-> every time we're starting the development process, we need to run each service separately, if we change the code of one service, we need to restart it in order for the changes to take place, if we want to change
-> the running ENV, we need to restart it, if we want it to run forever and run again just after it’s crash, we need to do it manually.
-
-> Swamp to the rescue! with Swamp you can do all of the above and lots of more automatically and in a very convenient way! With the Swamp dashboard you can keep tracking your services, anytime, anywhere, get information like CPU and Memory usage of each service and restart your services with different ENV variables! - no hard work needed!.
 
 
 ##Features
 
 * Run any Node.JS, Python, Ruby and other services
-* Restart services automatically when file changes are recorded
 * Keep services running again and again(...) automatically when they crash
 * Swamp logs everything!
 * Manage global environments and environments variables
 * Manage environments and environments variables for each service
 * Monitor CPU and Memory usage of each service
-* Create Unix Sockets for internal communication
 * Fully featured real-time Web Dashboard to control everything in the Swamp
-* Full REST API for hooking and receiving Swamp data
-* More!
+* CLI to control swamp services from the shell
+* Full REST API for hooking and receiving Swamp data - **Coming soon!**
 
 - - -
 ## Install
@@ -44,16 +35,47 @@ Use the `swamp` command line tool to create and run your swamp
 
      Options:
 
-       -h, --help     output usage information
-       -V, --version  output the version number
-       -c, --create   creates a bootstrap `Swampfile.js` in the cwd
-       -u, --up       startup the swamp with the cwd `Swampfile.js`
-       -r, --reload   reload the current running swamp (will restart as a daemon)
-       -d, --daemon   start the swamp as a daemon with the cwd `Swampfile.js`
-       -k, --kill     stop the current cwd running swamp
-       -s, --status   see the current cwd swamp status
+       -h, --help                output usage information
+       -V, --version             output the version number
+       -c, --create              creates a bootstrap `Swampfile.js` in the cwd
+       -u, --up                  startup the swamp with the cwd `Swampfile.js`
+       -r, --reload              reload the current running swamp (will restart as a daemon)
+       -d, --daemon              start the swamp as a daemon with the cwd `Swampfile.js`
+       -k, --kill                stop the current cwd running swamp
+       -s, --status              see the current cwd swamp status
+       -C, --cli                 connect to swamp cli
+       --stop <service_name>     stop the given service
+       --start <service_name>    start the given service
+       --restart <service_name>  restart the given service
+       --startall                start all swamp services
+       --stopall                 stop all swamp services
+       --restartall              restart all swamp services
 
 ```
+
+## Swamp CLI
+
+After creating your Swampfile.js and your swamp is running, enter the Swamp CLI:
+
+`$ swamp -C` or `$ swamp cli`
+
+After connection you can use the following commands inside the shell:
+
+`list` - list all your swamp services
+
+`startall` - start all services
+
+`restartall` - restart all running services
+
+`stopall` - stop all running services
+
+`start SERVICE_NAME` - start a service by service name
+
+`stop SERVICE_NAME` - stop a service by service name
+
+`restart SERVICE_NAME` - restart a service by service name
+
+`exit` - logout from the swamp CLI and go back to prompt
 
 ## Bootstrap your swamp project
 
@@ -109,6 +131,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
           path: "/path/to/node/service",
           script: "app.js",
           options: {
+            user: "udidu",
             autorun: true,
             defaultEnv: "staging",
             restartOnChange: true,
@@ -189,9 +212,11 @@ Launch the dashboard when running `swamp`
 
 #####options.dashboard.credentials
 
-Type: `Object` Default: `{}`
+Type: `Object|Array` Default: `{}`
 
 Set a username and a password for your dashboard login (recommended if you're going to access the dashboard remotely)
+
+* Note that you can supply an array of objects for multi credentials (e.g. `[{ username: 'user',password: 'pass' }, { username: '...', password: '...' }, {...}]`)
 
 #####options.dashboard.credentials.username
 
@@ -210,7 +235,10 @@ The dashboard password
 Type: `Object` Default: `{ out: 'logs/out.log', err: 'logs/err.log' }`
 
 Configure the main loggers of the Swamp for out and error logs.
-The default log files will be located where the `Swampfile.js` is located, under the `logs` folder
+The default log files will be located where the `Swampfile.js` is located, under the `logs` folder.
+You are able to config log files rotation by size, the default file size for log rotation is `1MB`.
+
+Here are some [log rotation configurations and examples](#log-rotation-configurations).
 
 ####environments
 
@@ -304,11 +332,24 @@ The service running command (e.g. `/path/to/any/service/python`)
 
 Type: `Object` Default: `{ autorun: false, defaultEnv: "", restartOnChange: false, runForever: false, isParent: false }`
 
+#####options.user
+
+Type: `String` Default: `""`
+
+Set this option to control the service permissions by specifying the UNIX username which will run this process.
+This option is important if Swamp running as the root user.
+
 #####options.autorun
 
 Type: `Boolean` Default: `false`
 
 Run this service as soon as the swamp is started
+
+#####options.startIndex
+
+Type: `Number` Default: `-1`
+
+Define the services start order by setting the start index. You can use also negative numbers.
 
 #####options.defaultEnv
 
@@ -335,6 +376,12 @@ Type: `Number` Default: `-1`
 
 Max running retries in case of an error (for infinite: -1), relevant only if `runForever` is set to `true`
 
+#####options.minRuntime
+
+Type: `Number` Default: `1000`
+
+The minimum runtime (in milliseconds) for the service before running it again after error
+
 #####options.maxLogsToSave
 
 Type: `Number` Default: `100`
@@ -358,7 +405,10 @@ Pass arguments to your service
 Type: `Object` Default: `{ out: 'SERVICE_NAME/out.log', err: 'SERVICE_NAME/err.log' }`
 
 Configure the service logs for out and error logs.
-The default log files will be located where the `Swampfile.js` is located, under the `SERVICE_NAME` folder
+The default log files will be located where the `Swampfile.js` is located, under the `SERVICE_NAME` folder.
+You are able to config log files rotation by size, the default file size for log rotation is `1MB`.
+
+Here are some [log rotation configurations and examples](#log-rotation-configurations).
 
 Fully configured service example:
 ```json
@@ -392,6 +442,108 @@ Fully configured service example:
   ]
 }
 ```
+
+####Properties template
+
+Any `string` property in the Swampfile can include properties templates, the value of those properties is taken from the
+Swampfile itself. Here's a Swampfile example:
+
+```json
+{
+    "params": {
+        "user": "udidu",
+        "projects_folder": "my_rojects_folder/dev"
+    },
+
+    "default_options": {
+        "env": "development"
+    },
+
+    "services": [{
+        "name": "myService 1",
+        "description": "this is my first service",
+        "path": "/home/<%= params.user %>/<%= params.projects_folder %>/myServer",
+        "script": "app.js",
+        "options": {
+          "autorun": true,
+          "defaultEnv": "<%= default_options.env %>",
+          "restartOnChange": true,
+          "runForever": false,
+          "maxRetries": 5,
+          "maxLogsToSave": 50
+        },
+    }]
+
+}
+```
+
+###Log rotation configurations
+
+When configuring your swamp and swamp services logs, you can pass an object to specify log rotations files size.
+The default file size for log rotation is `1MB`. To change this size, change the `logs` object in you configurations
+like so:
+
+```json
+    {
+        "logs": {
+            "out": {
+                "path": "/var/log/services/myservice/out.log",
+                "maxSize": "1MB"
+            },
+            "err": {
+                "maxSize": "1.4MB"
+            }
+        }
+    }
+```
+
+The example above shows how we pass the file size for log rotation. You can even pass just a `maxSize` property
+to the log and the path will be the default log path.
+
+Note that if you want to use the default value (`1MB`) you can pass the the `out` and `err` properties the string path.
+
+For example:
+
+```json
+    {
+        "logs": {
+            "out": "/var/log/services/myservice/out.log"   //default log rotation file size will be `1MB`
+            "err": {
+                "maxSize": "1.4MB"
+            }
+        }
+    }
+```
+
+#####Log rotation size examples
+
+```
+#KB     - e.g. 1KB, 2.4KB
+#MB     - e.g. 1MB, 1.2MB
+#GB     - e.g. 1GB, 0.5GB
+#TB     - e.g. 1TB...
+```
+
+## Contribute to the Swamp Dashboard project
+
+Contributors who wants to contribute to the Swamp dashboard can clone the project:
+
+`$ git clone git@github.com:uditalias/swamp-dashboard.git`
+
+Both the Swamp and the Swamp-dashboard projects should be exist in the same directory, for example:
+
+```
+/projects
+    |--swamp
+    |--swamp-dashboard
+```
+
+In this way, when editing the dashboard, you can easily `add` and `commit` your changes to the swamp project
+by running:
+
+`$ grunt build` from the `swamp-dashboard` directory
+
+this will build the dashboard, copy it to the `swamp` project, `git add` and `git commit` your changes.
 
 ---
 ##License

@@ -58,6 +58,10 @@ var helper = {
 
     readFile: function(path) {
         return fs.readFileSync(path);
+    },
+
+    removeFile: function(path) {
+        fs.unlinkSync(path);
     }
 };
 
