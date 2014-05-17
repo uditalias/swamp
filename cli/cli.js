@@ -175,6 +175,12 @@ conn.on('data', function(data) {
 
 });
 
+conn.on('error', function() {
+    console.log('* error connecting to swamp CLI'['red']);
+
+    deactivate();
+});
+
 conn.on('end', deactivate);
 
 process.on('SIGINT', deactivate);
