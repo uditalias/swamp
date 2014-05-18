@@ -6,7 +6,7 @@ module.exports = {
 
     watcherTurtle: 1000,
 
-    restartDelay: 1000,
+    restartDelay: 3000,
 
     serviceUsagePollInterval: 2500
 };
