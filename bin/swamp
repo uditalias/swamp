@@ -34,4 +34,6 @@ program
 
     .option('--restartall', 'restart all swamp services', cmd.restartall)
 
+    .option('--stateall', 'see all swamp services state', cmd.stateall)
+
     .parse(process.argv);

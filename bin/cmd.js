@@ -435,3 +435,9 @@ module.exports.restartall = function() {
     _executeBashCommand('restartall');
 
 }
+
+module.exports.stateall = function() {
+
+    _executeBashCommand('stateall');
+
+}

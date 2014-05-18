@@ -34,6 +34,9 @@ module.exports.executeCommand = function(command, service_name) {
             case 'restartall':
                 _restartAllServices();
                 break;
+            case 'stateall':
+                _stateAllServices();
+                break;
         }
 
     });
@@ -83,7 +86,12 @@ function _onSocketData(data) {
 }
 
 function _processData(data) {
-    console.log(('* ' + data.data.msg)[data.data.type == 'error' ? 'red' : 'green']);
+
+    if(data.data.type == 'none') {
+        console.log('* ' + data.data.msg);
+    } else {
+        console.log(('* ' + data.data.msg)[data.data.type == 'error' ? 'red' : 'green']);
+    }
 
     conn.end();
 }
@@ -127,5 +135,11 @@ function _stopAllServices() {
 function _restartAllServices() {
 
     _broadcast({ event: 'swamp.restartAllRunning' });
+
+}
+
+function _stateAllServices() {
+
+    _broadcast({ event: 'swamp.stateAll' });
 
 }

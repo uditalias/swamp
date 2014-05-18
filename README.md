@@ -33,23 +33,25 @@ Use the `swamp` command line tool to create and run your swamp
 
      Usage: swamp [options]
 
-     Options:
+       Options:
 
-       -h, --help                output usage information
-       -V, --version             output the version number
-       -c, --create              creates a bootstrap `Swampfile.js` in the cwd
-       -u, --up                  startup the swamp with the cwd `Swampfile.js`
-       -r, --reload              reload the current running swamp (will restart as a daemon)
-       -d, --daemon              start the swamp as a daemon with the cwd `Swampfile.js`
-       -k, --kill                stop the current cwd running swamp
-       -s, --status              see the current cwd swamp status
-       -C, --cli                 connect to swamp cli
-       --stop <service_name>     stop the given service
-       --start <service_name>    start the given service
-       --restart <service_name>  restart the given service
-       --startall                start all swamp services
-       --stopall                 stop all swamp services
-       --restartall              restart all swamp services
+         -h, --help                output usage information
+         -V, --version             output the version number
+         -c, --create              creates a bootstrap `Swampfile.js` in the cwd
+         -u, --up                  startup the swamp with the cwd `Swampfile.js`
+         -r, --reload              reload the current running swamp (will restart as a daemon)
+         -d, --daemon              start the swamp as a daemon with the cwd `Swampfile.js`
+         -k, --kill                stop the current cwd running swamp
+         -s, --status              see the current cwd swamp status
+         -C, --cli                 connect to the current cwd swamp using the swamp cli
+         --start <service_name>    start the given service
+         --stop <service_name>     stop the given service
+         --restart <service_name>  restart the given service
+         --state <service_name>    see the given service state
+         --startall                start all swamp services
+         --stopall                 stop all swamp services
+         --restartall              restart all swamp services
+         --stateall                see all swamp services state
 
 ```
 
