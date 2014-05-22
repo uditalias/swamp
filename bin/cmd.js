@@ -223,7 +223,7 @@ module.exports.reload = function() {
 
     utils.log('* reloading swamp...', utils.LOG_TYPE.INFO);
 
-    module.exports.kill()
+    module.exports.halt()
 
         .then(function() {
 
@@ -280,7 +280,7 @@ module.exports.daemon = function() {
 
 }
 
-module.exports.kill = function() {
+module.exports.halt = function() {
 
     var deferred = Q.defer();
 
@@ -293,9 +293,9 @@ module.exports.kill = function() {
         _isSwampRunning()
             .then(function(pid) {
 
-                utils.log('* killing swamp...', utils.LOG_TYPE.INFO);
+                utils.log('* halting swamp...', utils.LOG_TYPE.INFO);
 
-                // kill the swamp process
+                // halt the swamp process
                 process.kill(pid, 'SIGTERM');
 
                 // remove the PID file

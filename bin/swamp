@@ -14,7 +14,7 @@ program
 
     .option('-d, --daemon', 'start the swamp as a daemon with the cwd `Swampfile.js`', cmd.daemon)
 
-    .option('-k, --kill', 'stop the current cwd running swamp', cmd.kill)
+    .option('-H, --halt', 'halt the current cwd running swamp', cmd.halt)
 
     .option('-s, --status', 'see the current cwd swamp status', cmd.status)
 

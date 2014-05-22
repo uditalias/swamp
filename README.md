@@ -41,7 +41,7 @@ Use the `swamp` command line tool to create and run your swamp
          -u, --up                  startup the swamp with the cwd `Swampfile.js`
          -r, --reload              reload the current running swamp (will restart as a daemon)
          -d, --daemon              start the swamp as a daemon with the cwd `Swampfile.js`
-         -k, --kill                stop the current cwd running swamp
+         -H, --halt                halt the current cwd running swamp
          -s, --status              see the current cwd swamp status
          -C, --cli                 connect to the current cwd swamp using the swamp cli
          --start <service_name>    start the given service
