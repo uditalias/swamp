@@ -39,5 +39,8 @@
       "grunt": "^0.4.4",
       "chai": "^1.9.1",
       "grunt-mocha-test": "^0.10.2"
-  }
+  },
+  "keywords": [
+      "swamp", "service runner", "services", "processes", "monitor", "dashboard"
+  ]
 }
