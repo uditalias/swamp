@@ -37,6 +37,8 @@ module.exports.executeCommand = function(command, service_name) {
             case 'stateall':
                 _stateAllServices();
                 break;
+            case 'dashboard':
+                _openDashboard();
         }
 
     });
@@ -141,5 +143,11 @@ function _restartAllServices() {
 function _stateAllServices() {
 
     _broadcast({ event: 'swamp.stateAll' });
+
+}
+
+function _openDashboard() {
+
+    _broadcast({ event: 'swamp.dashboard' });
 
 }

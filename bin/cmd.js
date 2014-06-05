@@ -374,6 +374,20 @@ module.exports.cli = function() {
 
 }
 
+module.exports.dashboard = function() {
+
+    if(_isSwampfileExist()) {
+
+        _isSwampRunning()
+            .then(function() {
+
+                _executeBashCommand('dashboard');
+
+            })
+            .fail(_swampNotRunningMessage);
+    }
+}
+
 module.exports.state = function(service_name) {
     service_name = service_name[0];
 

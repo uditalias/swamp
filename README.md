@@ -44,6 +44,7 @@ Use the `swamp` command line tool to create and run your swamp
          -H, --halt                halt the current cwd running swamp
          -s, --status              see the current cwd swamp status
          -C, --cli                 connect to the current cwd swamp using the swamp cli
+         -D, --dashboard           open the Swamp Dashboard in your default browser
          --start <service_name>    start the given service
          --stop <service_name>     stop the given service
          --restart <service_name>  restart the given service

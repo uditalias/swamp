@@ -20,6 +20,8 @@ program
 
     .option('-C, --cli', 'connect to the current cwd swamp using the swamp cli', cmd.cli)
 
+    .option('-D, --dashboard', 'open the Swamp Dashboard in your default browser', cmd.dashboard)
+
     .option('--start <service_name>', 'start the given service', cmd.start)
 
     .option('--stop <service_name>', 'stop the given service', cmd.stop)
