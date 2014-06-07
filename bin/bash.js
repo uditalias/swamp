@@ -5,10 +5,13 @@ var net                     = require('net'),
     CLI_UNIX_SOCKET_FILE    = "swamp_cli.sock",
     END_DELIMITER           = "[=!=SWAMP_DATA_END=!=]";
 
-var conn    = null,
-    buffer  = '';
+var conn        = null,
+    buffer      = '',
+    _deferred   = null;
 
-module.exports.executeCommand = function(command, service_name) {
+module.exports.executeCommand = function(deferred, command, service_name) {
+
+    _deferred = deferred;
 
     _initializeSocketConnection(function() {
 
@@ -39,6 +42,10 @@ module.exports.executeCommand = function(command, service_name) {
                 break;
             case 'dashboard':
                 _openDashboard();
+                break;
+            case 'halt':
+                _haltSwamp();
+                break;
         }
 
     });
@@ -89,11 +96,21 @@ function _onSocketData(data) {
 
 function _processData(data) {
 
-    if(data.data.type == 'none') {
-        console.log('* ' + data.data.msg);
-    } else {
-        console.log(('* ' + data.data.msg)[data.data.type == 'error' ? 'red' : 'green']);
+    if(data.data.msg) {
+
+        if(data.data.type == 'none') {
+
+            console.log('* ' + data.data.msg);
+
+        } else {
+
+            console.log(('* ' + data.data.msg)[data.data.type == 'error' ? 'red' : 'green']);
+
+        }
+
     }
+
+    _deferred && _deferred.resolve(data);
 
     conn.end();
 }
@@ -149,5 +166,11 @@ function _stateAllServices() {
 function _openDashboard() {
 
     _broadcast({ event: 'swamp.dashboard' });
+
+}
+
+function _haltSwamp() {
+
+    _broadcast({ event: 'swamp.halt' });
 
 }

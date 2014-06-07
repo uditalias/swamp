@@ -18,16 +18,20 @@ var SWAMP_FILE_NAME     = 'Swampfile.js',
 
 function _executeBashCommand(command, service_name) {
 
+    var deferred = Q.defer();
+
     if(_isSwampfileExist()) {
 
         _isSwampRunning()
             .then(function() {
 
-                bash.executeCommand(command, service_name);
+                bash.executeCommand(deferred, command, service_name);
 
             })
             .fail(_swampNotRunningMessage);
     }
+
+    return deferred.promise;
 }
 
 function _swampNotRunningMessage() {
@@ -296,22 +300,13 @@ module.exports.halt = function() {
                 utils.log('* halting swamp...', utils.LOG_TYPE.INFO);
 
                 // halt the swamp process
-                process.kill(pid, 'SIGTERM');
-
-                // remove the PID file
-                if(npid.remove(PID_FILE)) {
+                _executeBashCommand('halt').then(function() {
 
                     utils.log('* done.', utils.LOG_TYPE.SUCCESS);
 
                     deferred.resolve();
 
-                } else {
-
-                    _swampNotRunningMessage();
-
-                    deferred.reject();
-
-                }
+                });
 
             })
 
