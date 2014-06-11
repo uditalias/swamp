@@ -2,19 +2,19 @@
 <br/>
 [![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png?theme=shields.io)](https://david-dm.org/uditalias/swamp)
 
-Swamp is the tool for running, managing and monitoring multiple node.js services. jump in!
+Swamp is the tool for running, managing and monitoring processes. jump in!
 
 
 ##Features
 
-* Run any Node.JS, Python, Ruby and other services
-* Keep services running again and again(...) automatically when they crash
+* Run any Node.JS, Python, Ruby and other processes
+* Keep processes running again and again(...) automatically when they crash
 * Swamp logs everything!
 * Manage global environments and environments variables
-* Manage environments and environments variables for each service
-* Monitor CPU and Memory usage of each service
+* Manage environments and environments variables for each process
+* Monitor CPU and Memory usage of each process
 * Fully featured real-time Web Dashboard to control everything in the Swamp
-* CLI to control swamp services from the shell
+* CLI to control Swamp processes from the shell
 * Full REST API for hooking and receiving Swamp data - **Coming soon!**
 
 - - -
@@ -33,23 +33,26 @@ Use the `swamp` command line tool to create and run your swamp
 
      Usage: swamp [options]
 
-     Options:
+       Options:
 
-       -h, --help                output usage information
-       -V, --version             output the version number
-       -c, --create              creates a bootstrap `Swampfile.js` in the cwd
-       -u, --up                  startup the swamp with the cwd `Swampfile.js`
-       -r, --reload              reload the current running swamp (will restart as a daemon)
-       -d, --daemon              start the swamp as a daemon with the cwd `Swampfile.js`
-       -k, --kill                stop the current cwd running swamp
-       -s, --status              see the current cwd swamp status
-       -C, --cli                 connect to swamp cli
-       --stop <service_name>     stop the given service
-       --start <service_name>    start the given service
-       --restart <service_name>  restart the given service
-       --startall                start all swamp services
-       --stopall                 stop all swamp services
-       --restartall              restart all swamp services
+         -h, --help                output usage information
+         -V, --version             output the version number
+         -c, --create              creates a bootstrap `Swampfile.js` in the cwd
+         -u, --up                  startup the swamp with the cwd `Swampfile.js`
+         -r, --reload              reload the current running swamp (will restart as a daemon)
+         -d, --daemon              start the swamp as a daemon with the cwd `Swampfile.js`
+         -H, --halt                halt the current cwd running swamp
+         -s, --status              see the current cwd swamp status
+         -C, --cli                 connect to the current cwd swamp using the swamp cli
+         -D, --dashboard           open the Swamp Dashboard in your default browser
+         --start <service_name>    start the given service
+         --stop <service_name>     stop the given service
+         --restart <service_name>  restart the given service
+         --state <service_name>    see the given service state
+         --startall                start all swamp services
+         --stopall                 stop all swamp services
+         --restartall              restart all swamp services
+         --stateall                see all swamp services state
 
 ```
 
@@ -292,7 +295,7 @@ Example:
 
 Type: `Array` Default: `[]`
 
-Each nodejs server in your swamp called `service`, services are the way to tell Swamp how to run your servers.
+Each application in your swamp called `service`, services are the way to tell Swamp how to run your servers.
 
 You can configure many services as you want, the services object is an array of json objects, the service will run based in their order in the array, each service can be configure using this options:
 
@@ -358,6 +361,8 @@ Type: `String` Default: `""`
 This field is mandatory only if the `options.autorun` is set to `true`
 
 #####options.restartOnChange
+
+***UNSTABLE***
 
 Type: `Boolean|Array` Default: `false`
 

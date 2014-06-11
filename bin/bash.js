@@ -5,10 +5,13 @@ var net                     = require('net'),
     CLI_UNIX_SOCKET_FILE    = "swamp_cli.sock",
     END_DELIMITER           = "[=!=SWAMP_DATA_END=!=]";
 
-var conn    = null,
-    buffer  = '';
+var conn        = null,
+    buffer      = '',
+    _deferred   = null;
 
-module.exports.executeCommand = function(command, service_name) {
+module.exports.executeCommand = function(deferred, command, service_name) {
+
+    _deferred = deferred;
 
     _initializeSocketConnection(function() {
 
@@ -22,6 +25,9 @@ module.exports.executeCommand = function(command, service_name) {
             case 'restart':
                 _restartService(service_name);
                 break;
+            case 'state':
+                _serviceState(service_name);
+                break;
             case 'startall':
                 _startAllServices();
                 break;
@@ -30,6 +36,15 @@ module.exports.executeCommand = function(command, service_name) {
                 break;
             case 'restartall':
                 _restartAllServices();
+                break;
+            case 'stateall':
+                _stateAllServices();
+                break;
+            case 'dashboard':
+                _openDashboard();
+                break;
+            case 'halt':
+                _haltSwamp();
                 break;
         }
 
@@ -80,7 +95,22 @@ function _onSocketData(data) {
 }
 
 function _processData(data) {
-    console.log(('* ' + data.data.msg)[data.data.type == 'error' ? 'red' : 'green']);
+
+    if(data.data.msg) {
+
+        if(data.data.type == 'none') {
+
+            console.log('* ' + data.data.msg);
+
+        } else {
+
+            console.log(('* ' + data.data.msg)[data.data.type == 'error' ? 'red' : 'green']);
+
+        }
+
+    }
+
+    _deferred && _deferred.resolve(data);
 
     conn.end();
 }
@@ -94,6 +124,12 @@ function _startService(service_name) {
 function _restartService(service_name) {
 
     _broadcast({ event: 'service.restart', data: service_name });
+
+}
+
+function _serviceState(service_name) {
+
+    _broadcast({ event: 'service.state', data: service_name });
 
 }
 
@@ -118,5 +154,23 @@ function _stopAllServices() {
 function _restartAllServices() {
 
     _broadcast({ event: 'swamp.restartAllRunning' });
+
+}
+
+function _stateAllServices() {
+
+    _broadcast({ event: 'swamp.stateAll' });
+
+}
+
+function _openDashboard() {
+
+    _broadcast({ event: 'swamp.dashboard' });
+
+}
+
+function _haltSwamp() {
+
+    _broadcast({ event: 'swamp.halt' });
 
 }

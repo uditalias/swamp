@@ -18,16 +18,20 @@ var SWAMP_FILE_NAME     = 'Swampfile.js',
 
 function _executeBashCommand(command, service_name) {
 
+    var deferred = Q.defer();
+
     if(_isSwampfileExist()) {
 
         _isSwampRunning()
             .then(function() {
 
-                bash.executeCommand(command, service_name);
+                bash.executeCommand(deferred, command, service_name);
 
             })
             .fail(_swampNotRunningMessage);
     }
+
+    return deferred.promise;
 }
 
 function _swampNotRunningMessage() {
@@ -223,7 +227,7 @@ module.exports.reload = function() {
 
     utils.log('* reloading swamp...', utils.LOG_TYPE.INFO);
 
-    module.exports.kill()
+    module.exports.halt()
 
         .then(function() {
 
@@ -280,7 +284,7 @@ module.exports.daemon = function() {
 
 }
 
-module.exports.kill = function() {
+module.exports.halt = function() {
 
     var deferred = Q.defer();
 
@@ -293,25 +297,16 @@ module.exports.kill = function() {
         _isSwampRunning()
             .then(function(pid) {
 
-                utils.log('* killing swamp...', utils.LOG_TYPE.INFO);
+                utils.log('* halting swamp...', utils.LOG_TYPE.INFO);
 
-                // kill the swamp process
-                process.kill(pid, 'SIGTERM');
-
-                // remove the PID file
-                if(npid.remove(PID_FILE)) {
+                // halt the swamp process
+                _executeBashCommand('halt').then(function() {
 
                     utils.log('* done.', utils.LOG_TYPE.SUCCESS);
 
                     deferred.resolve();
 
-                } else {
-
-                    _swampNotRunningMessage();
-
-                    deferred.reject();
-
-                }
+                });
 
             })
 
@@ -374,6 +369,31 @@ module.exports.cli = function() {
 
 }
 
+module.exports.dashboard = function() {
+
+    if(_isSwampfileExist()) {
+
+        _isSwampRunning()
+            .then(function() {
+
+                _executeBashCommand('dashboard');
+
+            })
+            .fail(_swampNotRunningMessage);
+    }
+}
+
+module.exports.state = function(service_name) {
+    service_name = service_name[0];
+
+    if(!service_name) {
+        _serviceNotProvided('state');
+        return false;
+    }
+
+    _executeBashCommand('state', service_name);
+}
+
 module.exports.stop = function(service_name) {
     service_name = service_name[0];
 
@@ -422,5 +442,11 @@ module.exports.stopall = function() {
 module.exports.restartall = function() {
 
     _executeBashCommand('restartall');
+
+}
+
+module.exports.stateall = function() {
+
+    _executeBashCommand('stateall');
 
 }

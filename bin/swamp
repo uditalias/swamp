@@ -14,11 +14,13 @@ program
 
     .option('-d, --daemon', 'start the swamp as a daemon with the cwd `Swampfile.js`', cmd.daemon)
 
-    .option('-k, --kill', 'stop the current cwd running swamp', cmd.kill)
+    .option('-H, --halt', 'halt the current cwd running swamp', cmd.halt)
 
     .option('-s, --status', 'see the current cwd swamp status', cmd.status)
 
     .option('-C, --cli', 'connect to the current cwd swamp using the swamp cli', cmd.cli)
+
+    .option('-D, --dashboard', 'open the Swamp Dashboard in your default browser', cmd.dashboard)
 
     .option('--start <service_name>', 'start the given service', cmd.start)
 
@@ -26,10 +28,14 @@ program
 
     .option('--restart <service_name>', 'restart the given service', cmd.restart)
 
+    .option('--state <service_name>', 'see the given service state', cmd.state)
+
     .option('--startall', 'start all swamp services', cmd.startall)
 
     .option('--stopall', 'stop all swamp services', cmd.stopall)
 
     .option('--restartall', 'restart all swamp services', cmd.restartall)
+
+    .option('--stateall', 'see all swamp services state', cmd.stateall)
 
     .parse(process.argv);

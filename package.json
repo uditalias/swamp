@@ -1,7 +1,7 @@
 {
   "name": "swamp",
-  "description": "Swamp is the tool for running and managing multiple node.js services in one place. jump in!",
-  "version": "0.0.4",
+  "description": "Swamp is the tool for running, managing and monitoring processes. jump in!",
+  "version": "0.0.6",
   "author": "Udi Talias",
   "repository": {
     "type": "git",
@@ -39,5 +39,8 @@
       "grunt": "^0.4.4",
       "chai": "^1.9.1",
       "grunt-mocha-test": "^0.10.2"
-  }
+  },
+  "keywords": [
+      "swamp", "service runner", "services", "processes", "monitor", "dashboard"
+  ]
 }
