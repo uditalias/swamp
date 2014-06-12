@@ -2,7 +2,7 @@
 <br/>
 [![Npm Version](http://img.shields.io/npm/v/swamp.svg?style=flat)](https://www.npmjs.org/package/swamp)
 [![Build Status](http://img.shields.io/travis/uditalias/swamp.svg?style=flat)](https://travis-ci.org/uditalias/swamp)
-[![Downloads Status](http://img.shields.io/npm/dm/swamp.svg?style=flat)](https://travis-ci.org/uditalias/swamp)
+[![Downloads Status](http://img.shields.io/npm/dm/swamp.svg?style=flat)](https://www.npmjs.org/package/swamp)
 
 Swamp is the tool for running, managing and monitoring processes. jump in!
 
