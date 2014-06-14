@@ -25,14 +25,17 @@ Swamp is a tool for running, managing and monitoring processes. jump in!
 We built **Swamp** because we were frustrated with supervisor: ancient dashboard, having to manually reload the supervisor service when we had an ENV or code change and low visibility to logs and basic monitoring data, especially important when you are doing fast development cycles on a multi processes app. 
 
 **Swamp** is still an alpha project, but is already used in some production servers and is quickly moving to stable status.
+
+**Swamp** is built with [Appolo](https://github.com/shmoop207/appolo) a modern Node.js app framework, the dashboard is build with [Angular.js](https://github.com/angular/angular.js) . Want to contribute? see the Contributing section further on.
 - - -
+
 ## Install
 
 ```sh
 $ [sudo] npm install -g swamp
-```view
+```
 
-## Swamp command options
+## Usage: Swamp command options
 
 Use the `swamp` command line tool to create and run your swamp
 
@@ -97,6 +100,13 @@ $ swamp create
 ```
 The `$ swamp create` command will create a Swamp bootstrap project inside `myProject` folder.
 
+## Updating Swamp
+
+Updating an already installed Swamp:
+
+```sh
+$ sudo npm update -g swamp
+```
 
 ## Configure your Swamp
 
