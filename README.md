@@ -2,27 +2,31 @@
 <br/>
 [![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png?theme=shields.io)](https://david-dm.org/uditalias/swamp)
 
-Swamp is the tool for running, managing and monitoring processes. jump in!
+Swamp is a tool for running, managing and monitoring processes. jump in!
 
 
 ##Features
 
-* Run any Node.JS, Python, Ruby and other processes
-* Keep processes running again and again(...) automatically when they crash
-* Swamp logs everything!
-* Manage global environments and environments variables
-* Manage environments and environments variables for each process
+* Run, monitor, keep alive and control multiple Node.js, Python, Ruby, Go, etc.. programs.
+* Maintain process uptime: keep your processes running again and again(...) automatically when they crash.
+* Great visibility into your processes logs. Including **live streaming** of STDERR and STDOUT logs into the dashboard, log rotation, etc.
+* Reload processes on code change (optional) - based on watching file/folder patterns.
+* Manage applications environments and environments variables for each process, with full visibility what environment and environment variable are currently in use, **Live editing and adding of enviroment variables**
 * Monitor CPU and Memory usage of each process
-* Fully featured real-time Web Dashboard to control everything in the Swamp
-* CLI to control Swamp processes from the shell
+* Fully featured **real-time Web Dashboard** to control everything in the Swamp (No more supervisor "hit F5" frustration)
+* Fully fledged CLI to control Swamp processes from the shell
 * Full REST API for hooking and receiving Swamp data - **Coming soon!**
 
+##Why Swamp
+
+We built **Swamp** because we were frustrated with supervisor: ancient dashboard, having to manually reload the supervisor service when we had an ENV or code change and low visibility to logs, especially important when you are doing fast development cycles on a multi processes up
+**Swamp** is still an alpha project, but is already used in some production servers and is quickly moving to stable status.
 - - -
 ## Install
 
 ```sh
 $ [sudo] npm install -g swamp
-```
+```view
 
 ## Swamp command options
 
@@ -253,7 +257,7 @@ You can config global environments in your swamp for easy environment params sha
 
 Example:
 ```javascript
-{
+
   environments: [
     {
       name: "staging",
@@ -279,7 +283,7 @@ Config UnixSocket files for internal process communications. The array will acce
 
 Example:
 ```javascript
-{
+
   unix_sockets: [
     {
         file: '/path/to/unix/socket.sock',
@@ -297,7 +301,7 @@ Type: `Array` Default: `[]`
 
 Each application in your swamp called `service`, services are the way to tell Swamp how to run your servers.
 
-You can configure many services as you want, the services object is an array of json objects, the service will run based in their order in the array, each service can be configure using this options:
+You can configure many services as you want, the services object is an array of JSON objects, the service will run based in their order in the array, each service can be configure using this options:
 
 #####name
 
@@ -531,8 +535,10 @@ For example:
 
 ## Contribute to the Swamp Dashboard project
 
-Contributors who wants to contribute to the Swamp dashboard can clone the project:
+`$ git clone git@github.com:uditalias/swamp.git`
 
+Contributors who wants to contribute to the **Swamp dashboard** (separated in a different project) should also clone the dashboard project:
+ =
 `$ git clone git@github.com:uditalias/swamp-dashboard.git`
 
 Both the Swamp and the Swamp-dashboard projects should be exist in the same directory, for example:
@@ -555,4 +561,4 @@ this will build the dashboard, copy it to the `swamp` project, `git add` and `gi
 
 Copyright (c) 2014 Udi Talias
 
-Licensed under the MIT License
+Licensed under the MIT License (Basically - do anything you want license). See [License](LICENSE) for more details.
