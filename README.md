@@ -1,6 +1,8 @@
 <img src="https://raw.githubusercontent.com/uditalias/swamp/master/config/assets/swamp_logo.png?rev=4" />
 <br/>
-[![Build Status](https://travis-ci.org/uditalias/swamp.png?branch=master)](https://travis-ci.org/uditalias/swamp) [![Dependencies status](https://david-dm.org/uditalias/swamp.png?theme=shields.io)](https://david-dm.org/uditalias/swamp)
+[![Npm Version](http://img.shields.io/npm/v/swamp.svg?style=flat)](https://www.npmjs.org/package/swamp)
+[![Build Status](http://img.shields.io/travis/uditalias/swamp.svg?style=flat)](https://travis-ci.org/uditalias/swamp)
+[![Downloads Status](http://img.shields.io/npm/dm/swamp.svg?style=flat)](https://www.npmjs.org/package/swamp)
 
 Swamp is a tool for running, managing and monitoring processes. jump in!
 

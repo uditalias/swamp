@@ -1,7 +1,7 @@
 {
   "name": "swamp",
   "description": "Swamp is the tool for running, managing and monitoring processes. jump in!",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Udi Talias",
   "repository": {
     "type": "git",
