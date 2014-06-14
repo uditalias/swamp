@@ -16,6 +16,7 @@ Swamp is a tool for running, managing and monitoring processes. jump in!
 * Manage applications environments and environments variables for each process, with full visibility what environment and environment variable are currently in use, **Live editing and adding of enviroment variables**
 * Monitor CPU and Memory usage of each process
 * Fully featured **real-time Web Dashboard** to control everything in the Swamp (No more supervisor "hit F5" frustration)
+* Convenience features for common process supervising tasks such as "restart only running services".
 * Fully fledged CLI to control Swamp processes from the shell
 * Full REST API for hooking and receiving Swamp data - **Coming soon!**
 
