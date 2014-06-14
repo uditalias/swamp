@@ -19,7 +19,8 @@ Swamp is a tool for running, managing and monitoring processes. jump in!
 
 ##Why Swamp
 
-We built **Swamp** because we were frustrated with supervisor: ancient dashboard, having to manually reload the supervisor service when we had an ENV or code change and low visibility to logs, especially important when you are doing fast development cycles on a multi processes up
+We built **Swamp** because we were frustrated with supervisor: ancient dashboard, having to manually reload the supervisor service when we had an ENV or code change and low visibility to logs and basic monitoring data, especially important when you are doing fast development cycles on a multi processes app. 
+
 **Swamp** is still an alpha project, but is already used in some production servers and is quickly moving to stable status.
 - - -
 ## Install
