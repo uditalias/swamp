@@ -48,17 +48,19 @@ module.exports.executeCommand = function(deferred, command, service_name) {
                 break;
         }
 
-    });
+    }, command);
 
 }
 
-function _initializeSocketConnection(onConnect) {
+function _initializeSocketConnection(onConnect, command) {
 
     conn = net.createConnection(CLI_UNIX_SOCKET_FILE);
 
     conn.on('connect', onConnect);
 
     conn.on('data', _onSocketData);
+
+    conn.on('error', _onSocketError.bind(null, command));
 }
 
 function _broadcast(data) {
@@ -68,6 +70,16 @@ function _broadcast(data) {
         conn.write(JSON.stringify(data));
 
     }
+}
+
+function _onSocketError(command, err) {
+
+    console.log(('* error executing `' + command + '`: ' + err.toString())['red']);
+
+    console.log('* zombie process may still be alive'['red']);
+
+    _deferred.reject(err);
+
 }
 
 function _onSocketData(data) {

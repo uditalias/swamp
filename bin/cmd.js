@@ -306,6 +306,12 @@ module.exports.halt = function() {
 
                     deferred.resolve();
 
+                }).fail(function(err) {
+
+                    process.kill(pid);
+
+                    npid.remove(PID_FILE);
+
                 });
 
             })
