@@ -33,7 +33,15 @@ We built **Swamp** because we were frustrated with supervisor: ancient dashboard
 ## Install
 
 ```sh
-$ [sudo] npm install -g swamp
+$ sudo npm install -g swamp
+```
+
+## Updating Swamp
+
+Updating an already installed Swamp:
+
+```sh
+$ sudo npm update -g swamp
 ```
 
 ## Usage: Swamp command options
@@ -100,14 +108,6 @@ $ cd myProject
 $ swamp create
 ```
 The `$ swamp create` command will create a Swamp bootstrap project inside `myProject` folder.
-
-## Updating Swamp
-
-Updating an already installed Swamp:
-
-```sh
-$ sudo npm update -g swamp
-```
 
 ## Configure your Swamp
 
