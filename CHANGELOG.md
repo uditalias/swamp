@@ -1,7 +1,7 @@
 [0.0.7](https://github.com/uditalias/swamp/releases/tag/0.0.7)
-* Feature: Added search in logs - #8
-* Feature: Added ability to choose which log panels are displayed - #13
-* Bug Fix: When stopping or starting a process few times too quickly, the swamp crashes - #14
+* Feature: Added search in logs - Issue #8
+* Feature: Added ability to choose which log panels are displayed - Issue #13
+* Bug Fix: When stopping or starting a process few times too quickly, the swamp crashes - Issue #14
 
 [0.0.6](https://github.com/uditalias/swamp/releases/tag/0.0.6)
 * Change: Swamp -k, --kill changed to -H, --halt
