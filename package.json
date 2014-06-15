@@ -1,8 +1,17 @@
 {
   "name": "swamp",
-  "description": "Swamp is the tool for running, managing and monitoring processes. jump in!",
+  "description": "Swamp is a tool for running, managing and monitoring processes. jump in!",
   "version": "0.0.7",
-  "author": "Udi Talias",
+  "author": {
+      "name": "Udi Talias",
+      "email": "udi.talias@gmail.com",
+      "url": "https://github.com/uditalias"
+  },
+  "contributors": [{
+      "name": "Alon Nisser",
+      "email": "alonisser@gmail.com",
+      "url": "https://github.com/alonisser"
+  }],
   "repository": {
     "type": "git",
     "url": "https://github.com/uditalias/swamp.git"
