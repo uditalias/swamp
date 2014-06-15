@@ -1,0 +1,11 @@
+[Unit]
+Description=swamp services management service
+After=syslog.target
+
+[Service]
+Type=forking
+#Type=simple
+ExecStart=/usr/bin/swamp
+
+[Install]
+WantedBy=multi-user.target
