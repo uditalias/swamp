@@ -67,3 +67,10 @@ function _unhumanizeSize(text) {
 }
 
 _.mixin({ 'unhumanizeSize': _unhumanizeSize });
+
+
+function _guid(){
+    return ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).substr(-4);
+}
+
+_.mixin({ 'guid': _guid});
