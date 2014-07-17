@@ -73,6 +73,9 @@ Use the `swamp` command line tool to create and run your swamp
          --stopall                 stop all swamp services
          --restartall              restart all swamp services
          --stateall                see all swamp services state
+         -p, --path <swamp_path>   set the swamp path [cwd]
+         			               Important! use this option before any other option.
+         			               e.g. `$ swamp -p ~/swamp_path --status`
 
 ```
 
@@ -184,7 +187,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
 
 ## Usage and Configurations
 
-Once the `swamp` command executes in the folder where the `Swampfile.js` is located, it will initialize and run your configurations, after that you can access your swamp dashboard from your browser (default: http://localhost:2121/).
+Once the `swamp` command executes in the folder where the `Swampfile.js` is located, it will initialize and run your configurations, another way is to use the `-p, --path` option to set the `Swampfile.js` location (see the [usage](#usage-swamp-command-options) section), after that you can access your swamp dashboard from your browser (default: http://localhost:2121/).
  
 The `Swampfile.js` exports a function as a node module, this function receives the Swamp as a parameter which your can config with the `swamp.config({ ... })` function which receives a configuration object.
 
