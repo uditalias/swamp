@@ -1,3 +1,9 @@
+[0.0.8](https://github.com/uditalias/swamp/releases/tag/0.0.8)
+* Feature: Specify a config file to use from the cli - Issue #5
+* Feature: Add links to full logs download - Issue #16
+* Feature: Added context menus to services in dashboard
+* Bug Fixes
+
 [0.0.7](https://github.com/uditalias/swamp/releases/tag/0.0.7)
 * Feature: Added search in logs - Issue #8
 * Feature: Added ability to choose which log panels are displayed - Issue #13
@@ -5,14 +11,13 @@
 
 [0.0.6](https://github.com/uditalias/swamp/releases/tag/0.0.6)
 * Change: Swamp -k, --kill changed to -H, --halt
-* Feature: Clear all logs button
+* Feature: Clear all logs button in Dashboard
 * Feature: Added Environments Editor - Modify service environments from dashboard at runtime
 * Feature: Added the option to open the dashboard from the cli. ($ swamp -D or $ swamp --dashboard)
 * Bug Fix: When halting swamp, now waiting to the processes to exit
 * Bug Fix: Memory leak in dashboard
 * Performance: Don't send monitor (cpu/memory) logs when data didn't changed
 * Performance: Don't send monitor data if options for monitor are disabled
-
 
 [0.0.5](https://github.com/uditalias/swamp/releases/tag/0.0.5)
 * Feature: Pause logs option added to dashboard
