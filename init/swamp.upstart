@@ -1,0 +1,13 @@
+description "swamp - run, manage, and monitor processes"
+
+start on filesystem
+stop on runlevel [016] or unmounting-filesystem
+
+env RUNDIR=/etc/swamp
+
+pre-start script
+	test -e $RUNDIR/Swampfile.js || { echo "Not starting, swamp not configured."; stop; exit 0; }
+end script
+
+respawn
+exec swamp --path $RUNDIR --up
