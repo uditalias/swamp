@@ -1,0 +1,102 @@
+<div class="container margin-bottom-100">
+
+    <div class="flex-md">
+        <div class="flex-1 margin-right-50 margin-top-60">
+            <h1 class="color-logo-brown text-26">Why using a service runner?</h1>
+            <div class="text-16">
+                <div class="margin-bottom-10">
+                    When developing for the web with node.js, python, ruby etc. most of the time our application uses many services (e.g. web server, socket server, REST api...), everytime we are starting to develop we need to initialize each service separately, if we updates one service, we need to restart it, if we want to change the ENV, we need to restart it, if we want it to run forever and run again just after it’s crash, we need to do it manually,
+                    not mentioning the logging overview of our services.. a task which can be very frustrated.
+                </div>
+                <div>
+                    Swamp to the rescue! with Swamp you can do all of the above and lots of more automatically and in a very convenient way! you can still use your favorite services like Grunt and Bower without any problem.
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 margin-top-60">
+            <h1 class="color-logo-brown text-26">Why Swamp?</h1>
+            <div class="text-16">
+                <div class="margin-bottom-10">
+                    We built Swamp because we were frustrated with supervisor and others: ancient dashboard, having to manually reload the supervisor service when we had an ENV or code change and low visibility to logs and basic monitoring data, especially important when you are doing fast development cycles on a multi processes app.
+                </div>
+
+                <div class="margin-bottom-10">
+                    Swamp is still an alpha project, but is already used in some production servers and is quickly moving to stable status.
+                </div>
+
+                <div class="margin-bottom-10">
+                    Swamp is built with Appolo a modern Node.js app framework, the dashboard is build with Angular.js . Want to contribute? see the Contributing section further on.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="flex-md margin-top-40">
+        <div class="flex-1">
+            <h1 class="color-logo-brown text-32 w400"><a name="getting-started">Getting Started</a></h1>
+        </div>
+    </div>
+
+    <div class="flex-md margin-top-20">
+        <div class="flex-1 margin-right-50">
+            <div class="text-20 w400 margin-bottom-10">Install Swamp</div>
+            <div class="text-16">
+                Swamp is a command-line tool, install it via NPM.
+            </div>
+        </div>
+
+        <div class="flex-1">
+
+            <sw-terminal>
+                <pre class="padding-top-20 padding-bottom-20">$ npm install -g swamp</pre>
+            </sw-terminal>
+
+        </div>
+    </div>
+
+    <div class="flex-md margin-top-30">
+        <div class="flex-1 margin-right-50">
+            <div class="text-20 w400 margin-bottom-10">Creating your first Swamp</div>
+            <div class="text-16 margin-bottom-10">
+                Lets create your first swamp, first, create a new directory
+                where your swamp will be located.
+            </div>
+            <div class="text-16">
+                Then use the <span class="code">create</span> command to create a <span class="code">Swampfile.js</span> skeleton.
+            </div>
+        </div>
+
+        <div class="flex-1">
+
+            <sw-terminal>
+                <pre class="padding-top-20"><code>$ mkdir ~/myswamp</code></pre>
+                <pre class="">$ cd ~/myswamp</pre>
+                <pre class="padding-bottom-20">$ swamp create</pre>
+            </sw-terminal>
+
+        </div>
+    </div>
+
+    <div class="flex-md margin-top-30">
+        <div class="flex-1 margin-right-50">
+            <div class="text-20 w400 margin-bottom-10">Done! Configure the <span class="code">Swampfile.js</span></div>
+            <div class="text-16 margin-bottom-10">
+                The <span class="code">Swampfile.js</span> created and now you can follow the <a ui-sref="docs">docs</a> to learn how to config your services.
+            </div>
+            <div class="text-16 margin-bottom-10">
+                Also, you can use the <span class="code">$ swamp --help</span> to learn more about the <a ui-sref="cli">Swamp CLI</a> options.
+            </div>
+        </div>
+
+        <div class="flex-1">
+
+            <sw-terminal>
+                <pre class="padding-top-20 padding-bottom-20"><code class="html">$ swamp --help</code></pre>
+            </sw-terminal>
+
+        </div>
+    </div>
+
+</div>

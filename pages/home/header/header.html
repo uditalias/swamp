@@ -1,0 +1,80 @@
+<sw-full-screen class="flex home-header position-relative" min-height="900">
+
+    <div class="container flex flex-vbox padding-bottom-100">
+
+        <div class="home-title text-center flex-1 flex flex-vbox flex-pack-center flex-align-center">
+
+            <div class="margin-top-100">
+                <img src="assets/images/swamp_logo.png" />
+            </div>
+
+            <h2 class="text-70 w700">The Service Runner</h2>
+            <h3 class="margin-top-10 margin-bottom-70 text-22">
+                Swamp is a tool for running, managing and
+                monitoring processes.
+            </h3>
+
+            <div class="flex-md width-max">
+                <div class="flex-1"></div>
+                <button class="btn btn-primary flex-md margin-bottom-20 margin-right-10 margin-left-10"><span class="text-24"><i class="fa fa-download margin-right-10"></i>Download &beta;eta</span></button>
+                <button class="btn btn flex-md margin-bottom-20 margin-right-10 margin-left-10" ng-click="goToAnchor('getting-started')"><span class="text-24">Get Started</span></button>
+                <div class="flex-1"></div>
+            </div>
+
+            <div class="color-white text-14 opacity-50" ng-show="package.version">
+
+                &mdash; v{{package.version}} &mdash;
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="home-header-footer padding-10">
+
+        <div class="container height-max flex flex-align-center flex-pack-center">
+
+            <div class="flex-1 hidden-sm hidden-xs">
+                <span class="margin-right-10">
+                    <a href="https://www.npmjs.org/package/swamp" target="_blank">
+                        <img src="http://img.shields.io/npm/v/swamp.svg?style=flat" />
+                    </a>
+                </span>
+
+                <span class="margin-right-10">
+                    <a href="https://travis-ci.org/uditalias/swamp" target="_blank">
+                        <img src="http://img.shields.io/travis/uditalias/swamp.svg?style=flat" />
+                    </a>
+                </span>
+
+                <span class="margin-right-10">
+                    <a href="https://www.npmjs.org/package/swamp" target="_blank">
+                        <img src="http://img.shields.io/npm/dm/swamp.svg?style=flat" />
+                    </a>
+                </span>
+
+                <span>
+                    <a href="https://www.gittip.com/uditalias" target="_blank">
+                        <img src="http://img.shields.io/gittip/uditalias.svg?style=flat" />
+                    </a>
+                </span>
+            </div>
+
+            <div class="flex color-white text-20">
+
+                <iframe src="http://ghbtns.com/github-btn.html?user=uditalias&repo=swamp&type=fork&count=false"
+                        allowtransparency="true" frameborder="0" scrolling="0" width="63" height="20"></iframe>
+
+                <iframe src="http://ghbtns.com/github-btn.html?user=uditalias&repo=swamp&type=watch&count=false"
+                        allowtransparency="true" frameborder="0" scrolling="0" width="50" height="20"></iframe>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</sw-full-screen>
+
+
