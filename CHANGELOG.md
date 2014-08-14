@@ -1,3 +1,6 @@
+[0.0.9](https://github.com/uditalias/swamp/releases/tag/0.0.9)
+* Bug Fix: fix major bug when running cli command too quickly after running daemon mode
+
 [0.0.8](https://github.com/uditalias/swamp/releases/tag/0.0.8)
 * Feature: Specify a config file to use from the cli - Issue #5
 * Feature: Add links to full logs download - Issue #16
