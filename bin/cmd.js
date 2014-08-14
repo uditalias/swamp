@@ -11,8 +11,11 @@ var _               = require('lodash'),
     program         = require('commander'),
     exec            = child_process.exec;
 
-var SWAMP_FILE_NAME     = 'Swampfile.js',
-    CLI_PATH            = '../cli/cli';
+var SWAMP_FILE_NAME         = 'Swampfile.js',
+    CLI_PATH                = '../cli/cli',
+    WAIT_FOR_PID_FILE_MAX_RETRIES   = 10,
+    WAIT_FOR_PID_FILE_INTERVAL      = 100;
+
 
 
 function _setBaseDir(dir) {
@@ -72,7 +75,8 @@ function _verifyProcessIdAsync(pid) {
 
     exec(verifyCommand, function(error, out, err) {
 
-        var valid = out && out.toLowerCase().indexOf('swamp') > -1;
+        var valid = out && (out.toLowerCase().indexOf('swamp') > -1 ||
+                            out.toLowerCase().indexOf('node') > -1);
 
         if(valid) {
             deferred.resolve();
@@ -157,26 +161,46 @@ function _isSwampRunning() {
         _verifyProcessIdAsync(pid)
 
             .then(function() {
-
                 deferred.resolve(pid);
-
             })
 
             .fail(function() {
-
                 _removePidFile();
-
                 deferred.reject();
 
             });
 
     } else {
-
         deferred.reject();
-
     }
 
     return deferred.promise;
+}
+
+function _waitForPIDFile(success, fail, retries) {
+
+    retries = retries || 1;
+
+    if(utils.fileExist(_getPIDFile())) {
+
+        success();
+
+    } else {
+
+        if(retries >= WAIT_FOR_PID_FILE_MAX_RETRIES) {
+
+            fail();
+
+        } else {
+
+            setTimeout(function() {
+
+                _waitForPIDFile(success, fail, retries++);
+
+            }, WAIT_FOR_PID_FILE_INTERVAL);
+
+        }
+    }
 }
 
 module.exports.create = function() {
@@ -259,8 +283,6 @@ module.exports.daemon = function() {
 
     var daemon_command = "nohup swamp up > /dev/null 2>&1 &";
 
-    utils.log('* running swamp...', utils.LOG_TYPE.INFO);
-
     _isSwampRunning()
         .then(function(pid) {
 
@@ -278,13 +300,24 @@ module.exports.daemon = function() {
 
             } else {
 
+                utils.log('* running swamp...', utils.LOG_TYPE.INFO);
+
                 // run swamp daemon
                 exec(daemon_command, function(err) {
+
                     if(!err) {
 
-                        utils.log('* done.', utils.LOG_TYPE.SUCCESS);
+                        _waitForPIDFile(function() {
 
-                        deferred.resolve();
+                            utils.log('* done.', utils.LOG_TYPE.SUCCESS);
+
+                            deferred.resolve();
+
+                        }, function() {
+
+                            deferred.reject();
+
+                        });
 
                     } else {
 

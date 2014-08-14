@@ -13,7 +13,7 @@ process.title = 'swamp ' + version;
 
 var swampConfRunner;
 
-module.exports = function(swampPath) {
+module.exports = function() {
 
     // looking for SWAMP_FILE_NAME
     var swampConfPath = path.resolve(process.cwd(), SWAMP_FILE_NAME);
