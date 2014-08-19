@@ -1,64 +1,111 @@
 "use strict";
 
-var net                     = require('net'),
-    colors                  = require('colors'),
-    CLI_UNIX_SOCKET_FILE    = "swamp_cli.sock",
-    END_DELIMITER           = "[=!=SWAMP_DATA_END=!=]";
+var net                             = require('net'),
+    colors                          = require('colors'),
+    utils                           = require('./helper'),
+    CLI_UNIX_SOCKET_FILE            = "swamp_cli.sock",
+    WAIT_FOR_SOCK_FILE_MAX_RETRIES  = 10,
+    WAIT_FOR_SOCK_FILE_INTERVAL     = 100,
+    END_DELIMITER                   = "[=!=SWAMP_DATA_END=!=]";
 
 var conn        = null,
     buffer      = '',
     _deferred   = null;
 
+function _getBaseDir() {
+    return process.cwd();
+}
+
+function _getSOCKFile() {
+    return _getBaseDir() + '/' + CLI_UNIX_SOCKET_FILE;
+}
+
+function _waitForSockFile(success, fail, retries) {
+
+    retries = retries || 1;
+
+    if(utils.fileExist(_getSOCKFile())) {
+
+        success();
+
+    } else {
+
+        if(retries >= WAIT_FOR_SOCK_FILE_MAX_RETRIES) {
+
+            fail();
+
+        } else {
+
+            setTimeout(function() {
+
+                _waitForSockFile(success, fail, retries++);
+
+            }, WAIT_FOR_SOCK_FILE_INTERVAL);
+
+        }
+    }
+}
+
 module.exports.executeCommand = function(deferred, command, service_name) {
 
     _deferred = deferred;
 
-    _initializeSocketConnection(function() {
+    _waitForSockFile(function() {
 
-        switch(command) {
-            case 'stop':
-                _stopService(service_name);
-                break;
-            case 'start':
-                _startService(service_name);
-                break;
-            case 'restart':
-                _restartService(service_name);
-                break;
-            case 'state':
-                _serviceState(service_name);
-                break;
-            case 'startall':
-                _startAllServices();
-                break;
-            case 'stopall':
-                _stopAllServices();
-                break;
-            case 'restartall':
-                _restartAllServices();
-                break;
-            case 'stateall':
-                _stateAllServices();
-                break;
-            case 'dashboard':
-                _openDashboard();
-                break;
-            case 'halt':
-                _haltSwamp();
-                break;
-        }
+        _initializeSocketConnection(function() {
+
+            switch(command) {
+                case 'stop':
+                    _stopService(service_name);
+                    break;
+                case 'start':
+                    _startService(service_name);
+                    break;
+                case 'restart':
+                    _restartService(service_name);
+                    break;
+                case 'state':
+                    _serviceState(service_name);
+                    break;
+                case 'startall':
+                    _startAllServices();
+                    break;
+                case 'stopall':
+                    _stopAllServices();
+                    break;
+                case 'restartall':
+                    _restartAllServices();
+                    break;
+                case 'stateall':
+                    _stateAllServices();
+                    break;
+                case 'dashboard':
+                    _openDashboard();
+                    break;
+                case 'halt':
+                    _haltSwamp();
+                    break;
+            }
+
+        }, command);
+
+    }, function() {
+
+        _deferred.reject('* unix socket file ' + CLI_UNIX_SOCKET_FILE + ' not exist!');
 
     });
 
 }
 
-function _initializeSocketConnection(onConnect) {
+function _initializeSocketConnection(onConnect, command) {
 
     conn = net.createConnection(CLI_UNIX_SOCKET_FILE);
 
     conn.on('connect', onConnect);
 
     conn.on('data', _onSocketData);
+
+    conn.on('error', _onSocketError.bind(null, command));
 }
 
 function _broadcast(data) {
@@ -68,6 +115,16 @@ function _broadcast(data) {
         conn.write(JSON.stringify(data));
 
     }
+}
+
+function _onSocketError(command, err) {
+
+    console.log(('* error executing `' + command + '`: ' + err.toString())['red']);
+
+    console.log('* zombie process may still be alive'['red']);
+
+    _deferred.reject(err);
+
 }
 
 function _onSocketData(data) {

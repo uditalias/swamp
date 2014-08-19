@@ -3,6 +3,7 @@
 [![Npm Version](http://img.shields.io/npm/v/swamp.svg?style=flat)](https://www.npmjs.org/package/swamp)
 [![Build Status](http://img.shields.io/travis/uditalias/swamp.svg?style=flat)](https://travis-ci.org/uditalias/swamp)
 [![Downloads Status](http://img.shields.io/npm/dm/swamp.svg?style=flat)](https://www.npmjs.org/package/swamp)
+[![Gittip Status](http://img.shields.io/gittip/uditalias.svg?style=flat)](https://www.gittip.com/uditalias)
 
 Swamp is a tool for running, managing and monitoring processes. jump in!
 
@@ -32,7 +33,15 @@ We built **Swamp** because we were frustrated with supervisor: ancient dashboard
 ## Install
 
 ```sh
-$ [sudo] npm install -g swamp
+$ sudo npm install -g swamp
+```
+
+## Updating Swamp
+
+Updating an already installed Swamp:
+
+```sh
+$ sudo npm update -g swamp
 ```
 
 ## Usage: Swamp command options
@@ -64,6 +73,9 @@ Use the `swamp` command line tool to create and run your swamp
          --stopall                 stop all swamp services
          --restartall              restart all swamp services
          --stateall                see all swamp services state
+         -p, --path <swamp_path>   set the swamp path [cwd]
+         			               Important! use this option before any other option.
+         			               e.g. `$ swamp -p ~/swamp_path --status`
 
 ```
 
@@ -99,14 +111,6 @@ $ cd myProject
 $ swamp create
 ```
 The `$ swamp create` command will create a Swamp bootstrap project inside `myProject` folder.
-
-## Updating Swamp
-
-Updating an already installed Swamp:
-
-```sh
-$ sudo npm update -g swamp
-```
 
 ## Configure your Swamp
 
@@ -183,7 +187,7 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
 
 ## Usage and Configurations
 
-Once the `swamp` command executes in the folder where the `Swampfile.js` is located, it will initialize and run your configurations, after that you can access your swamp dashboard from your browser (default: http://localhost:2121/).
+Once the `swamp` command executes in the folder where the `Swampfile.js` is located, it will initialize and run your configurations, another way is to use the `-p, --path` option to set the `Swampfile.js` location (see the [usage](#usage-swamp-command-options) section), after that you can access your swamp dashboard from your browser (default: http://localhost:2121/).
  
 The `Swampfile.js` exports a function as a node module, this function receives the Swamp as a parameter which your can config with the `swamp.config({ ... })` function which receives a configuration object.
 

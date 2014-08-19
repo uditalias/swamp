@@ -8,13 +8,33 @@ var _               = require('lodash'),
     utils           = require('./helper'),
     bash            = require('./bash'),
     child_process   = require('child_process'),
+    program         = require('commander'),
     exec            = child_process.exec;
 
-var SWAMP_FILE_NAME     = 'Swampfile.js',
-    basedir             = process.cwd(),
-    CLI_PATH            = '../cli/cli',
-    PID_FILE            = basedir + '/swamp.pid';
+var SWAMP_FILE_NAME         = 'Swampfile.js',
+    CLI_PATH                = '../cli/cli',
+    WAIT_FOR_PID_FILE_MAX_RETRIES   = 10,
+    WAIT_FOR_PID_FILE_INTERVAL      = 100;
 
+
+
+function _setBaseDir(dir) {
+
+    try {
+        process.chdir(dir);
+    } catch(err) {
+        utils.log('* ' + dir + ' is not a valid Swamp directory (' + err + ')', utils.LOG_TYPE.ERROR);
+        process.exit();
+    }
+}
+
+function _getBaseDir() {
+    return process.cwd();
+}
+
+function _getPIDFile() {
+    return _getBaseDir() + '/swamp.pid';
+}
 
 function _executeBashCommand(command, service_name) {
 
@@ -55,7 +75,8 @@ function _verifyProcessIdAsync(pid) {
 
     exec(verifyCommand, function(error, out, err) {
 
-        var valid = out && out.toLowerCase().indexOf('swamp') > -1;
+        var valid = out && (out.toLowerCase().indexOf('swamp') > -1 ||
+                            out.toLowerCase().indexOf('node') > -1);
 
         if(valid) {
             deferred.resolve();
@@ -72,7 +93,7 @@ function _verifyProcessIdAsync(pid) {
 // removing the PID file, neccary
 function _removePidFile() {
 
-    utils.removeFile(PID_FILE);
+    utils.removeFile(_getPIDFile());
 
 }
 
@@ -99,7 +120,7 @@ function _confirmCreatePrompt(override) {
 
     }
 
-    filePath = path.resolve(basedir, SWAMP_FILE_NAME);
+    filePath = path.resolve(_getBaseDir(), SWAMP_FILE_NAME);
 
     fs.writeFileSync(filePath, swampfileBootstrap);
 
@@ -118,7 +139,7 @@ function _isSwampfileExist() {
     // check if Swampfile exist in cwd
     if (swampConfPath && !fs.existsSync(swampConfPath)) {
 
-        utils.log('* can\'t find `Swampfile.js` in ' + (basedir), utils.LOG_TYPE.ERROR);
+        utils.log('* can\'t find `Swampfile.js` in ' + (_getBaseDir()), utils.LOG_TYPE.ERROR);
 
         return false;
     }
@@ -131,35 +152,55 @@ function _isSwampRunning() {
 
     var deferred = Q.defer();
 
-    if(utils.fileExist(PID_FILE)) {
+    if(utils.fileExist(_getPIDFile())) {
 
-        var pid = utils.readFile(PID_FILE);
+        var pid = utils.readFile(_getPIDFile());
 
         pid = parseInt(pid);
 
         _verifyProcessIdAsync(pid)
 
             .then(function() {
-
                 deferred.resolve(pid);
-
             })
 
             .fail(function() {
-
                 _removePidFile();
-
                 deferred.reject();
 
             });
 
     } else {
-
         deferred.reject();
-
     }
 
     return deferred.promise;
+}
+
+function _waitForPIDFile(success, fail, retries) {
+
+    retries = retries || 1;
+
+    if(utils.fileExist(_getPIDFile())) {
+
+        success();
+
+    } else {
+
+        if(retries >= WAIT_FOR_PID_FILE_MAX_RETRIES) {
+
+            fail();
+
+        } else {
+
+            setTimeout(function() {
+
+                _waitForPIDFile(success, fail, retries++);
+
+            }, WAIT_FOR_PID_FILE_INTERVAL);
+
+        }
+    }
 }
 
 module.exports.create = function() {
@@ -170,12 +211,12 @@ module.exports.create = function() {
     // check if Swampfile already exist
     if(swampConfPath && utils.fileExist(swampConfPath)) {
 
-        utils.prompt(SWAMP_FILE_NAME + ' already exist in `' + basedir + '`, override?', utils.LOG_TYPE.WARN, false)
+        utils.prompt(SWAMP_FILE_NAME + ' already exist in `' + _getBaseDir() + '`, override?', utils.LOG_TYPE.WARN, false)
             .then(_confirmCreatePrompt)
             .catch(_declineCreatePrompt);
-    } else if(swampConfPath && !utils.isEmptyDir(basedir)) {
+    } else if(swampConfPath && !utils.isEmptyDir(_getBaseDir())) {
 
-        utils.prompt(basedir + ' is not empty, continue anyway?', utils.LOG_TYPE.WARN, false)
+        utils.prompt(_getBaseDir() + ' is not empty, continue anyway?', utils.LOG_TYPE.WARN, false)
             .then(_confirmCreatePrompt)
             .catch(_declineCreatePrompt);
 
@@ -205,14 +246,14 @@ module.exports.up = function() {
         .fail(function() {
 
             // create swamp PID file
-            if(!require('./pid')(PID_FILE, true)) {
+            if(!require('./pid')(_getPIDFile(), true)) {
 
                 deferred.reject();
 
             } else {
 
                 // initiate swamp running sequence
-                require('./runner');
+                require('./runner')();
 
                 deferred.resolve();
 
@@ -240,9 +281,7 @@ module.exports.daemon = function() {
 
     var deferred = Q.defer();
 
-    var daemon_command = "nohup swamp --up > /dev/null 2>&1 &";
-
-    utils.log('* running swamp...', utils.LOG_TYPE.INFO);
+    var daemon_command = "nohup swamp up > /dev/null 2>&1 &";
 
     _isSwampRunning()
         .then(function(pid) {
@@ -261,13 +300,24 @@ module.exports.daemon = function() {
 
             } else {
 
+                utils.log('* running swamp...', utils.LOG_TYPE.INFO);
+
                 // run swamp daemon
                 exec(daemon_command, function(err) {
+
                     if(!err) {
 
-                        utils.log('* done.', utils.LOG_TYPE.SUCCESS);
+                        _waitForPIDFile(function() {
 
-                        deferred.resolve();
+                            utils.log('* done.', utils.LOG_TYPE.SUCCESS);
+
+                            deferred.resolve();
+
+                        }, function() {
+
+                            deferred.reject();
+
+                        });
 
                     } else {
 
@@ -305,6 +355,12 @@ module.exports.halt = function() {
                     utils.log('* done.', utils.LOG_TYPE.SUCCESS);
 
                     deferred.resolve();
+
+                }).fail(function(err) {
+
+                    process.kill(pid);
+
+                    npid.remove(_getPIDFile());
 
                 });
 
@@ -384,7 +440,6 @@ module.exports.dashboard = function() {
 }
 
 module.exports.state = function(service_name) {
-    service_name = service_name[0];
 
     if(!service_name) {
         _serviceNotProvided('state');
@@ -395,7 +450,6 @@ module.exports.state = function(service_name) {
 }
 
 module.exports.stop = function(service_name) {
-    service_name = service_name[0];
 
     if(!service_name) {
         _serviceNotProvided('stop');
@@ -406,7 +460,6 @@ module.exports.stop = function(service_name) {
 }
 
 module.exports.start = function(service_name) {
-    service_name = service_name[0];
 
     if(!service_name) {
         _serviceNotProvided('start');
@@ -417,7 +470,6 @@ module.exports.start = function(service_name) {
 }
 
 module.exports.restart = function(service_name) {
-    service_name = service_name[0];
 
     if(!service_name) {
         _serviceNotProvided('restart');
@@ -449,4 +501,13 @@ module.exports.stateall = function() {
 
     _executeBashCommand('stateall');
 
+}
+
+module.exports.path = function(swamp_path, defaultPath) {
+
+    swamp_path = swamp_path || defaultPath;
+
+    if(swamp_path) {
+        _setBaseDir(swamp_path);
+    }
 }

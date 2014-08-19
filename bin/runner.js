@@ -13,38 +13,42 @@ process.title = 'swamp ' + version;
 
 var swampConfRunner;
 
-// looking for SWAMP_FILE_NAME
-var swampConfPath = path.resolve(SWAMP_FILE_NAME);
+module.exports = function() {
 
-if (swampConfPath && utils.fileExist(swampConfPath)) {
+    // looking for SWAMP_FILE_NAME
+    var swampConfPath = path.resolve(process.cwd(), SWAMP_FILE_NAME);
 
-    utils.log(SWAMP_FILE_NAME + ' file found (' + swampConfPath + ')!', utils.LOG_TYPE.SUCCESS);
+    if (swampConfPath && utils.fileExist(swampConfPath)) {
 
-} else {
+        utils.log(SWAMP_FILE_NAME + ' file found (' + swampConfPath + ')!', utils.LOG_TYPE.SUCCESS);
 
-    utils.log(SWAMP_FILE_NAME + ' not exist. did you mean `swamp create`?', utils.LOG_TYPE.ERROR);
+    } else {
 
-    return;
-}
+        utils.log(SWAMP_FILE_NAME + ' not exist. did you mean `swamp create`?', utils.LOG_TYPE.ERROR);
 
-// try load configurations file from path
-utils.log('Validating Swamp configurations...', utils.LOG_TYPE.INFO);
+        return;
+    }
 
-try {
+    // try load configurations file from path
+    utils.log('Validating Swamp configurations...', utils.LOG_TYPE.INFO);
 
-    swampConfRunner = require(swampConfPath);
+    try {
 
-} catch(err) {
+        swampConfRunner = require(swampConfPath);
 
-    utils.log('Invalid `{0}`: {1}'.format(SWAMP_FILE_NAME, err), utils.LOG_TYPE.ERROR);
-    process.exit();
-    return;
+    } catch(err) {
 
-}
+        utils.log('Invalid `{0}`: {1}'.format(SWAMP_FILE_NAME, err), utils.LOG_TYPE.ERROR);
+        process.exit();
+        return;
 
-// creating a Swamp
-utils.log('Swamp configurations are valid, creating a Swamp...', utils.LOG_TYPE.SUCCESS);
-var swamp = appolo.inject.getObject('initializer');
+    }
 
-// running Swamp configurations
-swampConfRunner(swamp);
+    // creating a Swamp
+    utils.log('Swamp configurations are valid, creating a Swamp...', utils.LOG_TYPE.SUCCESS);
+    var swamp = appolo.inject.getObject('initializer');
+
+    // running Swamp configurations
+    swampConfRunner(swamp);
+
+};
