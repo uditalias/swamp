@@ -205,6 +205,14 @@ Type: `Boolean` Default: `false`
 
 Make the Swamp logs silence and don't show logs on screen
 
+#####options.mode
+
+Type: `String` Default: `local`
+
+Set the swamp mode, can be set to `local` or `remote`
+
+Use the `remote` option when running swamp in production server in order to prompt the user when performing actions in the dashboard (e.g. stop, start, restart services)
+
 #####options.monitor.cpu
 
 Type: `Boolean` Default: `true`
