@@ -1,3 +1,9 @@
+[0.0.10](https://github.com/uditalias/swamp/releases/tag/0.0.10)
+* Feature: Added the option to send a different kill signal for each swamp service
+* Feature: Added the option to set a `mode` for the swamp (`local` or `remote`)
+* Feature: Prompt the user when trying to perform dashboard actions when swamp runs in `remote` mode (stop, start or restart service)
+* Dashboard: Some design changes as (antonzy)[https://github.com/antonzy] asked :)
+
 [0.0.9](https://github.com/uditalias/swamp/releases/tag/0.0.9)
 * Bug Fix: fix major bug when running cli command too quickly after running daemon mode
 

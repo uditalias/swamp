@@ -415,6 +415,14 @@ Type: `Number` Default: `100`
 
 Define the history log length for each service `out` and `error` logs
 
+#####options.killSignal
+
+Type: 'String' Default: 'SIGTERM'
+
+You can configure a specific kill signal as described in [Node Signal Events](http://nodejs.org/api/process.html#process_signal_events)
+
+Supported values are `SIGTERM`, `SIGPIPE`, `SIGHUP`, `SIGINT`, `SIGBREAK`, `SIGKILL`, `SIGSTOP`
+
 #####environments
 
 Type: `Array` Default: `[]`
