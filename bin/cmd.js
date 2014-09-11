@@ -281,6 +281,8 @@ module.exports.daemon = function() {
 
     var deferred = Q.defer();
 
+    module.exports.vconf();
+
     var daemon_command = "nohup swamp up > /dev/null 2>&1 &";
 
     _isSwampRunning()
@@ -353,6 +355,8 @@ module.exports.halt = function() {
                 _executeBashCommand('halt').then(function() {
 
                     utils.log('* done.', utils.LOG_TYPE.SUCCESS);
+
+                    npid.remove(_getPIDFile());
 
                     deferred.resolve();
 
@@ -501,6 +505,22 @@ module.exports.stateall = function() {
 
     _executeBashCommand('stateall');
 
+}
+
+module.exports.vconf = function() {
+
+    if(_isSwampfileExist()) {
+        var swampConfPath = path.resolve(SWAMP_FILE_NAME);
+        utils.log('Validating Swamp configurations...', utils.LOG_TYPE.INFO);
+        try {
+            require(swampConfPath);
+            utils.log('Swamp configurations are valid', utils.LOG_TYPE.SUCCESS);
+
+        } catch(err) {
+            utils.log('Invalid `' + SWAMP_FILE_NAME + '`: ' + err.toString(), utils.LOG_TYPE.ERROR);
+            process.exit();
+        }
+    }
 }
 
 module.exports.path = function(swamp_path, defaultPath) {

@@ -1,3 +1,8 @@
+[0.0.11](https://github.com/uditalias/swamp/releases/tag/0.0.11)
+* Feature: Added the option to check the Swampfile syntax for errors before running, See the `vconf` option - Issue #20
+* Feature: Added the option to define the time gap between restarts after the service has failed - Issue #22
+* Bug Fix: when reloading the swamp (using `$ swamp --reload`) sometimes the swamp didn't started
+
 [0.0.10](https://github.com/uditalias/swamp/releases/tag/0.0.10)
 * Feature: Added the option to send a different kill signal for each swamp service
 * Feature: Added the option to set a `mode` for the swamp (`local` or `remote`)

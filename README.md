@@ -73,6 +73,7 @@ Use the `swamp` command line tool to create and run your swamp
          --stopall                 stop all swamp services
          --restartall              restart all swamp services
          --stateall                see all swamp services state
+         --vconf                   validates and checks the Swampfile.js
          -p, --path <swamp_path>   set the swamp path [cwd]
          			               Important! use this option before any other option.
          			               e.g. `$ swamp -p ~/swamp_path --status`
@@ -416,6 +417,12 @@ Max running retries in case of an error (for infinite: -1), relevant only if `ru
 Type: `Number` Default: `1000`
 
 The minimum runtime (in milliseconds) for the service before running it again after error
+
+#####options.restartGapFactor
+
+Type: `Number` Default: `500`
+
+The time (in milliseconds) gap between restarts after the service has failed
 
 #####options.maxLogsToSave
 

@@ -38,6 +38,8 @@ program
 
     .option('--stateall', 'see all swamp services state', cmd.stateall)
 
+    .option('--vconf', 'validates and checks the Swampfile.js', cmd.vconf)
+
     .option('-p, --path <swamp_path>', 'set the swamp path [cwd]\r\n\t\t\t      Important! use this option before any other option.\r\n\t\t\t      e.g. `$ swamp -p ~/swamp_path --status`', cmd.path, process.cwd())
 
     .parse(process.argv);
