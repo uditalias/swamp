@@ -436,14 +436,14 @@ If you want to mark a `waitForReady` service as `ready`, send a message from the
 
 Fo example, in NodeJS service:
 
-```
+```js
     //...some async actions...
 
     process.send && process.send({ swamp: 'ready' });
 ```
 
 In Python:
-```
+```python
     import os
 
     #...some async actions...
