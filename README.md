@@ -434,7 +434,7 @@ Sometimes, one of the services running sequence is asynchronous and should hang 
 When the `waitForReady` service option is `true` the Swamp will wait until the service is ready before running the next `startIndex` service.
 If you want to mark a `waitForReady` service as `ready`, send a message from the service when all async operations ready.
 
-Fo example, in NodeJS service you can use:
+Fo example, in NodeJS service:
 
 ```
     //...some async actions...
@@ -442,7 +442,7 @@ Fo example, in NodeJS service you can use:
     process.send && process.send({ swamp: 'ready' });
 ```
 
-In Python you can use:
+In Python:
 ```
     import os
 
