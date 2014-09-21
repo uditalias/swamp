@@ -424,6 +424,36 @@ Type: `Number` Default: `500`
 
 The time (in milliseconds) gap between restarts after the service has failed
 
+#####options.waitForReady
+
+Type: `Boolean` Default: `false`
+
+When `true`, the service will hang other services running sequence until the service is ready.
+
+Sometimes, one of the services running sequence is asynchronous and should hang other services until this sequence has finished.
+When the `waitForReady` service option is `true` the Swamp will wait until the service is ready before running the next `startIndex` service.
+If you want to mark a `waitForReady` service as `ready`, send a message from the service when all async operations ready.
+
+Fo example, in NodeJS service you can use:
+
+```
+    //...some async actions...
+
+    process.send && process.send({ swamp: 'ready' });
+```
+
+In Python you can use:
+```
+    import os
+
+    #...some async actions...
+
+    os.write(0, '{"swamp" : "ready"}\n')
+
+    # `0` is the index of the stdio swamp injects to the service in order to catch messages
+```
+
+
 #####options.maxLogsToSave
 
 Type: `Number` Default: `100`

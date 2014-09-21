@@ -1,4 +1,8 @@
-[0.0.11](https://github.com/uditalias/swamp/releases/tag/0.0.12)
+[0.0.13](https://github.com/uditalias/swamp/releases/tag/0.0.13)
+* Feature: Added the service option `waitForReady` in order to hang other services from running before an async service is ready
+* Feature: Added the Force Stop for services in dashboard services context menus in order to stop gap factors when service in sleep phase
+
+[0.0.12](https://github.com/uditalias/swamp/releases/tag/0.0.12)
 * Bug Fix: When using the `restartGapFactor` service option, the service started even if the stop was manually by the user
 
 [0.0.11](https://github.com/uditalias/swamp/releases/tag/0.0.11)
