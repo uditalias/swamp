@@ -450,7 +450,8 @@ In Python:
 
     os.write(0, '{"swamp" : "ready"}\n')
 
-    # `0` is the index of the stdio swamp injects to the service in order to catch messages
+    # `0` is the index of the stdio swamp injects
+    # to the service in order to pass messages/file descriptors
 ```
 
 
