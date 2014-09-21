@@ -432,9 +432,9 @@ When `true`, the service will hang other services running sequence until the ser
 
 Sometimes, one of the services running sequence is asynchronous and should hang other services until this sequence has finished.
 When the `waitForReady` service option is `true` the Swamp will wait until the service is ready before running the next `startIndex` service.
-If you want to mark a `waitForReady` service as `ready`, send a message from the service when all async operations ready.
+If you want to mark a `waitForReady` service as `ready`, send a message from the service when all async operations completed.
 
-Fo example, in NodeJS service:
+For example, in NodeJS service:
 
 ```js
     //...some async actions...
