@@ -58,23 +58,24 @@ Use the `swamp` command line tool to create and run your swamp
          -h, --help                output usage information
          -V, --version             output the version number
          -c, --create              creates a bootstrap `Swampfile.js` in the cwd
-         -u, --up                  startup the swamp with the cwd `Swampfile.js`
-         -r, --reload              reload the current running swamp (will restart as a daemon)
-         -d, --daemon              start the swamp as a daemon with the cwd `Swampfile.js`
-         -H, --halt                halt the current cwd running swamp
-         -s, --status              see the current cwd swamp status
-         -C, --cli                 connect to the current cwd swamp using the swamp cli
+         -u, --up                  startup the Swamp with the cwd `Swampfile.js`
+         -r, --reload              reload the current running Swamp (will restart as a daemon)
+         -d, --daemon              start the Swamp as a daemon with the cwd `Swampfile.js`
+         -H, --halt                halt the current cwd running Swamp
+         -s, --status              see the current cwd Swamp status
+         -C, --cli                 connect to the current cwd Swamp using the Swamp cli
          -D, --dashboard           open the Swamp Dashboard in your default browser
+         -U, --update              check for Swamp updates
          --start <service_name>    start the given service
          --stop <service_name>     stop the given service
          --restart <service_name>  restart the given service
          --state <service_name>    see the given service state
-         --startall                start all swamp services
-         --stopall                 stop all swamp services
-         --restartall              restart all swamp services
-         --stateall                see all swamp services state
+         --startall                start all Swamp services
+         --stopall                 stop all Swamp services
+         --restartall              restart all Swamp services
+         --stateall                see all Swamp services state
          --vconf                   validates and checks the Swampfile.js
-         -p, --path <swamp_path>   set the swamp path [cwd]
+         -p, --path <swamp_path>   set the Swamp path [cwd]
          			               Important! use this option before any other option.
          			               e.g. `$ swamp -p ~/swamp_path --status`
 

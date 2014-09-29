@@ -1,3 +1,7 @@
+[0.0.14](https://github.com/uditalias/swamp/releases/tag/0.0.14)
+* Feature: Added the option to check Swamp updates from the CLI using the command `$ swamp --update`
+* Dashboard: Fixed view issues
+
 [0.0.13](https://github.com/uditalias/swamp/releases/tag/0.0.13)
 * Feature: Added the service option `waitForReady` in order to hang other services from running before an async service is ready
 * Feature: Added the Force Stop for services in dashboard services context menus in order to stop gap factors when service in sleep phase
