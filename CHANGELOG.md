@@ -1,3 +1,8 @@
+[0.0.15](https://github.com/uditalias/swamp/releases/tag/0.0.15)
+* Bug Fix: fixed 'freeze' bug when service 'error' or 'close' events raised
+* Feature: Added support for pending services when restart all running or start all services
+* Dashboard: upgrade to angular 1.3.0-rc.3 and issues fix
+
 [0.0.14](https://github.com/uditalias/swamp/releases/tag/0.0.14)
 * Feature: Added the option to check Swamp updates from the CLI using the command `$ swamp --update`
 * Dashboard: Fixed view issues
