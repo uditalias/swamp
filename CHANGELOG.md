@@ -1,3 +1,30 @@
+[0.0.15](https://github.com/uditalias/swamp/releases/tag/0.0.15)
+* Bug Fix: fixed 'freeze' bug when service 'error' or 'close' events raised
+* Feature: Added support for pending services when restart all running or start all services
+* Dashboard: upgrade to angular 1.3.0-rc.3 and issues fix
+
+[0.0.14](https://github.com/uditalias/swamp/releases/tag/0.0.14)
+* Feature: Added the option to check Swamp updates from the CLI using the command `$ swamp --update`
+* Dashboard: Fixed view issues
+
+[0.0.13](https://github.com/uditalias/swamp/releases/tag/0.0.13)
+* Feature: Added the service option `waitForReady` in order to hang other services from running before an async service is ready
+* Feature: Added the Force Stop for services in dashboard services context menus in order to stop gap factors when service in sleep phase
+
+[0.0.12](https://github.com/uditalias/swamp/releases/tag/0.0.12)
+* Bug Fix: When using the `restartGapFactor` service option, the service started even if the stop was manually by the user
+
+[0.0.11](https://github.com/uditalias/swamp/releases/tag/0.0.11)
+* Feature: Added the option to check the Swampfile syntax for errors before running, See the `vconf` option - Issue #20
+* Feature: Added the option to define the time gap between restarts after the service has failed - Issue #22
+* Bug Fix: When reloading the swamp (using `$ swamp --reload`) sometimes the swamp didn't started
+
+[0.0.10](https://github.com/uditalias/swamp/releases/tag/0.0.10)
+* Feature: Added the option to send a different kill signal for each swamp service
+* Feature: Added the option to set a `mode` for the swamp (`local` or `remote`)
+* Feature: Prompt the user when trying to perform dashboard actions when swamp runs in `remote` mode (stop, start or restart service)
+* Dashboard: Some design changes as (antonzy)[https://github.com/antonzy] asked :)
+
 [0.0.9](https://github.com/uditalias/swamp/releases/tag/0.0.9)
 * Bug Fix: fix major bug when running cli command too quickly after running daemon mode
 

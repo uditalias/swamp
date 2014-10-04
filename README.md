@@ -58,22 +58,24 @@ Use the `swamp` command line tool to create and run your swamp
          -h, --help                output usage information
          -V, --version             output the version number
          -c, --create              creates a bootstrap `Swampfile.js` in the cwd
-         -u, --up                  startup the swamp with the cwd `Swampfile.js`
-         -r, --reload              reload the current running swamp (will restart as a daemon)
-         -d, --daemon              start the swamp as a daemon with the cwd `Swampfile.js`
-         -H, --halt                halt the current cwd running swamp
-         -s, --status              see the current cwd swamp status
-         -C, --cli                 connect to the current cwd swamp using the swamp cli
+         -u, --up                  startup the Swamp with the cwd `Swampfile.js`
+         -r, --reload              reload the current running Swamp (will restart as a daemon)
+         -d, --daemon              start the Swamp as a daemon with the cwd `Swampfile.js`
+         -H, --halt                halt the current cwd running Swamp
+         -s, --status              see the current cwd Swamp status
+         -C, --cli                 connect to the current cwd Swamp using the Swamp cli
          -D, --dashboard           open the Swamp Dashboard in your default browser
+         -U, --update              check for Swamp updates
          --start <service_name>    start the given service
          --stop <service_name>     stop the given service
          --restart <service_name>  restart the given service
          --state <service_name>    see the given service state
-         --startall                start all swamp services
-         --stopall                 stop all swamp services
-         --restartall              restart all swamp services
-         --stateall                see all swamp services state
-         -p, --path <swamp_path>   set the swamp path [cwd]
+         --startall                start all Swamp services
+         --stopall                 stop all Swamp services
+         --restartall              restart all Swamp services
+         --stateall                see all Swamp services state
+         --vconf                   validates and checks the Swampfile.js
+         -p, --path <swamp_path>   set the Swamp path [cwd]
          			               Important! use this option before any other option.
          			               e.g. `$ swamp -p ~/swamp_path --status`
 
@@ -204,6 +206,14 @@ Type: `Object` Default: `{ silence: false, monitor: { cpu: true, memory: true },
 Type: `Boolean` Default: `false`
 
 Make the Swamp logs silence and don't show logs on screen
+
+#####options.mode
+
+Type: `String` Default: `local`
+
+Set the swamp mode, can be set to `local` or `remote`
+
+Use the `remote` option when running swamp in production server in order to prompt the user when performing actions in the dashboard (e.g. stop, start, restart services)
 
 #####options.monitor.cpu
 
@@ -409,11 +419,56 @@ Type: `Number` Default: `1000`
 
 The minimum runtime (in milliseconds) for the service before running it again after error
 
+#####options.restartGapFactor
+
+Type: `Number` Default: `500`
+
+The time (in milliseconds) gap between restarts after the service has failed
+
+#####options.waitForReady
+
+Type: `Boolean` Default: `false`
+
+When `true`, the service will hang other services running sequence until the service is ready.
+
+Sometimes, one of the services running sequence is asynchronous and should hang other services until this sequence has finished.
+When the `waitForReady` service option is `true` the Swamp will wait until the service is ready before running the next `startIndex` service.
+If you want to mark a `waitForReady` service as `ready`, send a message from the service when all async operations completed.
+
+For example, in NodeJS service:
+
+```js
+    //...some async actions...
+
+    process.send && process.send({ swamp: 'ready' });
+```
+
+In Python:
+```python
+    import os
+
+    #...some async actions...
+
+    os.write(0, '{"swamp" : "ready"}\n')
+
+    # `0` is the index of the stdio swamp injects
+    # to the service in order to pass messages/file descriptors
+```
+
+
 #####options.maxLogsToSave
 
 Type: `Number` Default: `100`
 
 Define the history log length for each service `out` and `error` logs
+
+#####options.killSignal
+
+Type: 'String' Default: 'SIGTERM'
+
+You can configure a specific kill signal as described in [Node Signal Events](http://nodejs.org/api/process.html#process_signal_events)
+
+Supported values are `SIGTERM`, `SIGPIPE`, `SIGHUP`, `SIGINT`, `SIGBREAK`, `SIGKILL`, `SIGSTOP`
 
 #####environments
 

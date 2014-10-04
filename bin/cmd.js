@@ -9,6 +9,9 @@ var _               = require('lodash'),
     bash            = require('./bash'),
     child_process   = require('child_process'),
     program         = require('commander'),
+    current_version = require('../package.json').version,
+    npmRegistryUrl  = 'http://registry.npmjs.org/swamp/',
+    http            = require('http'),
     exec            = child_process.exec;
 
 var SWAMP_FILE_NAME         = 'Swampfile.js',
@@ -281,6 +284,8 @@ module.exports.daemon = function() {
 
     var deferred = Q.defer();
 
+    module.exports.vconf();
+
     var daemon_command = "nohup swamp up > /dev/null 2>&1 &";
 
     _isSwampRunning()
@@ -353,6 +358,8 @@ module.exports.halt = function() {
                 _executeBashCommand('halt').then(function() {
 
                     utils.log('* done.', utils.LOG_TYPE.SUCCESS);
+
+                    npid.remove(_getPIDFile());
 
                     deferred.resolve();
 
@@ -503,6 +510,22 @@ module.exports.stateall = function() {
 
 }
 
+module.exports.vconf = function() {
+
+    if(_isSwampfileExist()) {
+        var swampConfPath = path.resolve(SWAMP_FILE_NAME);
+        utils.log('Validating Swamp configurations...', utils.LOG_TYPE.INFO);
+        try {
+            require(swampConfPath);
+            utils.log('Swamp configurations are valid', utils.LOG_TYPE.SUCCESS);
+
+        } catch(err) {
+            utils.log('Invalid `' + SWAMP_FILE_NAME + '`: ' + err.toString(), utils.LOG_TYPE.ERROR);
+            process.exit();
+        }
+    }
+}
+
 module.exports.path = function(swamp_path, defaultPath) {
 
     swamp_path = swamp_path || defaultPath;
@@ -510,4 +533,51 @@ module.exports.path = function(swamp_path, defaultPath) {
     if(swamp_path) {
         _setBaseDir(swamp_path);
     }
+}
+
+module.exports.update = function() {
+
+    utils.log('Checking for Swamp updates...', utils.LOG_TYPE.INFO);
+    utils.log('- Installed Swamp version:\t', utils.LOG_TYPE.INFO, true);
+    utils.log(current_version, utils.LOG_TYPE.SUCCESS);
+
+    function showError(err) {
+        utils.log('Error checking for Swamp Updates! [' + err + ']', utils.LOG_TYPE.ERROR);
+    }
+
+    http.get(npmRegistryUrl, function(res) {
+        var body = '';
+        res.on('data', function(chunk) {
+            body += chunk;
+        }).on('end', function() {
+
+            try {
+
+                var json = JSON.parse(body);
+                if(json.error) {
+
+                    showError(json.error);
+
+                } else if(json['dist-tags'] && json['dist-tags']['latest']) {
+
+                    var last_version = json['dist-tags'] && json['dist-tags']['latest'];
+
+                    utils.log('- Latest Swamp version:\t\t', utils.LOG_TYPE.INFO, true);
+                    utils.log(last_version, utils.LOG_TYPE.SUCCESS);
+
+                    if(last_version == current_version) {
+                        utils.log('- Congrats! You\'re running the latest Swamp!', utils.LOG_TYPE.SUCCESS);
+                    } else {
+                        utils.log('- New Swamp version is out! run `$ [sudo] npm update -g swamp` to update Swamp', utils.LOG_TYPE.ERROR);
+                    }
+                }
+
+            } catch(e) {
+                showError(e.message);
+            }
+
+        }).on('error', function(e) {
+            showError(e.message);
+        });
+    });
 }

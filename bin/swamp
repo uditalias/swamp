@@ -8,19 +8,21 @@ program
 
     .option('-c, --create', 'creates a bootstrap `Swampfile.js` in the cwd', cmd.create)
 
-    .option('-u, --up', 'startup the swamp with the cwd `Swampfile.js`', cmd.up)
+    .option('-u, --up', 'startup the Swamp with the cwd `Swampfile.js`', cmd.up)
 
-    .option('-r, --reload', 'reload the current running swamp (will restart as a daemon)', cmd.reload)
+    .option('-r, --reload', 'reload the current running Swamp (will restart as a daemon)', cmd.reload)
 
-    .option('-d, --daemon', 'start the swamp as a daemon with the cwd `Swampfile.js`', cmd.daemon)
+    .option('-d, --daemon', 'start the Swamp as a daemon with the cwd `Swampfile.js`', cmd.daemon)
 
-    .option('-H, --halt', 'halt the current cwd running swamp', cmd.halt)
+    .option('-H, --halt', 'halt the current cwd running Swamp', cmd.halt)
 
-    .option('-s, --status', 'see the current cwd swamp status', cmd.status)
+    .option('-s, --status', 'see the current cwd Swamp status', cmd.status)
 
-    .option('-C, --cli', 'connect to the current cwd swamp using the swamp cli', cmd.cli)
+    .option('-C, --cli', 'connect to the current cwd Swamp using the Swamp cli', cmd.cli)
 
     .option('-D, --dashboard', 'open the Swamp Dashboard in your default browser', cmd.dashboard)
+
+    .option('-U, --update', 'check for Swamp updates', cmd.update)
 
     .option('--start <service_name>', 'start the given service', cmd.start)
 
@@ -30,14 +32,16 @@ program
 
     .option('--state <service_name>', 'see the given service state', cmd.state)
 
-    .option('--startall', 'start all swamp services', cmd.startall)
+    .option('--startall', 'start all Swamp services', cmd.startall)
 
-    .option('--stopall', 'stop all swamp services', cmd.stopall)
+    .option('--stopall', 'stop all Swamp services', cmd.stopall)
 
-    .option('--restartall', 'restart all swamp services', cmd.restartall)
+    .option('--restartall', 'restart all Swamp services', cmd.restartall)
 
-    .option('--stateall', 'see all swamp services state', cmd.stateall)
+    .option('--stateall', 'see all Swamp services state', cmd.stateall)
 
-    .option('-p, --path <swamp_path>', 'set the swamp path [cwd]\r\n\t\t\t      Important! use this option before any other option.\r\n\t\t\t      e.g. `$ swamp -p ~/swamp_path --status`', cmd.path, process.cwd())
+    .option('--vconf', 'validates and checks the Swampfile.js', cmd.vconf)
+
+    .option('-p, --path <swamp_path>', 'set the Swamp path [cwd]\r\n\t\t\t      Important! use this option before any other option.\r\n\t\t\t      e.g. `$ swamp -p ~/swamp_path --status`', cmd.path, process.cwd())
 
     .parse(process.argv);

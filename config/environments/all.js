@@ -6,5 +6,7 @@ module.exports = {
 
     watcherTurtle: 1000,
 
-    serviceUsagePollInterval: 2500
+    serviceUsagePollInterval: 2500,
+
+    signalEvents: ['SIGTERM', 'SIGPIPE', 'SIGHUP', 'SIGINT', 'SIGBREAK', 'SIGKILL', 'SIGSTOP']
 };
