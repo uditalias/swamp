@@ -33,7 +33,16 @@ We built **Swamp** because we were frustrated with supervisor: ancient dashboard
 ## Install
 
 ```sh
-$ sudo npm install -g swamp
+$ npm install -g swamp
+```
+Note, that if you are not using some king of node environment manager (such as nvm) then you probably need ```sudo``` prefixing the previous command
+
+### Installing swamp as a unix service
+
+Warning: Currently the install script supports only upstart for ubuntu, But we would love your PR to support init-v, systemd, launchd (for osx) etc
+
+```bash
+./utils/bootstrap.sh
 ```
 
 ## Updating Swamp
@@ -41,8 +50,9 @@ $ sudo npm install -g swamp
 Updating an already installed Swamp:
 
 ```sh
-$ sudo npm update -g swamp
+$ npm update -g swamp
 ```
+sudo if necessary
 
 ## Usage: Swamp command options
 
@@ -453,6 +463,20 @@ In Python:
 
     # `0` is the index of the stdio swamp injects
     # to the service in order to pass messages/file descriptors
+```
+
+Not that the above would fail in python if the service isn't running from swamp, a safer alternative is:
+
+```python
+
+    def write_process_message(data, fd=0):
+        try:
+            os.write(fd, data)
+        except OSError:
+            sys.stdout.write(data)
+
+    # and then somewhere in your code after the app has finished loading:
+    write_process_message('{"swamp" : "ready"}\n', 0)
 ```
 
 
