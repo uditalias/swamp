@@ -8,7 +8,10 @@ echo  # move line
 if [ -n "$REPLY" ]; then
   INSTALL_PATH="$REPLY"
 fi
+
+eval INSTALL_PATH=$INSTALL_PATH
 echo $INSTALL_PATH
+
 mkdir -pv $INSTALL_PATH
 
 RUN_USER=$(id -u -n)
@@ -33,8 +36,9 @@ if which initctl; then
 
   sed -i s/username/$RUN_USER/ /tmp/swamp.conf
   sed -i s/groupname/$RUN_GROUP/ /tmp/swamp.conf
+  sed -i s/installpath/$INSTALL_PATH/ /tmp/swamp.conf
 
-  cp /tmp/swamp.conf /etc/init/swamp.conf
+  sudo cp /tmp/swamp.conf /etc/init/swamp.conf
 
 fi
 
