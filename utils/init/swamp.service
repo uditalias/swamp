@@ -1,5 +1,6 @@
+# Systemd script. not working yet
 [Unit]
-Description=swamp services management service
+Description=swamp - run, manage, and monitor processes
 After=syslog.target
 
 [Service]

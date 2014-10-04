@@ -31,8 +31,10 @@ fi
 
 
 #check for upstart which initctl
+BASE_UTIL_DIR="$(cd $(dirname $0) && pwd)"
+
 if which initctl; then
-  cp ./initscripts/upstart/swamp.conf /tmp/swamp.conf
+  cp $BASE_UTIL_DIR/init/swamp.conf /tmp/swamp.conf
 
   sed -i s/username/$RUN_USER/ /tmp/swamp.conf
   sed -i s/groupname/$RUN_GROUP/ /tmp/swamp.conf
@@ -44,6 +46,6 @@ if which initctl; then
 
 else
 
-    echo "This is an upstart script, but upstart doesn't seem to be installed"
+    echo "This is an upstart script, but upstart doesn't seem to be installed, No systemd support yet"
 fi
 
