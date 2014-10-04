@@ -36,9 +36,14 @@ if which initctl; then
 
   sed -i s/username/$RUN_USER/ /tmp/swamp.conf
   sed -i s/groupname/$RUN_GROUP/ /tmp/swamp.conf
-  sed -i s/installpath/$INSTALL_PATH/ /tmp/swamp.conf
+
+# working around the slash issue
+  sed -i "s~installpath~$INSTALL_PATH~" /tmp/swamp.conf
 
   sudo cp /tmp/swamp.conf /etc/init/swamp.conf
 
+else
+
+    echo "This is an upstart script, but upstart doesn't seem to be installed"
 fi
 
