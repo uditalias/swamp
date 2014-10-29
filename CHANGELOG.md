@@ -1,4 +1,4 @@
-[0.0.16](https://github.com/uditalias/swamp/releases/tag/0.0.16)
+[0.0.17](https://github.com/uditalias/swamp/releases/tag/0.0.17)
 * Feature: when waiting for a process to start (with wait for ready) show status in different color and text - Issue #34
 * Bug Fix: --restartall behavior is wrong - Issue #33
 * Bug Fix: Suspected file descriptor leak - Issue #32
