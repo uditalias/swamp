@@ -19,7 +19,7 @@
     For forking, contributing, issues > https://github.com/uditalias/swamp
 
 --><!doctype html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title></title><meta name="description" content=""><meta name="viewport" content="width=device-width"><link rel="icon" type="image/png" href="/assets/images/favicon.png?rev=2"><link rel="stylesheet" href="/styles/fa74b794.stream.main.css"></head><body><header><div class="flex flex-align-center"><div class="padding-2 swamp-io-logo text-24 color-white">Swamp <span class="color-blue">I/O</span></div><div class="flex flex-1 margin-left-1"><div class="service-name margin-left-2 color-white text-20"><%= serviceName %></div><div class="margin-left-1 color-white text-20"><%= ioType %></div><div class="selected-file text-20 margin-left-1 color-warm-grey">(<span></span>)</div></div><div class="margin-2 cursor-pointer color-warm-grey theme-switch">Lights: <span></span></div><div class="margin-2 cursor-pointer side-menu-toggle"><i class="fa fa-list color-white text-20"></i></div></div></header><aside><div class="aside-title text-24 padding-2 color-white">History</div><div class="padding-2 aside-content"><ul></ul></div></aside><div class="io-container padding-2"><div class="shadow"></div><pre></pre></div><script src="/scripts/57727931.stream.vendor.js"></script><script src="/scripts/b2256faa.stream.scripts.js"></script><script>//<![CDATA[
-            var socketConnectionString = "<%= socketConnectionString %>";
+            var socketConnectionString = location.origin;
             var swampVersion = "<%= swampVersion %>";
             var serviceName = "<%= serviceName %>";
             var ioType = "<%= ioType %>";
