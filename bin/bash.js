@@ -10,6 +10,7 @@ var net                             = require('net'),
 
 var conn        = null,
     buffer      = '',
+    event       = '',
     _deferred   = null;
 
 function _getBaseDir() {
@@ -139,7 +140,9 @@ function _onSocketData(data) {
 
             _processData(json);
 
-            conn.end();
+            if(json.event == event) {
+                conn.end();
+            }
 
         } catch(e) { }
 
@@ -169,30 +172,40 @@ function _processData(data) {
 
     _deferred && _deferred.resolve(data);
 
-    conn.end();
+    if(data.event == event) {
+        conn.end();
+    }
 }
 
 function _startService(service_name) {
 
-    _broadcast({ event: 'service.start', data: service_name });
+    event = 'service.start';
+
+    _broadcast({ event: event, data: service_name });
 
 }
 
 function _restartService(service_name) {
 
-    _broadcast({ event: 'service.restart', data: service_name });
+    event = 'service.restart';
+
+    _broadcast({ event: event, data: service_name });
 
 }
 
 function _serviceState(service_name) {
 
-    _broadcast({ event: 'service.state', data: service_name });
+    event = 'service.state';
+
+    _broadcast({ event: event, data: service_name });
 
 }
 
 function _stopService(service_name) {
 
-    _broadcast({ event: 'service.stop', data: service_name });
+    event = 'service.stop';
+
+    _broadcast({ event: event, data: service_name });
 
 }
 
@@ -204,30 +217,40 @@ function _startAllServices() {
 
 function _stopAllServices() {
 
-    _broadcast({ event: 'swamp.stopAllRunning' });
+    event = 'swamp.stopAllRunning';
+
+    _broadcast({ event: event });
 
 }
 
 function _restartAllServices() {
 
-    _broadcast({ event: 'swamp.restartAllRunning' });
+    event = 'swamp.restartAllRunning';
+
+    _broadcast({ event: event });
 
 }
 
 function _stateAllServices() {
 
-    _broadcast({ event: 'swamp.stateAll' });
+    event = 'swamp.stateAll';
+
+    _broadcast({ event: event });
 
 }
 
 function _openDashboard() {
 
-    _broadcast({ event: 'swamp.dashboard' });
+    event = 'swamp.dashboard';
+
+    _broadcast({ event: event });
 
 }
 
 function _haltSwamp() {
 
-    _broadcast({ event: 'swamp.halt' });
+    event = 'swamp.halt';
+
+    _broadcast({ event: event });
 
 }

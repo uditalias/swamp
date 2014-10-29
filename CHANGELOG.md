@@ -1,3 +1,16 @@
+[0.0.16](https://github.com/uditalias/swamp/releases/tag/0.0.16)
+* Feature: when waiting for a process to start (with wait for ready) show status in different color and text - Issue #34
+* Bug Fix: --restartall behavior is wrong - Issue #33
+* Bug Fix: Suspected file descriptor leak - Issue #32
+* Bug Fix: "started" time is sometimes wrong and doesn't always reflect process restarts - Issue #31
+* Bug Fix: Swamp crash and stability issues - Issue #29
+* Bug Fix: In consistent behavior - with the waitForReady feature - Issue #28
+* Bug Fix: swamp own logs are lacking - Issue #27
+* Bug Fix: Swamp.io stderr/stdout feature - Issue #25
+* Dashboard: Added the option to parse logs as HTML
+* Dashboard: Now `starting` services marked as `starting` instead of `stopped` or `pending`
+* Updated dependencies
+
 [0.0.15](https://github.com/uditalias/swamp/releases/tag/0.0.15)
 * Bug Fix: fixed 'freeze' bug when service 'error' or 'close' events raised
 * Feature: Added support for pending services when restart all running or start all services
