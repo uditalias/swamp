@@ -4,6 +4,8 @@ teardown() {
   echo "Teardown test"
   echo "$BATS_TEST_NAME"
   run swamp -p bats/valid/ -H
+  run swamp -p bats/invalid/ -H
+
 }
 @test "Check that the swamp client is available" {
     command -v swamp
@@ -48,7 +50,10 @@ teardown() {
 }
 
 @test "Dashboard is running" {
-
+  run swamp -p bats/valid -d
+  sleep 1
+  run bash -c "curl localhost:2121 | grep swampVersion"
+  [ "$status" -eq 0 ]
 }
 
 
@@ -62,11 +67,19 @@ teardown() {
 }
 
 @test "Check swamp vconf validates configuration" {
+  run swamp -p bats/invalid -d
+  [[ "$output" =~ 'Invalid' ]]
 
+  run bash -c "ps aux | grep -v grep | grep -i -e VSZ -e python-app | wc -l "
+  [ "$output" -eq 1 ]
 }
 
 @test "Check can't run swamp -d more then once with the same Swampfile" {
 
+  run swamp -p bats/valid -d
+  sleep 1
+  run swamp -p bats/valid -d
+  [[ "${lines[2]}" =~ "swamp is already running" ]] 
 }
 
 @test "Check swamp -r reloads configuration file" {
