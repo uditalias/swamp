@@ -2,4 +2,10 @@
 node_modules
 npm-debug.log
 .DS_Store
-dashboard/.DS_Store
+dashboard/.DS_Storebats/valid/logs/
+test/bats/valid/logs/
+test/bats/invalid/logs/
+test/bats/invalid/test_app1/
+test/bats/valid/test_app1/
+.ropeproject
+.idea

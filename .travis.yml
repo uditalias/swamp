@@ -2,11 +2,13 @@ language: node_js
 node_js:
 - '0.10'
 before_script:
-- npm install -g mocha
-- npm install -g grunt-cli
+- sudo add-apt-repository ppa:duggan/bats --yes
+- sudo apt-get update -qq
+- sudo apt-get install -qq bats
 - npm install -g https://github.com/uditalias/swamp/tarball/master
 script:
-- grunt test
+- cd test && bats bats 
+
 after_success:
 notifications:
   email:
