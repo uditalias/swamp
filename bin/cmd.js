@@ -256,7 +256,7 @@ module.exports.up = function() {
             } else {
 
                 // initiate swamp running sequence
-                require('./runner')();
+                require('./runner');
 
                 deferred.resolve();
 
@@ -521,7 +521,7 @@ module.exports.vconf = function() {
 
         } catch(err) {
             utils.log('Invalid `' + SWAMP_FILE_NAME + '`: ' + err.toString(), utils.LOG_TYPE.ERROR);
-            process.exit();
+            process.exit(1);
         }
     }
 }

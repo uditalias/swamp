@@ -1,13 +1,17 @@
 "use strict";
-var appolo  = require('appolo');
+var appolo  = require('appolo-express');
 
-appolo.launcher.launch({
-    paths: [ 'config', 'lib' ],
-    viewsEngine: 'ejs',
-    viewsFolder: '/dashboard/views',
-    publicFolder: '/dashboard/public',
-    root: __dirname,
-    runServer: false
-});
-
-module.exports.appolo = appolo;
+module.exports = function(callback) {
+    appolo.launcher.launch({
+        paths: [ 'config', 'lib' ],
+        viewsEngine: 'ejs',
+        viewsFolder: '/dashboard/views',
+        publicFolder: '/dashboard/public',
+        root: __dirname,
+        startServer: false,
+        startMessage: "Swamp dashboard listening to port {0}",
+        environment: 'production'
+    }, function() {
+        callback && callback(appolo);
+    });
+};

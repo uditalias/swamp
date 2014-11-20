@@ -7,6 +7,8 @@ var logs = {};
 
 process.title = "swamp " + version + ' log worker';
 
+process.on("SIGINT", function() { });
+
 function _onMessage(msg) {
 
     if(!msg || !msg.event) return;

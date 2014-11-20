@@ -74,3 +74,13 @@ function _guid(){
 }
 
 _.mixin({ 'guid': _guid});
+
+function _secret(long) {
+    var secret = '';
+    for(var i = 0; i < long; i++) {
+        secret += _guid();
+    }
+    return secret;
+}
+
+_.mixin({ 'secret': _secret});

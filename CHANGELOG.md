@@ -1,3 +1,14 @@
+[0.0.18](https://github.com/uditalias/swamp/releases/tag/0.0.18)
+* Feature: Fully featured services HTTP API
+* Feature: New authentication method with json web tokens to auth against the swamp socket and the new HTTP API
+* Feature: Run commands inside service dir directly from the dashboard
+* Feature: Database added in order to save Swamp config params and sessions
+* Bug Fix: Swampfile validation option - Issue #37
+* Bug Fix: Swamp has no error when another service is running on the same dashboard port - Issue #35
+* Deprecated: Watching files option has been removed along with the `restartOnChange` service option
+* Added swamp tests using Bats
+* Updated dependencies
+
 [0.0.17](https://github.com/uditalias/swamp/releases/tag/0.0.17)
 * Feature: when waiting for a process to start (with wait for ready) show status in different color and text - Issue #34
 * Bug Fix: --restartall behavior is wrong - Issue #33

@@ -13,13 +13,12 @@ Swamp is a tool for running, managing and monitoring processes. jump in!
 * Run, monitor, keep alive and control multiple Node.js, Python, Ruby, Go, etc.. programs.
 * Maintain process uptime: keep your processes running again and again(...) automatically when they crash.
 * Great visibility into your processes logs. Including **live streaming** of STDERR and STDOUT logs into the dashboard, log rotation, etc.
-* Reload processes on code change (optional) - based on watching file/folder patterns.
 * Manage applications environments and environments variables for each process, with full visibility what environment and environment variable are currently in use, **Live editing and adding of enviroment variables**
 * Monitor CPU and Memory usage of each process
 * Fully featured **real-time Web Dashboard** to control everything in the Swamp (No more supervisor "hit F5" frustration)
 * Convenience features for common process supervising tasks such as "restart only running services".
 * Fully fledged CLI to control Swamp processes from the shell
-* Full REST API for hooking and receiving Swamp data - **Coming soon!**
+* Full REST API for hooking and receiving Swamp data
 
 ##Why Swamp
 
@@ -171,7 +170,6 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
             user: "udidu",
             autorun: true,
             defaultEnv: "staging",
-            restartOnChange: true,
             runForever: true,
             maxRetries: 5,
             maxLogsToSave: 100
@@ -312,6 +310,30 @@ Example:
 }
 ```
 
+####commands
+
+`commands: [ ... ]` - set global commands to run from the dashboard
+
+Type: `Array` Default: `[]`
+
+You can config commands in your swamp (e.g. `npm install`), this commands can be run in your services path from the dashboard.
+
+Example:
+```javascript
+
+  commands: [
+    {
+      name: "npm install",
+      cmd: "npm install"
+    },
+    {
+      name: "pip install inside venv",
+      cmd: "source venv/bin/activate && pip install -r requirements.txt"
+    }
+    ...
+  ]
+```
+
 ####unix_sockets
 
 Type: `Array` Default: `[]`
@@ -375,7 +397,7 @@ The service running command (e.g. `/path/to/any/service/python`)
 
 #####options
 
-Type: `Object` Default: `{ autorun: false, defaultEnv: "", restartOnChange: false, runForever: false, isParent: false }`
+Type: `Object` Default: `{ autorun: false, defaultEnv: "", runForever: false, isParent: false }`
 
 #####options.user
 
@@ -401,15 +423,6 @@ Define the services start order by setting the start index. You can use also neg
 Type: `String` Default: `""`
 
 This field is mandatory only if the `options.autorun` is set to `true`
-
-#####options.restartOnChange
-
-***UNSTABLE***
-
-Type: `Boolean|Array` Default: `false`
-
-Restart the service if file changes are detected in the service path. Can accept Array to select specific sub paths and file types to watch. (e.g. `['stylesheets/*.css', '**/*.js']`)
-* Note that if to many files specified, the watcher will not work and an error will be logged in the service error log.
 
 #####options.runForever
 
@@ -528,7 +541,6 @@ Fully configured service example:
       "options": {
         "autorun": true,
         "defaultEnv": "staging",
-        "restartOnChange": true,
         "runForever": false,
         "maxRetries": 5,
         "maxLogsToSave": 50
@@ -573,7 +585,6 @@ Swampfile itself. Here's a Swampfile example:
         "options": {
           "autorun": true,
           "defaultEnv": "<%= default_options.env %>",
-          "restartOnChange": true,
           "runForever": false,
           "maxRetries": 5,
           "maxLogsToSave": 50
@@ -630,6 +641,156 @@ For example:
 #TB     - e.g. 1TB...
 ```
 
+## API
+
+### Full REST API for hooking and receiving Swamp data
+
+Use the API to control Swamp services via HTTP, each API call should include an access token as described below.
+All methods supported by JSONP `callback`.
+
+The API base url is the same as the dashboard url and port (e.g. `http://localhost:2121/`)
+
+Each API call should include the `x-access-token` header with a valid access token, if token is not provided or not valid
+an `401` (Unauthorized) response will be returned.
+
+#### Auth
+
+##### check token
+
+Path: `/api/auth/login/`
+Method: `GET`
+
+Verifies whether the access token is authorized or not
+
+response:
+<br/>
+`200` if valid
+<br/>
+`401` if Unauthorized
+
+##### login
+
+Path: `/api/auth/login/`
+Method: `POST`
+Body: `username`, `password`
+
+Login and get access token using your credentials
+
+response:
+<br/>
+`200` if success. response body: `{ 'accessToken': VALID_ACCESS_TOKEN, 'lastTouch': LAST_SESSION_TOUCH_TIMESTAMP }`
+<br/>
+`400` if invalid credentials
+
+##### logout
+
+Path: `/api/auth/logout/`
+Method: `POST`
+
+Logout and delete the session
+
+response:
+<br/>
+`200` if success.
+
+#### Services
+
+##### get service state
+
+Path: `/api/services/<SERVICE_NAME>/state/`
+Method: `GET`
+
+Get service running state
+
+response:
+<br/>
+`200` if service exist, response body: `{ 'name': SERVICE_NAME, 'state': SERVICE_STATE }`
+<br/>
+`404` if service not found
+
+##### get all services state
+
+Path: `/api/services/state/`
+Method: `GET`
+
+Get all services running state
+
+response:
+<br/>
+`200` if service exist, response body: `[{ 'name': SERVICE_NAME, 'state': SERVICE_STATE },...]`
+
+##### start service
+
+Path: `/api/services/<SERVICE_NAME>/start/`
+Method: `POST`
+
+Start service
+
+response:
+<br/>
+`200` if service exist
+<br/>
+`404` if service not found
+
+##### start all services
+
+Path: `/api/services/start/`
+Method: `POST`
+
+Start all services
+
+response:
+<br/>
+`200` if service exist
+
+##### stop service
+
+Path: `/api/services/<SERVICE_NAME>/stop/`
+Method: `POST`
+
+Stop service
+
+response:
+<br/>
+`200` if service exist
+<br/>
+`404` if service not found
+
+##### stop all running services
+
+Path: `/api/services/stop/`
+Method: `POST`
+
+Stop all running services
+
+response:
+<br/>
+`200` if service exist
+
+##### restart service
+
+Path: `/api/services/<SERVICE_NAME>/restart/`
+Method: `POST`
+
+Restart service
+
+response:
+<br/>
+`200` if service exist
+<br/>
+`404` if service not found
+
+##### restart all running services
+
+Path: `/api/services/restart/`
+Method: `POST`
+
+Restart all running services
+
+response:
+<br/>
+`200` if service exist
+
 ## Contribute to the Swamp Dashboard project
 
 `$ git clone git@github.com:uditalias/swamp.git`
@@ -651,7 +812,7 @@ by running:
 
 `$ grunt build` from the `swamp-dashboard` directory
 
-this will build the dashboard, copy it to the `swamp` project, `git add` and `git commit` your changes.
+this will build the dashboard, copy it to the `swamp` project, and then will perform `git add` and `git commit` to your dashboard changes in the swamp project.
 
 ---
 ##License

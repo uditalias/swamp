@@ -1,19 +1,19 @@
 'use strict';
 
-var swampRunner   = require('../swamp'),
-    appolo        = swampRunner.appolo;
-
 var SWAMP_FILE_NAME     = 'Swampfile.js';
 
 var path        = require('path'),
-    utils       = appolo.inject.getObject('utils'),
     version     = require('../package.json').version;
 
 process.title = 'swamp ' + version;
 
 var swampConfRunner;
 
-module.exports = function() {
+require('../swamp')(run);
+
+function run(appolo) {
+
+    var utils = appolo.inject.getObject('utils');
 
     // looking for SWAMP_FILE_NAME
     var swampConfPath = path.resolve(process.cwd(), SWAMP_FILE_NAME);
@@ -50,5 +50,4 @@ module.exports = function() {
 
     // running Swamp configurations
     swampConfRunner(swamp);
-
-};
+}

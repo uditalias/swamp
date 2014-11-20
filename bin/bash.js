@@ -211,7 +211,9 @@ function _stopService(service_name) {
 
 function _startAllServices() {
 
-    _broadcast({ event: 'swamp.startAll' });
+    event = 'swamp.startAll';
+
+    _broadcast({ event: event });
 
 }
 
