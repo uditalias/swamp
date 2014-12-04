@@ -1,3 +1,8 @@
+[0.0.19](https://github.com/uditalias/swamp/releases/tag/0.0.19)
+* Bug Fix: Hard kill for zombie processes
+* Feature: Added the Swamp Connect option
+* Feature: Get list of services from the API
+
 [0.0.18](https://github.com/uditalias/swamp/releases/tag/0.0.18)
 * Feature: Fully featured services HTTP API
 * Feature: New authentication method with json web tokens to auth against the swamp socket and the new HTTP API

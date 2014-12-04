@@ -695,6 +695,30 @@ response:
 
 #### Services
 
+##### get service
+
+Path: `/api/services/<SERVICE_NAME>/`
+Method: `GET`
+
+Get service data
+
+response:
+<br/>
+`200` if service exist, response body: `{ SERIALIZED_SERVICE }`
+<br/>
+`404` if service not found
+
+##### get all services
+
+Path: `/api/services/`
+Method: `GET`
+
+Get all services data
+
+response:
+<br/>
+`200`, response body: `[{ SERIALIZED_SERVICE },...]`
+
 ##### get service state
 
 Path: `/api/services/<SERVICE_NAME>/state/`
@@ -717,7 +741,7 @@ Get all services running state
 
 response:
 <br/>
-`200` if service exist, response body: `[{ 'name': SERVICE_NAME, 'state': SERVICE_STATE },...]`
+`200`, response body: `[{ 'name': SERVICE_NAME, 'state': SERVICE_STATE },...]`
 
 ##### start service
 
@@ -741,7 +765,7 @@ Start all services
 
 response:
 <br/>
-`200` if service exist
+`200`
 
 ##### stop service
 
@@ -765,7 +789,7 @@ Stop all running services
 
 response:
 <br/>
-`200` if service exist
+`200`
 
 ##### restart service
 
@@ -789,7 +813,7 @@ Restart all running services
 
 response:
 <br/>
-`200` if service exist
+`200`
 
 ## Contribute to the Swamp Dashboard project
 
