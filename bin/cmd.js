@@ -69,6 +69,12 @@ function _serviceNotProvided(action) {
 
 }
 
+function _presetNotProvided() {
+
+    utils.log('* preset not provided, use `swamp preset <preset_name>`', utils.LOG_TYPE.ERROR);
+
+}
+
 // verify that the process id is running and it belongs to this Swamp
 function _verifyProcessIdAsync(pid) {
 
@@ -507,6 +513,17 @@ module.exports.restartall = function() {
 module.exports.stateall = function() {
 
     _executeBashCommand('stateall');
+
+}
+
+module.exports.preset = function(preset_name) {
+
+    if(!preset_name.length) {
+        _presetNotProvided();
+        return false;
+    }
+
+    _executeBashCommand('runpreset', preset_name);
 
 }
 

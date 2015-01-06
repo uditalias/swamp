@@ -8,5 +8,5 @@ module.exports = {
 
     signalEvents: ['SIGTERM', 'SIGPIPE', 'SIGHUP', 'SIGINT', 'SIGBREAK', 'SIGKILL', 'SIGSTOP'],
 
-    databaseCollections: [ 'configurations', 'sessions' ]
+    databaseCollections: [ 'configurations', 'sessions', 'presets' ]
 };

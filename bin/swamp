@@ -40,6 +40,8 @@ program
 
     .option('--stateall', 'see all Swamp services state', cmd.stateall)
 
+    .option('--preset <preset_name>', 'apply a preset', cmd.preset)
+
     .option('--vconf', 'validates and checks the Swampfile.js', cmd.vconf)
 
     .option('-p, --path <swamp_path>', 'set the Swamp path [cwd]\r\n\t\t\t      Important! use this option before any other option.\r\n\t\t\t      e.g. `$ swamp -p ~/swamp_path --status`', cmd.path, process.cwd())

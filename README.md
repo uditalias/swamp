@@ -83,6 +83,7 @@ Use the `swamp` command line tool to create and run your swamp
          --stopall                 stop all Swamp services
          --restartall              restart all Swamp services
          --stateall                see all Swamp services state
+         --preset <preset_name>    apply a preset
          --vconf                   validates and checks the Swampfile.js
          -p, --path <swamp_path>   set the Swamp path [cwd]
          			               Important! use this option before any other option.
@@ -152,6 +153,12 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
           name: "staging",
           PORT: 8080,
           MY_PARAM: "myStageParamValue"
+        }
+      ],
+      presets: [
+        {
+          name: 'My Preset',
+          services: [ 'myService 1' ]
         }
       ],
       unix_sockets: [
@@ -331,6 +338,27 @@ Example:
       cmd: "source venv/bin/activate && pip install -r requirements.txt"
     }
     ...
+  ]
+```
+
+####presets
+
+`presets: [ ... ]` - set presets to run only selected services
+
+Type: `Array` Default: `[]`
+
+When running a preset all the services in the Swamp will stop and only the preset services will start.
+
+Presets can be defined in the `Swampfile.js` as shown below or they can be created from the dashboard.
+
+Example:
+```javascript
+
+  presets: [
+    {
+      name: "My Preset",
+      services: [ "my Service 1", "my Service 2" ]
+    }
   ]
 ```
 

@@ -68,6 +68,9 @@ module.exports.executeCommand = function(deferred, command, service_name) {
                 case 'state':
                     _serviceState(service_name);
                     break;
+                case 'runpreset':
+                    _runPreset(service_name);
+                    break;
                 case 'startall':
                     _startAllServices();
                     break;
@@ -198,6 +201,14 @@ function _serviceState(service_name) {
     event = 'service.state';
 
     _broadcast({ event: event, data: service_name });
+
+}
+
+function _runPreset(preset_name) {
+
+    event = 'preset.run';
+
+    _broadcast({ event: event, data: preset_name });
 
 }
 

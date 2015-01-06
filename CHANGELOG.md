@@ -1,3 +1,7 @@
+[0.0.20](https://github.com/uditalias/swamp/releases/tag/0.0.20)
+* Database now created for each Swamp inside each the swamp project folder
+* Feature: Create and run Services Presets from dashboard and CLI
+
 [0.0.19](https://github.com/uditalias/swamp/releases/tag/0.0.19)
 * Bug Fix: Hard kill for zombie processes
 * Feature: Added the Swamp Connect option
