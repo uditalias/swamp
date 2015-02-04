@@ -8,5 +8,7 @@ module.exports = {
 
     signalEvents: ['SIGTERM', 'SIGPIPE', 'SIGHUP', 'SIGINT', 'SIGBREAK', 'SIGKILL', 'SIGSTOP'],
 
-    databaseCollections: [ 'configurations', 'sessions', 'presets' ]
+    databaseCollections: [ 'configurations', 'sessions', 'presets' ],
+
+    issuesUrl: 'https://github.com/uditalias/swamp/issues'
 };

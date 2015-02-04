@@ -25,6 +25,8 @@ function _onMessage(msg) {
 
 function _createLog(data) {
 
+    data.options.handleExceptions = handleExceptions;
+
     logs[data.id] = new (winston.transports.FileRotateDate)(data.options);
 
 }
@@ -36,6 +38,19 @@ function _log(data) {
         logs[data.id].log.apply(logs[data.id], data.args);
 
     }
+}
+
+function handleExceptions() {
+}
+
+process.on('uncaughtException', _onUncaughtException);
+
+function _onUncaughtException(err) {
+    if(err){
+        err = err.stack ? err.stack : err.toString();
+    }
+
+    process.send({ err: err  });
 }
 
 process.on('message', _onMessage);

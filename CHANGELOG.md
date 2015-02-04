@@ -1,3 +1,7 @@
+[0.0.22](https://github.com/uditalias/swamp/releases/tag/0.0.22)
+* Feature: Swamp error handling, add reference to bug tracking and exception info - Issue #41
+* Swamp main log files is now handled in the main process instead of inside the logger worker
+
 [0.0.21](https://github.com/uditalias/swamp/releases/tag/0.0.21)
 * Add the option to silence logs from screen, dashboard and files
 * Bug Fix: missing favicon! - Issue #42
