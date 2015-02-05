@@ -1,4 +1,10 @@
-[0.0.22](https://github.com/uditalias/swamp/releases/tag/0.0.22)
+[0.0.23](https://github.com/uditalias/swamp/releases/tag/0.0.23)
+* Feature: Now only clients subscribed to services logs will receive logs in dashboard
+* Bug Fix: Sometimes the log worker process fails and Swamp crashes
+* Removed dependencies (winston-filerotatedate) - now using winston DailyRotateFile transport
+* Updated dependencies (appolo-express 1.3.0 ^ 1.3.4)
+
+[0.0.22](https://github.com/uditalias/swamp/releases/tag/0.0.22) - UNSTABLE - DO NOT INSTALL!
 * Feature: Swamp error handling, add reference to bug tracking and exception info - Issue #41
 * Swamp main log files is now handled in the main process instead of inside the logger worker
 

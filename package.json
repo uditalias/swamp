@@ -1,7 +1,7 @@
 {
   "name": "swamp",
   "description": "Swamp is a tool for running, managing and monitoring processes. jump in!",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "author": {
     "name": "Udi Talias",
     "email": "udi.talias@gmail.com",
@@ -32,7 +32,7 @@
     "npm": "1.4.x"
   },
   "dependencies": {
-    "appolo-express": "1.3.0",
+    "appolo-express": "1.3.4",
     "async": "0.9.0",
     "colors": "0.6.2",
     "commander": "2.3.0",
@@ -46,8 +46,7 @@
     "q": "1.0.0",
     "socket.io": "0.9.16",
     "usage": "0.3.9",
-    "winston": "0.7.2",
-    "winston-filerotatedate": "0.1.7"
+    "winston": "0.9.0"
   },
   "devDependencies": {
     "grunt": "^0.4.4",
