@@ -1,3 +1,6 @@
+[0.0.24](https://github.com/uditalias/swamp/releases/tag/0.0.24)
+* Bug Fix: Fixed the crash when opening a service STDOUT, now the error will propagate to the client
+
 [0.0.23](https://github.com/uditalias/swamp/releases/tag/0.0.23)
 * Feature: Now only clients subscribed to services logs will receive logs in dashboard
 * Bug Fix: Sometimes the log worker process fails and Swamp crashes
