@@ -1,3 +1,8 @@
+[0.0.25](https://github.com/uditalias/swamp/releases/tag/0.0.25)
+* Feature: Swamp should show some indication when all child processes finish loading - Issue #38
+8 Bug Fix: When stopping a service that doesn't start and other service depend on (pending), when starting other services keep pending - Issue #40
+* Bug Fix: Issue when service is starting and the dashboard displayed the service as started
+
 [0.0.24](https://github.com/uditalias/swamp/releases/tag/0.0.24)
 * Bug Fix: Fixed the crash when opening a service STDOUT, now the error will propagate to the client
 
