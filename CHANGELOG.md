@@ -1,3 +1,11 @@
+[0.0.26](https://github.com/uditalias/swamp/releases/tag/0.0.26)
+* Bug Fix: when stopping all running services, all services (including stopped services) became pending
+* Bug Fix: when restarting all running services, all services (including stopped services) became pending
+* Dashboard: Added the option to view services in a grid view
+* Dashboard: Options now saved as cookies
+* Dashboard: Added the option to start, restart or stop service directly from the footer logs
+* Dashboard: Added the swamp agent, the agent will speak when something important will happen
+
 [0.0.25](https://github.com/uditalias/swamp/releases/tag/0.0.25)
 * Feature: Swamp should show some indication when all child processes finish loading - Issue #38
 * Bug Fix: When stopping a service that doesn't start and other service depend on (pending), when starting other services keep pending - Issue #40
