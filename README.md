@@ -34,7 +34,7 @@ We built **Swamp** because we were frustrated with supervisor: ancient dashboard
 ```sh
 $ npm install -g swamp
 ```
-Note, that if you are not using some king of node environment manager (such as nvm) then you probably need ```sudo``` prefixing the previous command
+Note, that if you are not using some kind of node environment manager (such as nvm) then you probably need ```sudo``` prefixing the previous command
 
 ### Installing swamp as a unix service
 
