@@ -525,7 +525,7 @@ Note that the above would fail in python if the service isn't running from swamp
 
 Type: `Number` Default: `100`
 
-Define the history log length for each service `out` and `error` logs
+Define the history log length for each service `out` and `error` logs, this option will not affect your log files, basically it says to Swamp how much logs to save in memory for CLI and Dashboard use
 
 #####options.killSignal
 
