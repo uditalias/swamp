@@ -506,7 +506,7 @@ In Python:
     # to the service in order to pass messages/file descriptors
 ```
 
-Not that the above would fail in python if the service isn't running from swamp, a safer alternative is:
+Note that the above would fail in python if the service isn't running from swamp, a safer alternative is:
 
 ```python
 
