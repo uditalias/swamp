@@ -3,6 +3,7 @@
 var net                             = require('net'),
     colors                          = require('colors'),
     utils                           = require('./helper'),
+    _                               = require('lodash'),
     CLI_UNIX_SOCKET_FILE            = "swamp_cli.sock",
     WAIT_FOR_SOCK_FILE_MAX_RETRIES  = 10,
     WAIT_FOR_SOCK_FILE_INTERVAL     = 100,
@@ -10,7 +11,9 @@ var net                             = require('net'),
 
 var conn        = null,
     buffer      = '',
+    chunks      = null,
     event       = '',
+    _command    = '',
     _deferred   = null;
 
 function _getBaseDir() {
@@ -50,6 +53,7 @@ function _waitForSockFile(success, fail, retries) {
 module.exports.executeCommand = function(deferred, command, service_name) {
 
     _deferred = deferred;
+    _command = command;
 
     _waitForSockFile(function() {
 
@@ -135,26 +139,45 @@ function _onSocketData(data) {
 
     if(data.toString().indexOf(END_DELIMITER) > -1) {
 
-        buffer += data.toString().replace(END_DELIMITER, '');
+        buffer += data.toString();
 
-        try {
+        chunks = buffer.split(END_DELIMITER);
 
-            var json = JSON.parse(buffer.toString());
+        chunks = _.where(chunks, function(c) { return !!c });
 
-            _processData(json);
+        _.forEach(chunks, function(c) {
+            _sendDataOverSocket(c);
+        });
 
-            if(json.event == event) {
-                conn.end();
-            }
-
-        } catch(e) { }
+        chunks = null;
 
         buffer = '';
 
     } else {
         buffer += data.toString();
     }
+}
 
+function _sendDataOverSocket(data) {
+    try {
+
+        var json = JSON.parse(data);
+
+        _processData(json);
+
+        if(json.event == event) {
+            conn.end();
+        }
+
+    } catch(e) {
+
+        console.log(('* error occurred white handling command `swamp ' + _command + '`')['red']);
+
+        console.log(e.toString()['red']);
+
+        conn.end();
+
+    }
 }
 
 function _processData(data) {

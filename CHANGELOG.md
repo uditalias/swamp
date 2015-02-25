@@ -1,3 +1,7 @@
+[0.0.27](https://github.com/uditalias/swamp/releases/tag/0.0.27)
+* Bug Fix: When stopping all services from the CLI twice (`swamp --stopall && swamp --stopall`) the CLI freezes
+* Dashboard: Now the swamp agent will notify when the swamp dashboard disconnected
+
 [0.0.26](https://github.com/uditalias/swamp/releases/tag/0.0.26)
 * Bug Fix: when stopping all running services, all services (including stopped services) became pending
 * Bug Fix: when restarting all running services, all services (including stopped services) became pending
