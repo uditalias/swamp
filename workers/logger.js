@@ -1,5 +1,6 @@
 var winston             = require('winston'),
     path                = require('path'),
+    DateRotatingFileLogger = require('../objects/DateRotatingFileLogger'),
     version             = require(path.resolve(__dirname, '../package.json')).version;
 
 var logs = {};
@@ -26,7 +27,7 @@ function _createLog(data) {
 
     data.options.handleExceptions = handleExceptions;
 
-    logs[data.id] = new (winston.transports.DailyRotateFile)(data.options);
+    logs[data.id] = new (DateRotatingFileLogger)(data.options);
 
 }
 
