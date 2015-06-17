@@ -26,7 +26,7 @@ function _createLog(data) {
 
     data.options.handleExceptions = handleExceptions;
 
-    logs[data.id] = new (winston.transports.DailyRotateFile)(data.options);
+    logs[data.id] = new (winston.transports.File)(data.options);
 
 }
 

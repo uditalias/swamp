@@ -1,3 +1,8 @@
+[0.0.28](https://github.com/uditalias/swamp/releases/tag/0.0.28)
+* Partial fix for issue #43 (2) - now logs will be tailed
+* Support for `max files` in log rotation
+* Fixed log files orders in the service ioStream
+
 [0.0.27](https://github.com/uditalias/swamp/releases/tag/0.0.27)
 * Bug Fix: When stopping all services from the CLI twice (`swamp --stopall && swamp --stopall`) the CLI freezes
 * Dashboard: Now the swamp agent will notify when the swamp dashboard disconnected

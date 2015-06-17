@@ -624,8 +624,12 @@ Swampfile itself. Here's a Swampfile example:
 
 ###Log rotation configurations
 
-When configuring your swamp and swamp services logs, you can pass an object to specify log rotations files size.
-The default file size for log rotation is `1MB`. To change this size, change the `logs` object in you configurations
+When configuring your swamp and swamp services logs, you can pass an object to specify log rotations files size and
+max files for rotation.
+
+The default file size for log rotation is `1MB`, and the default for max files is `100`.
+
+To change the size or max files, change the `logs` object in you configurations
 like so:
 
 ```json
@@ -633,16 +637,18 @@ like so:
         "logs": {
             "out": {
                 "path": "/var/log/services/myservice/out.log",
-                "maxSize": "1MB"
+                "maxSize": "1MB",
+                "maxFiles": 4
             },
             "err": {
-                "maxSize": "1.4MB"
+                "maxSize": "1.4MB",
+                "maxFiles: 3
             }
         }
     }
 ```
 
-The example above shows how we pass the file size for log rotation. You can even pass just a `maxSize` property
+The example above shows how we pass the file size for log rotation. You can even pass just a `maxSize` and/or `maxFiles` properties
 to the log and the path will be the default log path.
 
 Note that if you want to use the default value (`1MB`) you can pass the the `out` and `err` properties the string path.
@@ -654,11 +660,15 @@ For example:
         "logs": {
             "out": "/var/log/services/myservice/out.log"   //default log rotation file size will be `1MB`
             "err": {
-                "maxSize": "1.4MB"
+                "maxSize": "1.4MB",
+                "maxFiles": 50
             }
         }
     }
 ```
+
+The Swamp handle logs with [winstonjs](https://github.com/winstonjs/winston) for Node.
+If you want to read more about the `maxFiles` option for log rotation please refer to [winstonjs File Transport](https://github.com/winstonjs/winston/blob/master/docs/transports.md#file-transport)
 
 #####Log rotation size examples
 
