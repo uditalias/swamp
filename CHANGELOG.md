@@ -1,3 +1,9 @@
+[0.0.29](https://github.com/uditalias/swamp/releases/tag/0.0.29)
+* Updated `usage` and `jsonwebtoken` modules
+* Fixed ioStream bug in version 0.0.27
+* Logs in ioStream now ordered by create date
+* Upgrade dashboard angular version to 1.4.1
+
 [0.0.28](https://github.com/uditalias/swamp/releases/tag/0.0.28)
 * Partial fix for issue #43 (2) - now logs will be tailed
 * Support for `max files` in log rotation
