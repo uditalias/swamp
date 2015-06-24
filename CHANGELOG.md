@@ -1,5 +1,5 @@
 [0.1.1](https://github.com/uditalias/swamp/releases/tag/0.1.1)
-* Fixed bug when services starts to quickly and commands blocking forever
+* Fixed bug when services starts too quickly and commands blocking forever
 
 [0.1.0](https://github.com/uditalias/swamp/releases/tag/0.1.0)
 * Added threshold support for services, restart services when they reach cpu/memory threshold
