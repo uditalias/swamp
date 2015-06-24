@@ -70,6 +70,8 @@ Use the `swamp` command line tool to create and run your swamp
          -u, --up                  startup the Swamp with the cwd `Swampfile.js`
          -r, --reload              reload the current running Swamp (will restart as a daemon)
          -d, --daemon              start the Swamp as a daemon with the cwd `Swampfile.js`
+         -t, --timeout <n>         use the timeout flag if you want to wait <n> milliseconds
+         			               at most for blocking commands
          -H, --halt                halt the current cwd running Swamp
          -s, --status              see the current cwd Swamp status
          -C, --cli                 connect to the current cwd Swamp using the Swamp cli
@@ -87,7 +89,7 @@ Use the `swamp` command line tool to create and run your swamp
          --vconf                   validates and checks the Swampfile.js
          -p, --path <swamp_path>   set the Swamp path [cwd]
          			               Important! use this option before any other option.
-         			               e.g. `$ swamp -p ~/swamp_path --status`
+                                   e.g. `$ swamp -p ~/swamp_path --status`
 
 ```
 
