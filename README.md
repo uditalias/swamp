@@ -564,10 +564,10 @@ Define the CPU threshold to restart the service when it reaches the defined CPU 
 Here is an example for CPU threshold, this configuration will restart the service when its CPU is above 50% for 6 seconds:
 
 ```json
-    threshold: {
-        cpu: {
-            threshold: 50,      //CPU threshold
-            duration: 6000      //Duration in milliseconds
+    "threshold": {
+        "cpu": {
+            "threshold": 50,      //CPU threshold
+            "duration": 6000      //Duration in milliseconds
         }
     }
 ```
@@ -581,10 +581,10 @@ Define the Memory threshold to restart the service when it reaches the defined M
 Here is an example for Memory threshold, this configuration will restart the service when its Memory is above 300MB for 6 seconds:
 
 ```json
-    threshold: {
-        memory: {
-            threshold: '30MB',  //Memory threshold
-            duration: 6000      //Duration in milliseconds
+    "threshold": {
+        "memory": {
+            "threshold": "30MB",  //Memory threshold
+            "duration": 6000      //Duration in milliseconds
         }
     }
 ```
@@ -592,14 +592,14 @@ Here is an example for Memory threshold, this configuration will restart the ser
 You can config both CPU and Memory thresholds together:
 
 ```json
-    threshold: {
-        cpu: {
-            threshold: 30,
-            duration: 10 * 1000
+    "threshold": {
+        "cpu": {
+            "threshold": 30,
+            "duration": 10000
         },
-        memory: {
-            threshold: '1.4GB',
-            duration: 60 * 1000
+        "memory": {
+            "threshold": "1.4GB",
+            "duration": 60000
         }
     }
 ```
