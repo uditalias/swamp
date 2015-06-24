@@ -194,7 +194,17 @@ Edit or create the Swampfile.js to configure the swamp ([Full configurations](#u
           description: "myService 2 description",
           path: "/path/to/any/service",
           command: "/path/to/any/service/python",
-          args: [ '-u', 'my_server.py' ]
+          args: [ '-u', 'my_server.py' ],
+          threshold: {
+            cpu: {
+                threshold: 30,
+                duration: 10 * 1000
+            },
+            memory: {
+                threshold: '1.4GB',
+                duration: 60 * 1000
+            }
+          }
         }
       ]
     });
@@ -529,11 +539,68 @@ Define the history log length for each service `out` and `error` logs, this opti
 
 #####options.killSignal
 
-Type: 'String' Default: 'SIGTERM'
+Type: `String` Default: `SIGTERM`
 
 You can configure a specific kill signal as described in [Node Signal Events](http://nodejs.org/api/process.html#process_signal_events)
 
 Supported values are `SIGTERM`, `SIGPIPE`, `SIGHUP`, `SIGINT`, `SIGBREAK`, `SIGKILL`, `SIGSTOP`
+
+
+#####threshold
+
+Type: `Object` Default: `{}`
+
+Define the threshold object to control when the service will restart automatically if it reaches CPU/Memory thresholds.
+You can config CPU and/or Memory thresholds like so:
+
+#####threshold.cpu
+
+Type: `Object` Default: `{}`
+
+Define the CPU threshold to restart the service when it reaches the defined CPU threshold
+
+Here is an example for CPU threshold, this configuration will restart the service when its CPU is above 50% for 6 seconds:
+
+```json
+    threshold: {
+        cpu: {
+            threshold: 50,      //CPU threshold
+            duration: 6000      //Duration in milliseconds
+        }
+    }
+```
+
+#####threshold.memory
+
+Type: `Object` Default: `{}`
+
+Define the Memory threshold to restart the service when it reaches the defined Memory threshold
+
+Here is an example for Memory threshold, this configuration will restart the service when its Memory is above 300MB for 6 seconds:
+
+```json
+    threshold: {
+        memory: {
+            threshold: '30MB',  //Memory threshold
+            duration: 6000      //Duration in milliseconds
+        }
+    }
+```
+
+You can config both CPU and Memory thresholds together:
+
+```json
+    threshold: {
+        cpu: {
+            threshold: 30,
+            duration: 10 * 1000
+        },
+        memory: {
+            threshold: '1.4GB',
+            duration: 60 * 1000
+        }
+    }
+```
 
 #####environments
 

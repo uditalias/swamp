@@ -14,6 +14,8 @@ program
 
     .option('-d, --daemon', 'start the Swamp as a daemon with the cwd `Swampfile.js`', cmd.daemon)
 
+    .option('-t, --timeout <n>', 'use the timeout flag if you want to wait <n> milliseconds\r\n\t\t\t      at most for blocking commands', cmd.timeout)
+
     .option('-H, --halt', 'halt the current cwd running Swamp', cmd.halt)
 
     .option('-s, --status', 'see the current cwd Swamp status', cmd.status)

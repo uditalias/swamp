@@ -1,3 +1,9 @@
+[0.1.0](https://github.com/uditalias/swamp/releases/tag/0.1.0)
+* Added threshold support for services, restart services when they reach cpu/memory threshold
+* Added the `-t, --timeout` option in order to timeout blocking commands
+* Some dashboard fixes after moving to angular v1.4.1
+* Fixed bug when using `swamp up`, error message displayed when no error
+
 [0.0.29](https://github.com/uditalias/swamp/releases/tag/0.0.29)
 * Updated `usage` and `jsonwebtoken` modules
 * Fixed ioStream bug in version 0.0.27

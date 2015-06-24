@@ -2,18 +2,18 @@
 var _ = global._ = require('lodash');
 
 
-global.String.prototype.format = function() {
+global.String.prototype.format = function () {
     var args = arguments;
-    return this.replace(/{(\d+)}/g, function(match, number) {
+    return this.replace(/{(\d+)}/g, function (match, number) {
         return typeof args[number] != 'undefined' ? args[number] : match;
     });
 }
 
 function _everything(source, callback) {
 
-    if(typeof source === 'object' || source instanceof Array) {
+    if (typeof source === 'object' || source instanceof Array) {
 
-        _.forEach(source, function(_value, _key) {
+        _.forEach(source, function (_value, _key) {
 
             source[_key] = _everything(source[_key], callback);
 
@@ -29,7 +29,7 @@ function _everything(source, callback) {
 
 }
 
-_.mixin({ 'everything': _everything });
+_.mixin({'everything': _everything});
 
 function _namespaceValue(source, namespace) {
 
@@ -37,7 +37,7 @@ function _namespaceValue(source, namespace) {
 
     var anchor = source;
 
-    _.forEach(keys, function(value) {
+    _.forEach(keys, function (value) {
 
         try {
 
@@ -54,7 +54,7 @@ function _namespaceValue(source, namespace) {
     return anchor;
 }
 
-_.mixin({ 'namespaceValue': _namespaceValue });
+_.mixin({'namespaceValue': _namespaceValue});
 
 
 function _unhumanizeSize(text) {
@@ -66,21 +66,31 @@ function _unhumanizeSize(text) {
     return res[1] * Math.pow(1024, powers[res[2].trim().toLowerCase()]);
 }
 
-_.mixin({ 'unhumanizeSize': _unhumanizeSize });
+_.mixin({'unhumanizeSize': _unhumanizeSize});
 
 
-function _guid(){
-    return ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).substr(-4);
+function _bytesToSize(bytes) {
+    var k = 1000;
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes === 0) return '0 Bytes';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)), 10);
+    return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
 }
 
-_.mixin({ 'guid': _guid});
+_.mixin({'bytesToSize': _bytesToSize});
+
+function _guid() {
+    return ("0000" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).substr(-4);
+}
+
+_.mixin({'guid': _guid});
 
 function _secret(long) {
     var secret = '';
-    for(var i = 0; i < long; i++) {
+    for (var i = 0; i < long; i++) {
         secret += _guid();
     }
     return secret;
 }
 
-_.mixin({ 'secret': _secret});
+_.mixin({'secret': _secret});

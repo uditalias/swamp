@@ -12,7 +12,10 @@ module.exports = function(callback) {
         startMessage: "Swamp dashboard listening to port {0}",
         environment: 'production'
     }, function(err) {
-        console.log('Swamp failed to run', err);
+        if(err) {
+            console.log('Swamp failed to run', err);
+        }
+
         callback && callback(appolo);
     });
 };
