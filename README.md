@@ -583,7 +583,7 @@ Here is an example for Memory threshold, this configuration will restart the ser
 ```json
     "threshold": {
         "memory": {
-            "threshold": "30MB",  //Memory threshold
+            "threshold": "300MB",  //Memory threshold
             "duration": 6000      //Duration in milliseconds
         }
     }
