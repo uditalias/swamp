@@ -42,6 +42,8 @@ program
 
     .option('--stateall', 'see all Swamp services state', cmd.stateall)
 
+    .option('--list', 'see all Swamp registered services', cmd.list)
+
     .option('--preset <preset_name>', 'apply a preset', cmd.preset)
 
     .option('--vconf', 'validates and checks the Swampfile.js', cmd.vconf)

@@ -90,6 +90,9 @@ module.exports.executeCommand = function (deferred, command, service_name, block
                 case 'stateall':
                     _stateAllServices();
                     break;
+                case 'list':
+                    _listAllServices();
+                    break;
                 case 'dashboard':
                     _openDashboard();
                     break;
@@ -311,6 +314,12 @@ function _stateAllServices() {
 
     _broadcast({event: event});
 
+}
+
+function _listAllServices(){
+    event = 'swamp.listServices';
+
+    _broadcast({event:event});
 }
 
 function _openDashboard() {
