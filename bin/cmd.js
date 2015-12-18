@@ -506,6 +506,10 @@ module.exports.restart = function (service_name) {
     _executeBashCommand('restart', service_name);
 }
 
+module.exports.list = function(){
+    _executeBashCommand('list');
+};
+
 module.exports.startall = function () {
 
     _executeBashCommand('startall');

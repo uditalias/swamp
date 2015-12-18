@@ -82,6 +82,21 @@ teardown() {
   [[ "${lines[2]}" =~ "swamp is already running" ]] 
 }
 
+@test "Check list returns list of services" {
+  run swamp -p bats/valid -d
+  sleep 1
+  run swamp -p bats/valid --list
+  [[ "${lines[1]}" =~ "test-app1" ]]
+}
+
+@test "Check stateall returns list of services" {
+  run swamp -p bats/valid -d
+  sleep 1
+  run swamp -p bats/valid --stateall
+  [[ "${lines[1]}" =~ "test-app1" ]]
+}
+
+
 @test "Check swamp -r reloads configuration file" {
 
 }

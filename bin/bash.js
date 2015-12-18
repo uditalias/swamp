@@ -90,6 +90,9 @@ module.exports.executeCommand = function (deferred, command, service_name, block
                 case 'stateall':
                     _stateAllServices();
                     break;
+                case 'list':
+                    _listAllServices();
+                    break;
                 case 'dashboard':
                     _openDashboard();
                     break;
@@ -139,6 +142,9 @@ function _broadcast(data) {
 function _onSocketError(command, err) {
 
     console.log(('* error executing `' + command + '`: ' + err.toString())['red']);
+    if (err && err.stack){
+        console.log(err.stack)
+    }
 
     console.log('* zombie process may still be alive'['red']);
 
@@ -311,6 +317,12 @@ function _stateAllServices() {
 
     _broadcast({event: event});
 
+}
+
+function _listAllServices(){
+    event = 'swamp.listServices';
+
+    _broadcast({event:event});
 }
 
 function _openDashboard() {

@@ -85,6 +85,7 @@ Use the `swamp` command line tool to create and run your swamp
          --stopall                 stop all Swamp services
          --restartall              restart all Swamp services
          --stateall                see all Swamp services state
+         --list                    simple list of swamp services with not extra data (e.g for scripting)
          --preset <preset_name>    apply a preset
          --vconf                   validates and checks the Swampfile.js
          -p, --path <swamp_path>   set the Swamp path [cwd]

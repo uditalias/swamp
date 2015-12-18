@@ -1,11 +1,32 @@
 language: node_js
 node_js:
 - '0.10'
+- '0.12'
+- '4.1.1'
+- '4.2.3'
+- '5.3.0'
+
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+
 before_script:
+- gcc --version
 - sudo add-apt-repository ppa:duggan/bats --yes
-- sudo apt-get update -qq
+#- if [ "${TRAVIS_NODE_VERSION}" = "4.1.1" ]; then sudo apt-get install -y python-software-properties; fi
+#- if [ "${TRAVIS_NODE_VERSION}" = "4.1.1" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+- sudo apt-get -qq update
+#- if [ "${TRAVIS_NODE_VERSION}" = "4.1.1" ]; then sudo apt-get install -y gcc-4.8 g++-4.8; fi
+#- if [ "${TRAVIS_NODE_VERSION}" = "4.1.1" ]; then sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.8; fi
+
 - sudo apt-get install -qq bats
-- npm install -g https://github.com/uditalias/swamp/tarball/master
+
+- npm install -g #https://github.com/uditalias/swamp/tarball/master
 script:
 - cd test && bats bats 
 
