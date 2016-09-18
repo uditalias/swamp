@@ -1,3 +1,7 @@
+[0.1.2](https://github.com/uditalias/swamp/releases/tag/0.1.2)
+* Upgraded `usage` module
+* Support for higher `node` and `npm` versions
+
 [0.1.1](https://github.com/uditalias/swamp/releases/tag/0.1.1)
 * Fixed bug when services starts too quickly and commands blocking forever
 
