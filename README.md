@@ -7,6 +7,7 @@
 
 Swamp is a tool for running, managing and monitoring processes. jump in!
 
+**DEPRECATION WARNING: Swamp has been deprecated and is no longer actively maintained. We do not recommend continuing to use Swamp.**
 
 ##Features
 
